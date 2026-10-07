@@ -4,26 +4,18 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0, user-scalable=no">
 
-<title>DrawLab V5</title>
+<title>DrawLab V5.1</title>
 
 <style>
-
-/* =========================================================
-   GLOBAL
-========================================================= */
-
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
 
-html,
-body{
+html,body{
     margin:0;
     width:100%;
     height:100%;
@@ -31,643 +23,385 @@ body{
 }
 
 body{
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
     color:#332b43;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff3fa,
-            #f3efff
-        );
+    background:#f3eff9;
 }
 
-button,
-input{
+button,input{
     font:inherit;
 }
 
-
-/* =========================================================
-   APP
-========================================================= */
-
 .app{
     width:100%;
-    height:100vh;
+    height:100dvh;
     display:flex;
     flex-direction:column;
 }
 
-
-/* =========================================================
-   HEADER
-========================================================= */
+/* ================= HEADER ================= */
 
 .header{
-
     height:68px;
-
     flex-shrink:0;
-
-    padding:
-        0 18px;
+    padding:0 18px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     background:
         linear-gradient(
             120deg,
             #ff9dcc,
-            #d8b7ff 55%,
-            #a9d9ff
+            #d6b6ff 55%,
+            #a8d9ff
         );
 
-    box-shadow:
-        0 5px 20px
-        rgba(100,70,150,.18);
-
-    position:relative;
-
+    box-shadow:0 4px 18px rgba(80,50,120,.16);
     z-index:100;
 }
 
 .logo{
-
     color:white;
-
     font-size:24px;
-
     font-weight:900;
-
-    letter-spacing:.3px;
-
-    text-shadow:
-        0 2px 5px
-        rgba(70,40,100,.18);
+    text-shadow:0 2px 5px rgba(60,30,90,.18);
 }
 
 .logo small{
-
     display:block;
-
-    font-size:11px;
-
-    margin-top:2px;
-
+    font-size:10px;
     opacity:.9;
-
-    letter-spacing:.5px;
+    margin-top:2px;
 }
 
 .header-actions{
-
     display:flex;
-
-    align-items:center;
-
-    gap:8px;
+    gap:7px;
 }
 
 .header-btn{
-
-    border:none;
-
-    background:
-        rgba(255,255,255,.86);
-
+    border:0;
+    background:rgba(255,255,255,.88);
     color:#514565;
-
-    padding:
-        10px 13px;
-
-    border-radius:14px;
-
+    padding:9px 12px;
+    border-radius:13px;
     cursor:pointer;
-
-    font-weight:700;
-
-    box-shadow:
-        0 3px 10px
-        rgba(80,50,110,.08);
-
-    transition:.15s;
-}
-
-.header-btn:hover{
-
-    background:white;
-
-    transform:translateY(-1px);
+    font-weight:800;
 }
 
 .header-btn:active{
-
-    transform:scale(.96);
+    transform:scale(.95);
 }
 
-
-/* =========================================================
-   MAIN
-========================================================= */
+/* ================= MAIN ================= */
 
 .main{
-
     flex:1;
-
     min-height:0;
-
     display:flex;
-
-    position:relative;
 }
 
-
-/* =========================================================
-   LEFT TOOLBAR
-========================================================= */
+/* ================= TOOLBAR ================= */
 
 .toolbar{
-
     width:82px;
-
     flex-shrink:0;
 
-    background:
-        rgba(255,255,255,.94);
+    padding:9px 7px;
 
-    border-right:
-        1px solid #ebe5f2;
-
-    padding:10px 7px;
+    background:rgba(255,255,255,.97);
+    border-right:1px solid #e9e2f1;
 
     display:flex;
-
     flex-direction:column;
-
     gap:7px;
 
     overflow-y:auto;
-
     z-index:50;
 }
 
 .tool{
-
     width:100%;
-
     min-height:55px;
 
-    border:none;
-
+    border:0;
     border-radius:15px;
 
     background:#faf8ff;
-
     color:#5d536c;
 
     cursor:pointer;
 
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     justify-content:center;
-
     gap:3px;
 
     font-size:10px;
-
     font-weight:800;
-
-    transition:.15s;
 }
 
 .tool .icon{
-
-    font-size:22px;
-
+    font-size:21px;
     line-height:22px;
 }
 
-.tool:hover{
-
-    background:#f0eaff;
-}
-
 .tool.active{
-
     color:white;
 
     background:
         linear-gradient(
             135deg,
             #ff9dcc,
-            #9e7cff
+            #9876ff
         );
 
-    box-shadow:
-        0 5px 14px
-        rgba(140,90,220,.25);
+    box-shadow:0 5px 14px rgba(130,80,220,.25);
 }
 
-
-/* =========================================================
-   WORKSPACE
-========================================================= */
+/* ================= WORKSPACE ================= */
 
 .workspace{
-
     flex:1;
-
     min-width:0;
-
     min-height:0;
 
     position:relative;
 
-    overflow:hidden;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
-    background:
+    overflow:hidden;
 
+    background:
         radial-gradient(
             circle at 15% 15%,
-            rgba(255,180,220,.28),
+            rgba(255,180,220,.25),
             transparent 28%
         ),
-
         radial-gradient(
             circle at 85% 85%,
-            rgba(170,190,255,.28),
+            rgba(170,190,255,.25),
             transparent 30%
         ),
-
         #eeeaf5;
 }
 
 .canvas-wrap{
-
     position:relative;
-
+    flex-shrink:0;
     transform-origin:center center;
 
     box-shadow:
-        0 18px 45px
-        rgba(55,40,80,.22);
+        0 18px 45px rgba(55,40,80,.22);
 }
 
 #canvas{
-
     display:block;
-
     width:900px;
-
     height:550px;
-
     background:white;
-
     touch-action:none;
-
     user-select:none;
 }
 
-
-/* =========================================================
-   ZOOM
-========================================================= */
+/* ================= ZOOM ================= */
 
 .zoom-box{
-
     position:absolute;
-
     left:15px;
-
     bottom:15px;
 
     display:flex;
-
     align-items:center;
-
     gap:6px;
 
     padding:7px;
 
     border-radius:15px;
+    background:rgba(255,255,255,.94);
 
-    background:
-        rgba(255,255,255,.92);
+    box-shadow:0 5px 18px rgba(60,40,90,.14);
 
-    box-shadow:
-        0 5px 18px
-        rgba(60,40,90,.14);
-
-    z-index:10;
+    z-index:20;
 }
 
 .zoom-box button{
-
     width:32px;
-
     height:32px;
-
-    border:none;
-
+    border:0;
     border-radius:10px;
 
     background:#eee7ff;
-
     color:#584879;
 
-    font-weight:bold;
-
     cursor:pointer;
+    font-weight:bold;
 }
 
 .zoom-box span{
-
     width:48px;
-
     text-align:center;
-
     font-size:12px;
-
     font-weight:800;
 }
 
-
-/* =========================================================
-   RIGHT PANEL
-========================================================= */
+/* ================= PANEL ================= */
 
 .panel{
-
     width:285px;
-
     flex-shrink:0;
-
-    background:
-        rgba(255,255,255,.97);
-
-    border-left:
-        1px solid #ebe5f2;
 
     padding:14px;
 
-    overflow-y:auto;
+    background:rgba(255,255,255,.97);
+    border-left:1px solid #e9e2f1;
 
+    overflow-y:auto;
     z-index:60;
 }
 
 .panel-title{
-
     font-weight:900;
-
     font-size:15px;
-
     margin-bottom:10px;
 }
 
 .section{
-
     padding:12px;
-
     margin-bottom:12px;
 
     border-radius:17px;
 
     background:#faf8ff;
-
-    border:1px solid #f0ebf8;
+    border:1px solid #eee8f6;
 }
 
 .row{
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:8px;
-
     margin-bottom:10px;
 }
 
 .row:last-child{
-
     margin-bottom:0;
 }
 
 .row label{
-
     font-size:12px;
-
     color:#6d6379;
-
     font-weight:700;
 }
 
 input[type="range"]{
-
     width:130px;
-
-    accent-color:#9a78ff;
+    accent-color:#9876ff;
 }
 
 input[type="color"]{
-
     width:44px;
-
     height:32px;
-
     padding:0;
-
-    border:none;
-
-    background:none;
+    border:0;
 }
 
-
-/* =========================================================
-   COLOR STUDIO
-========================================================= */
+/* ================= COLOR ================= */
 
 .palette{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
+    grid-template-columns:repeat(5,1fr);
     gap:7px;
-
-    margin-top:8px;
 }
 
 .palette button{
-
     width:100%;
-
     aspect-ratio:1;
 
+    border:2px solid white;
     border-radius:11px;
-
-    border:
-        2px solid white;
-
-    box-shadow:
-        0 2px 6px
-        rgba(0,0,0,.12);
 
     cursor:pointer;
 
-    transition:.15s;
+    box-shadow:0 2px 6px rgba(0,0,0,.12);
 }
 
 .palette button:hover{
-
-    transform:scale(1.1);
+    transform:scale(1.08);
 }
 
-
-/* =========================================================
-   BRUSH LIBRARY
-========================================================= */
+/* ================= BRUSHES ================= */
 
 .brush-grid{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
+    grid-template-columns:repeat(2,1fr);
     gap:8px;
 }
 
 .brush-preset{
-
-    border:
-        2px solid transparent;
-
+    border:2px solid transparent;
     border-radius:14px;
 
     background:white;
-
     color:#514765;
 
-    padding:10px 5px;
+    padding:9px 4px;
 
     cursor:pointer;
 
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
-    justify-content:center;
-
     gap:4px;
 
     font-size:21px;
-
-    transition:.15s;
 }
 
 .brush-preset span{
-
     font-size:10px;
-
     font-weight:800;
 }
 
-.brush-preset:hover{
-
-    background:#f1ebff;
-}
-
 .brush-preset.active{
-
     border-color:#9b7cff;
-
     background:#eee7ff;
-
-    box-shadow:
-        0 4px 10px
-        rgba(120,80,210,.13);
 }
 
-
-/* =========================================================
-   SMALL BUTTONS
-========================================================= */
+/* ================= BUTTONS ================= */
 
 .small-btn{
-
-    border:none;
-
+    border:0;
     border-radius:10px;
 
     background:#eee7ff;
-
     color:#584b70;
 
     padding:7px 9px;
 
     font-size:11px;
-
     font-weight:800;
 
     cursor:pointer;
-
-    transition:.15s;
 }
 
-.small-btn:hover{
-
-    background:#dfd4ff;
-}
-
-
-/* =========================================================
-   LAYERS
-========================================================= */
+/* ================= LAYERS ================= */
 
 .layers{
-
     display:flex;
-
     flex-direction:column;
-
     gap:6px;
 }
 
 .layer{
-
     min-height:42px;
 
     display:flex;
-
     align-items:center;
-
     gap:7px;
 
     padding:8px;
@@ -675,248 +409,217 @@ input[type="color"]{
     border-radius:11px;
 
     background:white;
-
-    border:
-        1px solid #eee8f5;
+    border:1px solid #eee8f5;
 
     cursor:pointer;
-
     font-size:11px;
 }
 
 .layer.selected{
-
     background:#eee7ff;
-
     border-color:#bda8ff;
 }
 
 .layer-icon{
-
     width:24px;
-
     text-align:center;
-
-    font-size:16px;
 }
 
 .layer-name{
-
     flex:1;
-
     min-width:0;
 
     white-space:nowrap;
-
     overflow:hidden;
-
     text-overflow:ellipsis;
 }
 
 .layer-actions button{
-
-    border:none;
-
-    background:none;
-
+    border:0;
+    background:transparent;
     cursor:pointer;
-
-    padding:3px;
 }
 
-
 /* =========================================================
-   MOBILE
+   MOBILE LAYOUT
 ========================================================= */
 
 @media(max-width:850px){
 
     .header{
-
         height:58px;
-
-        padding:
-            0 9px;
+        padding:0 9px;
     }
 
     .logo{
-
         font-size:18px;
     }
 
     .logo small{
-
         font-size:9px;
     }
 
     .header-actions{
-
         gap:5px;
     }
 
     .header-btn{
-
-        padding:
-            8px 9px;
-
-        border-radius:12px;
-
+        padding:8px 9px;
+        border-radius:11px;
         font-size:11px;
     }
 
+    /*
+       IMPORTANT:
+       The main area is now a column on mobile.
+       Toolbar gets its own real height.
+       It no longer floats over the canvas.
+    */
+
+    .main{
+        flex-direction:column;
+        min-height:0;
+    }
+
+    .workspace{
+        order:1;
+        width:100%;
+        min-height:0;
+        flex:1;
+    }
+
     .toolbar{
-
-        position:absolute;
-
-        left:0;
-
-        right:0;
-
-        bottom:0;
+        order:2;
 
         width:100%;
-
-        height:72px;
+        height:76px;
+        flex-shrink:0;
 
         padding:6px;
 
         flex-direction:row;
 
-        overflow-x:auto;
+        border-right:0;
+        border-top:1px solid #e9e2f1;
 
+        overflow-x:auto;
         overflow-y:hidden;
 
-        border-right:none;
-
-        border-top:
-            1px solid #ebe5f2;
+        gap:6px;
 
         z-index:100;
     }
 
     .tool{
-
-        min-width:66px;
-
-        width:66px;
-
-        min-height:59px;
-
+        width:64px;
+        min-width:64px;
+        height:62px;
+        min-height:62px;
         flex-shrink:0;
     }
 
     .tool .icon{
-
         font-size:20px;
     }
 
-    .panel{
+    /*
+       Panel opens above the toolbar.
+    */
 
+    .panel{
         position:absolute;
 
-        top:0;
-
         right:0;
+        top:0;
+        bottom:76px;
 
-        bottom:72px;
+        width:280px;
 
-        width:275px;
+        transform:translateX(100%);
 
-        transform:
-            translateX(100%);
-
-        transition:
-            transform .25s ease;
+        transition:transform .25s ease;
 
         box-shadow:
-            -8px 0 25px
-            rgba(50,30,80,.15);
+            -8px 0 25px rgba(50,30,80,.18);
 
-        z-index:150;
+        z-index:200;
     }
 
     .panel.open{
-
-        transform:
-            translateX(0);
+        transform:translateX(0);
     }
+
+    /*
+       Zoom stays inside workspace,
+       above the toolbar.
+    */
 
     .zoom-box{
-
-        bottom:82px;
-
         left:8px;
+        bottom:10px;
+    }
+}
+
+/* ================= SMALL PHONES ================= */
+
+@media(max-width:420px){
+
+    .header-btn{
+        padding:7px 8px;
+        font-size:10px;
     }
 
-    #canvas{
+    .toolbar{
+        height:72px;
+    }
 
-        width:900px;
+    .tool{
+        width:61px;
+        min-width:61px;
+    }
 
-        height:550px;
+    .panel{
+        bottom:72px;
+        width:275px;
     }
 }
 
 </style>
 </head>
 
-
 <body>
 
 <div class="app">
 
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<!-- HEADER -->
 
 <header class="header">
 
     <div class="logo">
-
         ✨ DrawLab
-
-        <small>
-            Creative Studio V5
-        </small>
-
+        <small>Creative Studio V5.1</small>
     </div>
-
 
     <div class="header-actions">
 
-        <button
-            class="header-btn"
-            onclick="newProject()">
-
+        <button class="header-btn"
+                onclick="newProject()">
             ＋ New
-
         </button>
 
-
-        <button
-            class="header-btn"
-            onclick="uploadImage()">
-
+        <button class="header-btn"
+                onclick="uploadImage()">
             🖼️
-
         </button>
 
-
-        <button
-            class="header-btn"
-            onclick="exportPNG()">
-
+        <button class="header-btn"
+                onclick="exportPNG()">
             💾
-
         </button>
 
-
-        <button
-            class="header-btn"
-            onclick="togglePanel()">
-
+        <button class="header-btn"
+                onclick="togglePanel()">
             ☰
-
         </button>
 
     </div>
@@ -926,184 +629,102 @@ input[type="color"]{
 
 <div class="main">
 
-
-<!-- =====================================================
-     TOOLBAR
-===================================================== -->
+<!-- TOOLBAR -->
 
 <div class="toolbar">
 
-
-    <button
-        class="tool active"
-        data-tool="select">
-
-        <span class="icon">
-            🖱️
-        </span>
-
+    <button class="tool active"
+            data-tool="select">
+        <span class="icon">🖱️</span>
         Select
-
     </button>
 
-
-    <button
-        class="tool"
-        data-tool="brush">
-
-        <span class="icon">
-            🖌️
-        </span>
-
+    <button class="tool"
+            data-tool="brush">
+        <span class="icon">🖌️</span>
         Brush
-
     </button>
 
-
-    <button
-        class="tool"
-        data-tool="eraser">
-
-        <span class="icon">
-            🧹
-        </span>
-
+    <button class="tool"
+            data-tool="eraser">
+        <span class="icon">🧹</span>
         Eraser
-
     </button>
 
-
-    <button
-        class="tool"
-        data-tool="line">
-
-        <span class="icon">
-            ╱
-        </span>
-
+    <button class="tool"
+            data-tool="line">
+        <span class="icon">╱</span>
         Line
-
     </button>
 
-
-    <button
-        class="tool"
-        data-tool="rect">
-
-        <span class="icon">
-            ▢
-        </span>
-
+    <button class="tool"
+            data-tool="rect">
+        <span class="icon">▢</span>
         Square
-
     </button>
 
-
-    <button
-        class="tool"
-        data-tool="circle">
-
-        <span class="icon">
-            ○
-        </span>
-
+    <button class="tool"
+            data-tool="circle">
+        <span class="icon">○</span>
         Circle
-
     </button>
 
-
-    <button
-        class="tool"
-        data-tool="text">
-
-        <span class="icon">
-            T
-        </span>
-
+    <button class="tool"
+            data-tool="text">
+        <span class="icon">T</span>
         Text
-
     </button>
 
-
-    <button
-        class="tool"
-        data-tool="image">
-
-        <span class="icon">
-            🌄
-        </span>
-
+    <button class="tool"
+            data-tool="image">
+        <span class="icon">🌄</span>
         Image
-
     </button>
-
 
 </div>
 
 
-<!-- =====================================================
-     WORKSPACE
-===================================================== -->
+<!-- WORKSPACE -->
 
-<div
-    class="workspace"
-    id="workspace">
+<div class="workspace">
 
+    <div class="canvas-wrap"
+         id="canvasWrap">
 
-    <div
-        class="canvas-wrap"
-        id="canvasWrap">
-
-
-        <canvas
-            id="canvas"
-            width="900"
-            height="550">
+        <canvas id="canvas"
+                width="900"
+                height="550">
         </canvas>
-
 
     </div>
 
 
     <div class="zoom-box">
 
-        <button onclick="zoomOut()">
-            −
-        </button>
+        <button onclick="zoomOut()">−</button>
 
-        <span id="zoomLabel">
-            100%
-        </span>
+        <span id="zoomLabel">100%</span>
 
-        <button onclick="zoomIn()">
-            +
-        </button>
+        <button onclick="zoomIn()">+</button>
 
-        <button onclick="resetZoom()">
-            ⟳
-        </button>
+        <button onclick="resetZoom()">⟳</button>
 
     </div>
-
 
 </div>
 
 
-<!-- =====================================================
-     RIGHT PANEL
-===================================================== -->
+<!-- PANEL -->
 
-<aside
-    class="panel"
-    id="panel">
-
+<aside class="panel"
+       id="panel">
 
     <div class="panel-title">
         🎨 DrawLab Studio
     </div>
 
 
-    <!-- COLOR -->
+    <!-- COLORS -->
 
     <div class="section">
 
@@ -1111,122 +732,71 @@ input[type="color"]{
             🌈 Color Studio
         </div>
 
-
         <div class="row">
 
             <label>
                 Custom Color
             </label>
 
-            <input
-                type="color"
-                id="colorPicker"
-                value="#6c4cff">
+            <input type="color"
+                   id="colorPicker"
+                   value="#754cff">
 
         </div>
 
+        <div class="palette">
 
-        <div
-            class="palette"
-            id="palette">
+            <button data-color="#ff4f8b"
+                    style="background:#ff4f8b"></button>
 
+            <button data-color="#ff7657"
+                    style="background:#ff7657"></button>
 
-            <button
-                data-color="#ff4f8b"
-                style="background:#ff4f8b">
-            </button>
+            <button data-color="#ffc857"
+                    style="background:#ffc857"></button>
 
+            <button data-color="#63d471"
+                    style="background:#63d471"></button>
 
-            <button
-                data-color="#ff7657"
-                style="background:#ff7657">
-            </button>
+            <button data-color="#42b8e8"
+                    style="background:#42b8e8"></button>
 
+            <button data-color="#5865f2"
+                    style="background:#5865f2"></button>
 
-            <button
-                data-color="#ffc857"
-                style="background:#ffc857">
-            </button>
+            <button data-color="#754cff"
+                    style="background:#754cff"></button>
 
+            <button data-color="#a855f7"
+                    style="background:#a855f7"></button>
 
-            <button
-                data-color="#63d471"
-                style="background:#63d471">
-            </button>
+            <button data-color="#ec4899"
+                    style="background:#ec4899"></button>
 
+            <button data-color="#111111"
+                    style="background:#111111"></button>
 
-            <button
-                data-color="#42b8e8"
-                style="background:#42b8e8">
-            </button>
+            <button data-color="#ffffff"
+                    style="background:#ffffff"></button>
 
+            <button data-color="#8b5e3c"
+                    style="background:#8b5e3c"></button>
 
-            <button
-                data-color="#5865f2"
-                style="background:#5865f2">
-            </button>
+            <button data-color="#eab308"
+                    style="background:#eab308"></button>
 
+            <button data-color="#14b8a6"
+                    style="background:#14b8a6"></button>
 
-            <button
-                data-color="#754cff"
-                style="background:#754cff">
-            </button>
-
-
-            <button
-                data-color="#a855f7"
-                style="background:#a855f7">
-            </button>
-
-
-            <button
-                data-color="#ec4899"
-                style="background:#ec4899">
-            </button>
-
-
-            <button
-                data-color="#111111"
-                style="background:#111111">
-            </button>
-
-
-            <button
-                data-color="#ffffff"
-                style="background:#ffffff">
-            </button>
-
-
-            <button
-                data-color="#8b5e3c"
-                style="background:#8b5e3c">
-            </button>
-
-
-            <button
-                data-color="#eab308"
-                style="background:#eab308">
-            </button>
-
-
-            <button
-                data-color="#14b8a6"
-                style="background:#14b8a6">
-            </button>
-
-
-            <button
-                data-color="#64748b"
-                style="background:#64748b">
-            </button>
-
+            <button data-color="#64748b"
+                    style="background:#64748b"></button>
 
         </div>
 
     </div>
 
 
-    <!-- BRUSH -->
+    <!-- BRUSH LIBRARY -->
 
     <div class="section">
 
@@ -1234,87 +804,43 @@ input[type="color"]{
             🖌️ Brush Library
         </div>
 
-
         <div class="brush-grid">
 
-
-            <button
-                class="brush-preset active"
-                data-brush="pencil">
-
+            <button class="brush-preset active"
+                    data-brush="pencil">
                 ✏️
-
-                <span>
-                    Pencil
-                </span>
-
+                <span>Pencil</span>
             </button>
 
-
-            <button
-                class="brush-preset"
-                data-brush="ink">
-
+            <button class="brush-preset"
+                    data-brush="ink">
                 🖊️
-
-                <span>
-                    Ink
-                </span>
-
+                <span>Ink</span>
             </button>
 
-
-            <button
-                class="brush-preset"
-                data-brush="marker">
-
+            <button class="brush-preset"
+                    data-brush="marker">
                 🖍️
-
-                <span>
-                    Marker
-                </span>
-
+                <span>Marker</span>
             </button>
 
-
-            <button
-                class="brush-preset"
-                data-brush="watercolor">
-
+            <button class="brush-preset"
+                    data-brush="watercolor">
                 💧
-
-                <span>
-                    Watercolor
-                </span>
-
+                <span>Watercolor</span>
             </button>
 
-
-            <button
-                class="brush-preset"
-                data-brush="neon">
-
+            <button class="brush-preset"
+                    data-brush="neon">
                 ✨
-
-                <span>
-                    Neon
-                </span>
-
+                <span>Neon</span>
             </button>
 
-
-            <button
-                class="brush-preset"
-                data-brush="spray">
-
+            <button class="brush-preset"
+                    data-brush="spray">
                 🌫️
-
-                <span>
-                    Spray
-                </span>
-
+                <span>Spray</span>
             </button>
-
 
         </div>
 
@@ -1327,33 +853,26 @@ input[type="color"]{
 
         <div class="row">
 
-            <label>
-                Brush Size
-            </label>
+            <label>Brush Size</label>
 
-            <input
-                type="range"
-                id="size"
-                min="1"
-                max="80"
-                value="8">
+            <input type="range"
+                   id="size"
+                   min="1"
+                   max="80"
+                   value="8">
 
         </div>
 
-
         <div class="row">
 
-            <label>
-                Opacity
-            </label>
+            <label>Opacity</label>
 
-            <input
-                type="range"
-                id="opacity"
-                min=".05"
-                max="1"
-                step=".05"
-                value="1">
+            <input type="range"
+                   id="opacity"
+                   min=".05"
+                   max="1"
+                   step=".05"
+                   value="1">
 
         </div>
 
@@ -1368,46 +887,30 @@ input[type="color"]{
             ✨ Object
         </div>
 
-
         <div class="row">
 
-            <button
-                class="small-btn"
-                onclick="duplicateSelected()">
-
+            <button class="small-btn"
+                    onclick="duplicateSelected()">
                 Duplicate
-
             </button>
 
-
-            <button
-                class="small-btn"
-                onclick="deleteSelected()">
-
+            <button class="small-btn"
+                    onclick="deleteSelected()">
                 Delete
-
             </button>
 
         </div>
 
-
         <div class="row">
 
-            <button
-                class="small-btn"
-                onclick="moveLayerUp()">
-
+            <button class="small-btn"
+                    onclick="moveLayerUp()">
                 ↑ Up
-
             </button>
 
-
-            <button
-                class="small-btn"
-                onclick="moveLayerDown()">
-
+            <button class="small-btn"
+                    onclick="moveLayerDown()">
                 ↓ Down
-
             </button>
 
         </div>
@@ -1421,43 +924,28 @@ input[type="color"]{
 
         <div class="row">
 
-            <button
-                class="small-btn"
-                onclick="undo()">
-
+            <button class="small-btn"
+                    onclick="undo()">
                 ↩ Undo
-
             </button>
 
-
-            <button
-                class="small-btn"
-                onclick="redo()">
-
+            <button class="small-btn"
+                    onclick="redo()">
                 ↪ Redo
-
             </button>
 
         </div>
 
-
         <div class="row">
 
-            <button
-                class="small-btn"
-                onclick="clearCanvas()">
-
+            <button class="small-btn"
+                    onclick="clearCanvas()">
                 🗑 Clear
-
             </button>
 
-
-            <button
-                class="small-btn"
-                onclick="exportPNG()">
-
+            <button class="small-btn"
+                    onclick="exportPNG()">
                 💾 PNG
-
             </button>
 
         </div>
@@ -1471,31 +959,26 @@ input[type="color"]{
         📚 Layers
     </div>
 
-
-    <div
-        class="layers"
-        id="layers">
+    <div class="layers"
+         id="layers">
     </div>
-
 
 </aside>
 
 </div>
-
 </div>
 
 
-<input
-    type="file"
-    id="imageInput"
-    accept="image/*"
-    style="display:none">
+<input type="file"
+       id="imageInput"
+       accept="image/*"
+       style="display:none">
 
 
 <script>
 
 /* =========================================================
-   DRAWLAB V5 ENGINE
+   DRAWLAB ENGINE
 ========================================================= */
 
 const canvas =
@@ -1523,49 +1006,29 @@ const imageInput =
     document.getElementById("imageInput");
 
 
-let currentTool =
-    "select";
+let currentTool = "select";
+let currentBrush = "pencil";
 
-let currentBrush =
-    "pencil";
+let zoom = 1;
 
-let zoom =
-    1;
+let objects = [];
 
-let objects =
-    [];
+let selectedId = null;
 
-let selectedId =
-    null;
+let activeObject = null;
 
-let activeObject =
-    null;
+let drawing = false;
 
-let drawing =
-    false;
+let dragMode = null;
 
-let startPoint =
-    null;
+let dragStart = null;
 
-let lastPoint =
-    null;
+let undoStack = [];
 
-let dragMode =
-    null;
-
-let dragStart =
-    null;
-
-let undoStack =
-    [];
-
-let redoStack =
-    [];
+let redoStack = [];
 
 
-/* =========================================================
-   ID
-========================================================= */
+/* ================= ID ================= */
 
 function uid(){
 
@@ -1579,9 +1042,7 @@ function uid(){
 }
 
 
-/* =========================================================
-   HISTORY
-========================================================= */
+/* ================= HISTORY ================= */
 
 function snapshot(){
 
@@ -1602,25 +1063,19 @@ function snapshot(){
 
 }
 
-
 function saveHistory(){
 
     undoStack.push(
         snapshot()
     );
 
-    if(
-        undoStack.length > 50
-    ){
-
+    if(undoStack.length > 50){
         undoStack.shift();
-
     }
 
     redoStack = [];
 
 }
-
 
 function restoreState(data){
 
@@ -1629,8 +1084,7 @@ function restoreState(data){
 
     rebuildImages();
 
-    selectedId =
-        null;
+    selectedId = null;
 
     render();
 
@@ -1638,44 +1092,36 @@ function restoreState(data){
 
 }
 
-
 function undo(){
 
-    if(!undoStack.length)
-        return;
+    if(!undoStack.length) return;
 
     redoStack.push(
         snapshot()
     );
 
-    const state =
-        undoStack.pop();
-
-    restoreState(state);
+    restoreState(
+        undoStack.pop()
+    );
 
 }
 
-
 function redo(){
 
-    if(!redoStack.length)
-        return;
+    if(!redoStack.length) return;
 
     undoStack.push(
         snapshot()
     );
 
-    const state =
-        redoStack.pop();
-
-    restoreState(state);
+    restoreState(
+        redoStack.pop()
+    );
 
 }
 
 
-/* =========================================================
-   TOOLS
-========================================================= */
+/* ================= TOOLS ================= */
 
 document
 .querySelectorAll(".tool")
@@ -1685,9 +1131,20 @@ document
         "click",
         () => {
 
-            setTool(
-                button.dataset.tool
-            );
+            currentTool =
+                button.dataset.tool;
+
+            document
+            .querySelectorAll(".tool")
+            .forEach(b => {
+
+                b.classList.toggle(
+                    "active",
+                    b.dataset.tool ===
+                    currentTool
+                );
+
+            });
 
         }
     );
@@ -1695,28 +1152,7 @@ document
 });
 
 
-function setTool(tool){
-
-    currentTool =
-        tool;
-
-    document
-    .querySelectorAll(".tool")
-    .forEach(button => {
-
-        button.classList.toggle(
-            "active",
-            button.dataset.tool === tool
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   COORDINATES
-========================================================= */
+/* ================= COORDINATES ================= */
 
 function getPoint(e){
 
@@ -1727,20 +1163,20 @@ function getPoint(e){
 
         x:
             (e.clientX - rect.left) *
-            (canvas.width / rect.width),
+            canvas.width /
+            rect.width,
 
         y:
             (e.clientY - rect.top) *
-            (canvas.height / rect.height)
+            canvas.height /
+            rect.height
 
     };
 
 }
 
 
-/* =========================================================
-   POINTER DOWN
-========================================================= */
+/* ================= POINTER DOWN ================= */
 
 canvas.addEventListener(
     "pointerdown",
@@ -1755,21 +1191,12 @@ canvas.addEventListener(
         const p =
             getPoint(e);
 
-        startPoint =
-            p;
-
-        lastPoint =
-            p;
-
-        drawing =
-            true;
+        drawing = true;
 
 
         /* SELECT */
 
-        if(
-            currentTool === "select"
-        ){
+        if(currentTool === "select"){
 
             const hit =
                 hitTest(p);
@@ -1791,34 +1218,25 @@ canvas.addEventListener(
                         hit
                     );
 
-            }
-            else{
+            }else{
 
-                selectedId =
-                    null;
-
-                activeObject =
-                    null;
+                selectedId = null;
+                activeObject = null;
 
             }
 
             render();
-
             updateLayers();
 
             return;
-
         }
 
 
         /* TEXT */
 
-        if(
-            currentTool === "text"
-        ){
+        if(currentTool === "text"){
 
-            drawing =
-                false;
+            drawing = false;
 
             const text =
                 prompt(
@@ -1833,21 +1251,16 @@ canvas.addEventListener(
                 const obj = {
 
                     id:uid(),
-
                     type:"text",
-
                     name:"Text",
 
                     x:p.x,
-
                     y:p.y,
 
                     text:text,
 
                     fontSize:32,
-
-                    fontFamily:
-                        "Arial",
+                    fontFamily:"Arial",
 
                     color:
                         colorPicker.value,
@@ -1858,7 +1271,6 @@ canvas.addEventListener(
                         ),
 
                     rotation:0,
-
                     visible:true
 
                 };
@@ -1869,29 +1281,23 @@ canvas.addEventListener(
                     obj.id;
 
                 render();
-
                 updateLayers();
 
             }
 
             return;
-
         }
 
 
         /* IMAGE */
 
-        if(
-            currentTool === "image"
-        ){
+        if(currentTool === "image"){
 
-            drawing =
-                false;
+            drawing = false;
 
             uploadImage();
 
             return;
-
         }
 
 
@@ -1911,14 +1317,12 @@ canvas.addEventListener(
                 type:"stroke",
 
                 name:
-                    currentTool ===
-                    "eraser"
+                    currentTool === "eraser"
                     ? "Eraser"
                     : currentBrush,
 
                 brushType:
-                    currentTool ===
-                    "eraser"
+                    currentTool === "eraser"
                     ? "eraser"
                     : currentBrush,
 
@@ -1953,7 +1357,6 @@ canvas.addEventListener(
                 activeObject.id;
 
             return;
-
         }
 
 
@@ -1984,11 +1387,9 @@ canvas.addEventListener(
                     currentTool,
 
                 x:p.x,
-
                 y:p.y,
 
                 width:0,
-
                 height:0,
 
                 color:
@@ -2005,7 +1406,6 @@ canvas.addEventListener(
                     ),
 
                 rotation:0,
-
                 visible:true
 
             };
@@ -2023,22 +1423,17 @@ canvas.addEventListener(
 );
 
 
-/* =========================================================
-   POINTER MOVE
-========================================================= */
+/* ================= POINTER MOVE ================= */
 
 canvas.addEventListener(
     "pointermove",
     e => {
 
-        if(!drawing)
-            return;
+        if(!drawing) return;
 
         const p =
             getPoint(e);
 
-
-        /* BRUSH */
 
         if(
             activeObject &&
@@ -2046,18 +1441,13 @@ canvas.addEventListener(
             "stroke"
         ){
 
-            activeObject.points.push(
-                p
-            );
+            activeObject.points.push(p);
 
             render();
 
             return;
-
         }
 
-
-        /* SHAPE */
 
         if(
             activeObject &&
@@ -2076,25 +1466,13 @@ canvas.addEventListener(
             render();
 
             return;
-
         }
 
-
-        /* MOVE */
 
         if(
             currentTool === "select" &&
             activeObject
         ){
-
-            const dx =
-                p.x -
-                dragStart.x;
-
-            const dy =
-                p.y -
-                dragStart.y;
-
 
             if(
                 dragMode === "move"
@@ -2102,17 +1480,15 @@ canvas.addEventListener(
 
                 moveObject(
                     activeObject,
-                    dx,
-                    dy
+                    p.x - dragStart.x,
+                    p.y - dragStart.y
                 );
 
-                dragStart =
-                    p;
+                dragStart = p;
 
             }
 
-
-            if(
+            else if(
                 dragMode === "resize"
             ){
 
@@ -2123,8 +1499,7 @@ canvas.addEventListener(
 
             }
 
-
-            if(
+            else if(
                 dragMode === "rotate"
             ){
 
@@ -2143,19 +1518,15 @@ canvas.addEventListener(
 );
 
 
-/* =========================================================
-   POINTER UP
-========================================================= */
+/* ================= POINTER UP ================= */
 
 canvas.addEventListener(
     "pointerup",
     () => {
 
-        drawing =
-            false;
+        drawing = false;
 
-        activeObject =
-            null;
+        activeObject = null;
 
         render();
 
@@ -2165,49 +1536,22 @@ canvas.addEventListener(
 );
 
 
-canvas.addEventListener(
-    "pointercancel",
-    () => {
+/* ================= MOVE ================= */
 
-        drawing =
-            false;
+function moveObject(obj,dx,dy){
 
-        activeObject =
-            null;
+    if(obj.type === "stroke"){
 
-    }
-);
+        obj.points.forEach(p => {
 
+            p.x += dx;
+            p.y += dy;
 
-/* =========================================================
-   MOVE
-========================================================= */
+        });
 
-function moveObject(
-    obj,
-    dx,
-    dy
-){
-
-    if(
-        obj.type === "stroke"
-    ){
-
-        obj.points.forEach(
-            p => {
-
-                p.x += dx;
-
-                p.y += dy;
-
-            }
-        );
-
-    }
-    else{
+    }else{
 
         obj.x += dx;
-
         obj.y += dy;
 
     }
@@ -2215,18 +1559,11 @@ function moveObject(
 }
 
 
-/* =========================================================
-   RESIZE
-========================================================= */
+/* ================= RESIZE ================= */
 
-function resizeObject(
-    obj,
-    p
-){
+function resizeObject(obj,p){
 
-    if(
-        obj.type === "text"
-    ){
+    if(obj.type === "text"){
 
         obj.fontSize =
             Math.max(
@@ -2237,13 +1574,11 @@ function resizeObject(
             );
 
         return;
-
     }
 
-
     if(
-        obj.type === "image" ||
-        obj.type === "shape"
+        obj.type === "shape" ||
+        obj.type === "image"
     ){
 
         obj.width =
@@ -2257,64 +1592,39 @@ function resizeObject(
 }
 
 
-/* =========================================================
-   ROTATE
-========================================================= */
+/* ================= ROTATE ================= */
 
-function rotateObject(
-    obj,
-    p
-){
+function rotateObject(obj,p){
 
     const box =
         getBounds(obj);
 
-    const angle =
+    obj.rotation =
         Math.atan2(
             p.y - box.cy,
             p.x - box.cx
         );
 
-    obj.rotation =
-        angle;
-
 }
 
 
-/* =========================================================
-   DISTANCE
-========================================================= */
+/* ================= DISTANCE ================= */
 
 function distance(a,b){
 
     return Math.sqrt(
-
-        Math.pow(
-            a.x-b.x,
-            2
-        )
-
-        +
-
-        Math.pow(
-            a.y-b.y,
-            2
-        )
-
+        Math.pow(a.x-b.x,2) +
+        Math.pow(a.y-b.y,2)
     );
 
 }
 
 
-/* =========================================================
-   BOUNDS
-========================================================= */
+/* ================= BOUNDS ================= */
 
 function getBounds(obj){
 
-    if(
-        obj.type === "text"
-    ){
+    if(obj.type === "text"){
 
         const width =
             Math.max(
@@ -2325,34 +1635,27 @@ function getBounds(obj){
             );
 
         const height =
-            obj.fontSize *
-            1.2;
+            obj.fontSize * 1.2;
 
         return {
 
             x:obj.x,
-
-            y:
-                obj.y -
-                height,
+            y:obj.y-height,
 
             width,
-
             height,
 
             right:
-                obj.x + width,
+                obj.x+width,
 
             bottom:
                 obj.y,
 
             cx:
-                obj.x +
-                width/2,
+                obj.x+width/2,
 
             cy:
-                obj.y -
-                height/2
+                obj.y-height/2
 
         };
 
@@ -2360,102 +1663,47 @@ function getBounds(obj){
 
 
     if(
-        obj.type === "image" ||
-        obj.type === "shape"
+        obj.type === "shape" ||
+        obj.type === "image"
     ){
 
-        let x =
-            obj.x;
+        let x=obj.x;
+        let y=obj.y;
+        let width=obj.width;
+        let height=obj.height;
 
-        let y =
-            obj.y;
-
-        let width =
-            obj.width;
-
-        let height =
-            obj.height;
-
-
-        if(width < 0){
-
+        if(width<0){
             x += width;
-
-            width =
-                Math.abs(width);
-
+            width = Math.abs(width);
         }
 
-        if(height < 0){
-
+        if(height<0){
             y += height;
-
-            height =
-                Math.abs(height);
-
+            height = Math.abs(height);
         }
-
 
         return {
 
-            x,
+            x,y,width,height,
 
-            y,
+            right:x+width,
+            bottom:y+height,
 
-            width,
-
-            height,
-
-            right:
-                x + width,
-
-            bottom:
-                y + height,
-
-            cx:
-                x + width/2,
-
-            cy:
-                y + height/2
+            cx:x+width/2,
+            cy:y+height/2
 
         };
 
     }
 
 
-    if(
-        obj.type === "stroke"
-    ){
-
-        if(
-            !obj.points ||
-            !obj.points.length
-        ){
-
-            return {
-                x:0,
-                y:0,
-                width:0,
-                height:0,
-                right:0,
-                bottom:0,
-                cx:0,
-                cy:0
-            };
-
-        }
-
+    if(obj.type === "stroke"){
 
         const xs =
-            obj.points.map(
-                p => p.x
-            );
+            obj.points.map(p=>p.x);
 
         const ys =
-            obj.points.map(
-                p => p.y
-            );
-
+            obj.points.map(p=>p.y);
 
         const x =
             Math.min(...xs);
@@ -2469,28 +1717,19 @@ function getBounds(obj){
         const bottom =
             Math.max(...ys);
 
-
         return {
 
             x,
-
             y,
 
-            width:
-                right-x,
-
-            height:
-                bottom-y,
+            width:right-x,
+            height:bottom-y,
 
             right,
-
             bottom,
 
-            cx:
-                (x+right)/2,
-
-            cy:
-                (y+bottom)/2
+            cx:(x+right)/2,
+            cy:(y+bottom)/2
 
         };
 
@@ -2499,55 +1738,35 @@ function getBounds(obj){
 }
 
 
-/* =========================================================
-   HIT TEST
-========================================================= */
+/* ================= HIT TEST ================= */
 
 function hitTest(p){
 
     for(
-        let i =
-            objects.length-1;
-        i >= 0;
+        let i=objects.length-1;
+        i>=0;
         i--
     ){
 
         const obj =
             objects[i];
 
-        if(
-            obj.visible === false
-        ){
-
+        if(obj.visible === false)
             continue;
-
-        }
-
 
         const box =
             getBounds(obj);
 
-
         const padding =
             obj.type === "stroke"
             ? 14
-            : 4;
-
+            : 5;
 
         if(
-
-            p.x >=
-                box.x-padding &&
-
-            p.x <=
-                box.right+padding &&
-
-            p.y >=
-                box.y-padding &&
-
-            p.y <=
-                box.bottom+padding
-
+            p.x >= box.x-padding &&
+            p.x <= box.right+padding &&
+            p.y >= box.y-padding &&
+            p.y <= box.bottom+padding
         ){
 
             return obj;
@@ -2561,14 +1780,9 @@ function hitTest(p){
 }
 
 
-/* =========================================================
-   HANDLE
-========================================================= */
+/* ================= HANDLES ================= */
 
-function getHandle(
-    p,
-    obj
-){
+function getHandle(p,obj){
 
     const box =
         getBounds(obj);
@@ -2576,24 +1790,20 @@ function getHandle(
     const rotatePoint = {
 
         x:box.cx,
-
-        y:
-            box.y - 40
+        y:box.y-40
 
     };
-
 
     if(
         distance(
             p,
             rotatePoint
-        ) < 18
+        ) < 20
     ){
 
         return "rotate";
 
     }
-
 
     if(
         distance(
@@ -2602,22 +1812,19 @@ function getHandle(
                 x:box.right,
                 y:box.bottom
             }
-        ) < 22
+        ) < 24
     ){
 
         return "resize";
 
     }
 
-
     return "move";
 
 }
 
 
-/* =========================================================
-   RENDER
-========================================================= */
+/* ================= RENDER ================= */
 
 function render(){
 
@@ -2628,11 +1835,7 @@ function render(){
         canvas.height
     );
 
-
-    ctx.save();
-
-    ctx.fillStyle =
-        "#ffffff";
+    ctx.fillStyle="#fff";
 
     ctx.fillRect(
         0,
@@ -2641,51 +1844,33 @@ function render(){
         canvas.height
     );
 
-    ctx.restore();
 
+    objects.forEach(obj => {
 
-    objects.forEach(
-        obj => {
+        if(obj.visible === false)
+            return;
 
-            if(
-                obj.visible === false
-            ){
+        drawObject(obj);
 
-                return;
-
-            }
-
-            drawObject(obj);
-
-        }
-    );
+    });
 
 
     if(selectedId){
 
-        const selected =
+        const obj =
             objects.find(
-                o =>
-                    o.id ===
-                    selectedId
+                o=>o.id===selectedId
             );
 
-        if(selected){
-
-            drawSelection(
-                selected
-            );
-
-        }
+        if(obj)
+            drawSelection(obj);
 
     }
 
 }
 
 
-/* =========================================================
-   DRAW OBJECT
-========================================================= */
+/* ================= DRAW ================= */
 
 function drawObject(obj){
 
@@ -2695,33 +1880,21 @@ function drawObject(obj){
         obj.opacity ?? 1;
 
 
-    /* =====================================================
-       STROKE
-    ===================================================== */
+    /* STROKE */
 
-    if(
-        obj.type === "stroke"
-    ){
+    if(obj.type === "stroke"){
 
-        if(
-            !obj.points ||
-            obj.points.length === 0
-        ){
-
+        if(!obj.points.length){
             ctx.restore();
-
             return;
-
         }
-
 
         if(obj.erase){
 
             ctx.globalCompositeOperation =
                 "destination-out";
 
-        }
-        else{
+        }else{
 
             ctx.globalCompositeOperation =
                 "source-over";
@@ -2736,127 +1909,74 @@ function drawObject(obj){
             obj.brushType;
 
 
-        /* PENCIL */
-
-        if(
-            brush === "pencil"
-        ){
+        if(brush === "pencil"){
 
             ctx.lineWidth =
                 obj.size;
 
             ctx.globalAlpha =
-                obj.opacity * .75;
+                obj.opacity*.75;
 
         }
 
-
-        /* INK */
-
-        else if(
-            brush === "ink"
-        ){
+        else if(brush === "ink"){
 
             ctx.lineWidth =
                 obj.size;
 
-            ctx.globalAlpha =
-                obj.opacity;
-
         }
 
-
-        /* MARKER */
-
-        else if(
-            brush === "marker"
-        ){
+        else if(brush === "marker"){
 
             ctx.lineWidth =
-                obj.size * 1.6;
+                obj.size*1.6;
 
             ctx.globalAlpha =
-                obj.opacity * .55;
+                obj.opacity*.55;
 
         }
 
-
-        /* WATERCOLOR */
-
-        else if(
-            brush === "watercolor"
-        ){
+        else if(brush === "watercolor"){
 
             ctx.lineWidth =
-                obj.size * 1.8;
+                obj.size*1.8;
 
             ctx.globalAlpha =
-                obj.opacity * .25;
+                obj.opacity*.25;
 
         }
 
-
-        /* NEON */
-
-        else if(
-            brush === "neon"
-        ){
+        else if(brush === "neon"){
 
             ctx.lineWidth =
                 obj.size;
 
-            ctx.globalAlpha =
-                obj.opacity;
-
-            ctx.shadowBlur =
-                20;
+            ctx.shadowBlur=20;
 
             ctx.shadowColor =
                 obj.color;
 
         }
 
+        else if(brush === "spray"){
 
-        /* SPRAY */
-
-        else if(
-            brush === "spray"
-        ){
-
-            ctx.lineWidth =
-                2;
-
-            ctx.globalAlpha =
-                obj.opacity;
+            ctx.lineWidth=2;
 
         }
-
-
-        /* ERASER */
 
         else{
 
             ctx.lineWidth =
                 obj.size;
 
-            ctx.globalAlpha =
-                obj.opacity;
-
         }
 
 
-        ctx.lineCap =
-            "round";
-
-        ctx.lineJoin =
-            "round";
+        ctx.lineCap="round";
+        ctx.lineJoin="round";
 
 
-        /* NORMAL LINE */
-
-        if(
-            brush !== "spray"
-        ){
+        if(brush !== "spray"){
 
             ctx.beginPath();
 
@@ -2865,94 +1985,67 @@ function drawObject(obj){
                 obj.points[0].y
             );
 
-
             for(
                 let i=1;
                 i<obj.points.length;
                 i++
             ){
 
-                const point =
-                    obj.points[i];
-
                 ctx.lineTo(
-                    point.x,
-                    point.y
+                    obj.points[i].x,
+                    obj.points[i].y
                 );
 
             }
 
-
             ctx.stroke();
 
-        }
-
-
-        /* SPRAY PARTICLES */
-
-        if(
-            brush === "spray"
-        ){
+        }else{
 
             ctx.fillStyle =
                 obj.color;
 
-            obj.points.forEach(
-                point => {
+            obj.points.forEach(p => {
 
-                    for(
-                        let i=0;
-                        i<8;
-                        i++
-                    ){
+                for(let i=0;i<7;i++){
 
-                        const angle =
-                            Math.random() *
-                            Math.PI * 2;
+                    const angle =
+                        Math.random() *
+                        Math.PI*2;
 
-                        const radius =
-                            Math.random() *
-                            obj.size;
+                    const radius =
+                        Math.random() *
+                        obj.size;
 
-                        ctx.globalAlpha =
-                            obj.opacity *
-                            Math.random();
+                    ctx.globalAlpha =
+                        obj.opacity *
+                        Math.random();
 
-                        ctx.beginPath();
+                    ctx.beginPath();
 
-                        ctx.arc(
+                    ctx.arc(
+                        p.x +
+                        Math.cos(angle)*radius,
 
-                            point.x +
-                            Math.cos(angle) *
-                            radius,
+                        p.y +
+                        Math.sin(angle)*radius,
 
-                            point.y +
-                            Math.sin(angle) *
-                            radius,
+                        1.5,
 
-                            Math.random()*2,
+                        0,
+                        Math.PI*2
+                    );
 
-                            0,
-
-                            Math.PI*2
-
-                        );
-
-                        ctx.fill();
-
-                    }
+                    ctx.fill();
 
                 }
-            );
+
+            });
 
         }
 
 
-        ctx.shadowBlur =
-            0;
-
-        ctx.shadowColor =
-            "transparent";
+        ctx.shadowBlur=0;
 
         ctx.globalCompositeOperation =
             "source-over";
@@ -2964,28 +2057,18 @@ function drawObject(obj){
     }
 
 
-    /* =====================================================
-       OTHER OBJECTS
-    ===================================================== */
+    /* OTHER OBJECTS */
 
     const box =
         getBounds(obj);
-
 
     ctx.translate(
         box.cx,
         box.cy
     );
 
-
-    if(obj.rotation){
-
-        ctx.rotate(
-            obj.rotation
-        );
-
-    }
-
+    if(obj.rotation)
+        ctx.rotate(obj.rotation);
 
     ctx.translate(
         -box.cx,
@@ -2993,13 +2076,9 @@ function drawObject(obj){
     );
 
 
-    /* =====================================================
-       SHAPE
-    ===================================================== */
+    /* SHAPE */
 
-    if(
-        obj.type === "shape"
-    ){
+    if(obj.type === "shape"){
 
         ctx.strokeStyle =
             obj.color;
@@ -3007,18 +2086,12 @@ function drawObject(obj){
         ctx.lineWidth =
             obj.size;
 
-        ctx.lineCap =
-            "round";
-
-        ctx.lineJoin =
-            "round";
+        ctx.lineCap="round";
 
         ctx.beginPath();
 
 
-        if(
-            obj.shape === "line"
-        ){
+        if(obj.shape === "line"){
 
             ctx.moveTo(
                 obj.x,
@@ -3026,19 +2099,13 @@ function drawObject(obj){
             );
 
             ctx.lineTo(
-                obj.x +
-                obj.width,
-
-                obj.y +
-                obj.height
+                obj.x+obj.width,
+                obj.y+obj.height
             );
 
         }
 
-
-        else if(
-            obj.shape === "rect"
-        ){
+        else if(obj.shape === "rect"){
 
             ctx.rect(
                 obj.x,
@@ -3049,54 +2116,32 @@ function drawObject(obj){
 
         }
 
-
-        else if(
-            obj.shape === "circle"
-        ){
-
-            const cx =
-                obj.x +
-                obj.width/2;
-
-            const cy =
-                obj.y +
-                obj.height/2;
-
-            const rx =
-                Math.abs(
-                    obj.width
-                )/2;
-
-            const ry =
-                Math.abs(
-                    obj.height
-                )/2;
+        else if(obj.shape === "circle"){
 
             ctx.ellipse(
-                cx,
-                cy,
-                rx,
-                ry,
+
+                obj.x+obj.width/2,
+                obj.y+obj.height/2,
+
+                Math.abs(obj.width)/2,
+                Math.abs(obj.height)/2,
+
                 0,
                 0,
                 Math.PI*2
+
             );
 
         }
-
 
         ctx.stroke();
 
     }
 
 
-    /* =====================================================
-       TEXT
-    ===================================================== */
+    /* TEXT */
 
-    if(
-        obj.type === "text"
-    ){
+    if(obj.type === "text"){
 
         ctx.fillStyle =
             obj.color;
@@ -3116,26 +2161,18 @@ function drawObject(obj){
     }
 
 
-    /* =====================================================
-       IMAGE
-    ===================================================== */
+    /* IMAGE */
 
-    if(
-        obj.type === "image"
-    ){
+    if(obj.type === "image"){
 
         if(obj.image){
 
             ctx.drawImage(
-
                 obj.image,
-
                 obj.x,
                 obj.y,
-
                 obj.width,
                 obj.height
-
             );
 
         }
@@ -3148,516 +2185,360 @@ function drawObject(obj){
 }
 
 
-/* =========================================================
-   SELECTION
-========================================================= */
+/* ================= SELECTION ================= */
 
 function drawSelection(obj){
 
     const box =
         getBounds(obj);
 
-
     ctx.save();
 
+    ctx.strokeStyle="#8c68ff";
 
-    ctx.strokeStyle =
-        "#8c68ff";
+    ctx.lineWidth=2;
 
-    ctx.lineWidth =
-        2;
-
-    ctx.setLineDash(
-        [7,5]
-    );
-
+    ctx.setLineDash([7,5]);
 
     ctx.strokeRect(
-
         box.x-5,
-
         box.y-5,
-
         box.width+10,
-
         box.height+10
-
     );
-
 
     ctx.setLineDash([]);
 
+    ctx.fillStyle="#8c68ff";
 
-    /* RESIZE HANDLE */
-
-    ctx.fillStyle =
-        "#8c68ff";
-
+    /* RESIZE */
 
     ctx.fillRect(
-
         box.right,
-
         box.bottom,
-
         11,
-
         11
-
     );
 
-
-    /* ROTATION LINE */
+    /* ROTATE */
 
     ctx.beginPath();
 
     ctx.moveTo(
-
         box.cx,
-
         box.y-5
-
     );
 
     ctx.lineTo(
-
         box.cx,
-
         box.y-34
-
     );
 
     ctx.stroke();
 
-
-    /* ROTATION HANDLE */
-
     ctx.beginPath();
 
     ctx.arc(
-
         box.cx,
-
         box.y-40,
-
         7,
-
         0,
-
         Math.PI*2
-
     );
 
     ctx.fill();
-
 
     ctx.restore();
 
 }
 
 
-/* =========================================================
-   LAYERS
-========================================================= */
+/* ================= LAYERS ================= */
 
 function updateLayers(){
 
-    layersEl.innerHTML =
-        "";
+    layersEl.innerHTML="";
 
 
     [...objects]
     .reverse()
-    .forEach(
-        obj => {
+    .forEach(obj => {
 
-            const layer =
-                document.createElement(
-                    "div"
-                );
+        const layer =
+            document.createElement("div");
 
-
-            layer.className =
-                "layer " +
-                (
-                    obj.id ===
-                    selectedId
-                    ? "selected"
-                    : ""
-                );
+        layer.className =
+            "layer " +
+            (
+                obj.id===selectedId
+                ? "selected"
+                : ""
+            );
 
 
-            let icon =
-                "✨";
+        let icon="✨";
+
+        if(obj.type==="text")
+            icon="T";
+
+        if(obj.type==="image")
+            icon="🖼️";
+
+        if(obj.type==="shape")
+            icon="🔷";
+
+        if(obj.type==="stroke")
+            icon=
+                obj.erase
+                ? "🧹"
+                : "🖌️";
 
 
-            if(
-                obj.type === "text"
-            )
-                icon = "T";
+        layer.innerHTML=`
+
+            <span class="layer-icon">
+                ${icon}
+            </span>
+
+            <span class="layer-name">
+                ${escapeHTML(obj.name)}
+            </span>
+
+            <div class="layer-actions">
+
+                <button>
+                    ${obj.visible===false?"🙈":"👁️"}
+                </button>
+
+            </div>
+        `;
 
 
-            if(
-                obj.type === "image"
-            )
-                icon = "🖼️";
+        layer.addEventListener(
+            "click",
+            e => {
 
+                if(
+                    e.target.tagName==="BUTTON"
+                ){
 
-            if(
-                obj.type === "shape"
-            )
-                icon = "🔷";
+                    toggleVisibility(
+                        obj.id
+                    );
 
-
-            if(
-                obj.type === "stroke"
-            )
-                icon =
-                    obj.erase
-                    ? "🧹"
-                    : "🖌️";
-
-
-            layer.innerHTML = `
-
-                <span class="layer-icon">
-                    ${icon}
-                </span>
-
-                <span class="layer-name">
-                    ${escapeHTML(obj.name)}
-                </span>
-
-                <div class="layer-actions">
-
-                    <button
-                        onclick="
-                            event.stopPropagation();
-                            toggleVisibility('${obj.id}')
-                        ">
-
-                        ${
-                            obj.visible === false
-                            ? "🙈"
-                            : "👁️"
-                        }
-
-                    </button>
-
-                </div>
-
-            `;
-
-
-            layer.addEventListener(
-                "click",
-                () => {
-
-                    selectedId =
-                        obj.id;
-
-                    render();
-
-                    updateLayers();
+                    return;
 
                 }
-            );
+
+                selectedId =
+                    obj.id;
+
+                render();
+                updateLayers();
+
+            }
+        );
 
 
-            layersEl.appendChild(
-                layer
-            );
+        layersEl.appendChild(
+            layer
+        );
 
-        }
-    );
+    });
 
 }
 
-
-/* =========================================================
-   ESCAPE
-========================================================= */
 
 function escapeHTML(str){
 
     return String(str)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        );
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
 
 }
 
 
-/* =========================================================
-   VISIBILITY
-========================================================= */
+/* ================= VISIBILITY ================= */
 
 function toggleVisibility(id){
 
     saveHistory();
 
-
     const obj =
         objects.find(
-            o => o.id === id
+            o=>o.id===id
         );
-
 
     if(obj){
 
         obj.visible =
-            obj.visible === false;
+            obj.visible===false;
 
     }
 
-
     render();
-
     updateLayers();
 
 }
 
 
-/* =========================================================
-   DELETE
-========================================================= */
+/* ================= DELETE ================= */
 
 function deleteSelected(){
 
     if(!selectedId)
         return;
 
-
     saveHistory();
-
 
     objects =
         objects.filter(
-            o =>
-                o.id !==
-                selectedId
+            o=>o.id!==selectedId
         );
 
-
-    selectedId =
-        null;
-
+    selectedId=null;
 
     render();
-
     updateLayers();
 
 }
 
 
-/* =========================================================
-   DUPLICATE
-========================================================= */
+/* ================= DUPLICATE ================= */
 
 function duplicateSelected(){
 
     if(!selectedId)
         return;
 
-
     const original =
         objects.find(
-            o =>
-                o.id ===
-                selectedId
+            o=>o.id===selectedId
         );
-
 
     if(!original)
         return;
 
-
     saveHistory();
-
 
     const copy =
         JSON.parse(
-            JSON.stringify(
-                original
-            )
+            JSON.stringify(original)
         );
 
-
-    copy.id =
-        uid();
-
+    copy.id=uid();
 
     copy.name =
-        original.name +
-        " Copy";
+        original.name+" Copy";
 
 
-    if(
-        copy.type ===
-        "stroke"
-    ){
+    if(copy.type==="stroke"){
 
         copy.points =
-            copy.points.map(
-                p => ({
+            copy.points.map(p=>({
 
-                    x:p.x+20,
+                x:p.x+20,
+                y:p.y+20
 
-                    y:p.y+20
+            }));
 
-                })
-            );
+    }else{
 
-    }
-    else{
-
-        copy.x += 20;
-
-        copy.y += 20;
+        copy.x+=20;
+        copy.y+=20;
 
     }
 
 
     if(
-        original.type ===
-        "image"
+        original.type==="image"
     ){
 
         const img =
             new Image();
 
-        img.onload =
-            render;
+        img.onload=render;
 
         img.src =
             original.imageSrc;
 
-        copy.image =
-            img;
+        copy.image=img;
 
     }
 
 
-    objects.push(
-        copy
-    );
+    objects.push(copy);
 
-
-    selectedId =
-        copy.id;
-
+    selectedId=copy.id;
 
     render();
-
     updateLayers();
 
 }
 
 
-/* =========================================================
-   LAYER UP
-========================================================= */
+/* ================= LAYER UP ================= */
 
 function moveLayerUp(){
 
-    if(!selectedId)
-        return;
-
-
     const index =
         objects.findIndex(
-            o =>
-                o.id ===
-                selectedId
+            o=>o.id===selectedId
         );
 
-
     if(
-        index < 0 ||
-        index >=
-        objects.length-1
+        index<0 ||
+        index>=objects.length-1
     )
         return;
 
-
     saveHistory();
-
 
     [
         objects[index],
         objects[index+1]
-    ] =
-    [
+    ]=[
         objects[index+1],
         objects[index]
     ];
 
-
     render();
-
     updateLayers();
 
 }
 
 
-/* =========================================================
-   LAYER DOWN
-========================================================= */
+/* ================= LAYER DOWN ================= */
 
 function moveLayerDown(){
 
-    if(!selectedId)
-        return;
-
-
     const index =
         objects.findIndex(
-            o =>
-                o.id ===
-                selectedId
+            o=>o.id===selectedId
         );
 
-
-    if(index <= 0)
+    if(index<=0)
         return;
 
-
     saveHistory();
-
 
     [
         objects[index],
         objects[index-1]
-    ] =
-    [
+    ]=[
         objects[index-1],
         objects[index]
     ];
 
-
     render();
-
     updateLayers();
 
 }
 
 
-/* =========================================================
-   IMAGE UPLOAD
-========================================================= */
+/* ================= IMAGE ================= */
 
 function uploadImage(){
 
@@ -3673,10 +2554,8 @@ imageInput.addEventListener(
         const file =
             e.target.files[0];
 
-
         if(!file)
             return;
-
 
         const reader =
             new FileReader();
@@ -3694,60 +2573,44 @@ imageInput.addEventListener(
 
                         saveHistory();
 
-
                         let width =
                             img.width;
 
                         let height =
                             img.height;
 
-
-                        const max =
-                            420;
+                        const max=420;
 
 
-                        if(
-                            width > max
-                        ){
+                        if(width>max){
 
                             const ratio =
-                                max /
-                                width;
+                                max/width;
 
-                            width =
-                                max;
-
-                            height *=
-                                ratio;
+                            width=max;
+                            height*=ratio;
 
                         }
 
 
-                        if(
-                            height > max
-                        ){
+                        if(height>max){
 
                             const ratio =
-                                max /
-                                height;
+                                max/height;
 
-                            height =
-                                max;
-
-                            width *=
-                                ratio;
+                            height=max;
+                            width*=ratio;
 
                         }
 
 
-                        const obj = {
+                        const obj={
 
                             id:uid(),
 
                             type:"image",
 
-                            name:
-                                file.name,
+                            name:file.name,
 
                             imageSrc:
                                 event.target.result,
@@ -3755,19 +2618,12 @@ imageInput.addEventListener(
                             image:img,
 
                             x:
-                                (
-                                    canvas.width -
-                                    width
-                                ) / 2,
+                                (canvas.width-width)/2,
 
                             y:
-                                (
-                                    canvas.height -
-                                    height
-                                ) / 2,
+                                (canvas.height-height)/2,
 
                             width,
-
                             height,
 
                             opacity:
@@ -3782,17 +2638,11 @@ imageInput.addEventListener(
                         };
 
 
-                        objects.push(
-                            obj
-                        );
+                        objects.push(obj);
 
-
-                        selectedId =
-                            obj.id;
-
+                        selectedId=obj.id;
 
                         render();
-
                         updateLayers();
 
                     };
@@ -3804,58 +2654,43 @@ imageInput.addEventListener(
             };
 
 
-        reader.readAsDataURL(
-            file
-        );
+        reader.readAsDataURL(file);
 
-
-        imageInput.value =
-            "";
+        imageInput.value="";
 
     }
 );
 
 
-/* =========================================================
-   REBUILD IMAGES
-========================================================= */
+/* ================= IMAGE RESTORE ================= */
 
 function rebuildImages(){
 
-    objects.forEach(
-        obj => {
+    objects.forEach(obj => {
 
-            if(
-                obj.type === "image" &&
-                obj.imageSrc
-            ){
+        if(
+            obj.type==="image" &&
+            obj.imageSrc
+        ){
 
-                const img =
-                    new Image();
+            const img =
+                new Image();
 
+            img.onload=render;
 
-                img.onload =
-                    () => render();
+            img.src =
+                obj.imageSrc;
 
-
-                img.src =
-                    obj.imageSrc;
-
-
-                obj.image =
-                    img;
-
-            }
+            obj.image=img;
 
         }
-    );
+
+    });
 
 }
 
 
-/* =========================================================
-   NEW PROJECT
-========================================================= */
+/* ================= NEW ================= */
 
 function newProject(){
 
@@ -3863,189 +2698,133 @@ function newProject(){
         !confirm(
             "Start a new DrawLab project?"
         )
-    ){
-
-        return;
-
-    }
-
-
-    saveHistory();
-
-
-    objects =
-        [];
-
-
-    selectedId =
-        null;
-
-
-    render();
-
-    updateLayers();
-
-}
-
-
-/* =========================================================
-   CLEAR
-========================================================= */
-
-function clearCanvas(){
-
-    if(
-        !objects.length
     )
         return;
 
-
     saveHistory();
 
+    objects=[];
 
-    objects =
-        [];
-
-
-    selectedId =
-        null;
-
+    selectedId=null;
 
     render();
-
     updateLayers();
 
 }
 
 
-/* =========================================================
-   EXPORT
-========================================================= */
+/* ================= CLEAR ================= */
+
+function clearCanvas(){
+
+    if(!objects.length)
+        return;
+
+    saveHistory();
+
+    objects=[];
+
+    selectedId=null;
+
+    render();
+    updateLayers();
+
+}
+
+
+/* ================= EXPORT ================= */
 
 function exportPNG(){
 
-    const oldSelected =
+    const old =
         selectedId;
 
-
-    selectedId =
-        null;
-
+    selectedId=null;
 
     render();
 
 
     const link =
-        document.createElement(
-            "a"
-        );
-
+        document.createElement("a");
 
     link.download =
         "drawlab-artwork.png";
-
 
     link.href =
         canvas.toDataURL(
             "image/png"
         );
 
-
     link.click();
 
 
-    selectedId =
-        oldSelected;
-
+    selectedId=old;
 
     render();
-
     updateLayers();
 
 }
 
 
-/* =========================================================
-   ZOOM
-========================================================= */
+/* ================= ZOOM ================= */
 
 function updateZoom(){
 
     canvasWrap.style.transform =
         `scale(${zoom})`;
 
-
-    document
-    .getElementById(
+    document.getElementById(
         "zoomLabel"
-    )
-    .textContent =
-        Math.round(
-            zoom * 100
-        ) + "%";
+    ).textContent =
+        Math.round(zoom*100)+"%";
 
 }
-
 
 function zoomIn(){
 
-    zoom =
+    zoom=
         Math.min(
             2.5,
-            zoom + .1
+            zoom+.1
         );
-
 
     updateZoom();
 
 }
-
 
 function zoomOut(){
 
-    zoom =
+    zoom=
         Math.max(
             .3,
-            zoom - .1
+            zoom-.1
         );
-
 
     updateZoom();
 
 }
-
 
 function resetZoom(){
 
-    zoom =
-        1;
-
+    zoom=1;
 
     updateZoom();
 
 }
 
 
-/* =========================================================
-   MOBILE PANEL
-========================================================= */
+/* ================= PANEL ================= */
 
 function togglePanel(){
 
     document
-        .getElementById(
-            "panel"
-        )
-        .classList.toggle(
-            "open"
-        );
+        .getElementById("panel")
+        .classList.toggle("open");
 
 }
 
 
-/* =========================================================
-   COLOR
-========================================================= */
+/* ================= COLORS ================= */
 
 colorPicker.addEventListener(
     "input",
@@ -4054,20 +2833,15 @@ colorPicker.addEventListener(
         if(!selectedId)
             return;
 
-
         const obj =
             objects.find(
-                o =>
-                    o.id ===
-                    selectedId
+                o=>o.id===selectedId
             );
-
 
         if(obj){
 
             obj.color =
                 colorPicker.value;
-
 
             render();
 
@@ -4077,62 +2851,46 @@ colorPicker.addEventListener(
 );
 
 
-/* =========================================================
-   PALETTE
-========================================================= */
-
 document
-.querySelectorAll(
-    ".palette button"
-)
-.forEach(
-    button => {
+.querySelectorAll(".palette button")
+.forEach(button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+    button.addEventListener(
+        "click",
+        () => {
 
-                const color =
-                    button.dataset.color;
+            const color =
+                button.dataset.color;
 
+            colorPicker.value =
+                color;
 
-                colorPicker.value =
-                    color;
+            if(selectedId){
 
+                const obj =
+                    objects.find(
+                        o=>o.id===selectedId
+                    );
 
-                if(selectedId){
+                if(obj){
 
-                    const obj =
-                        objects.find(
-                            o =>
-                                o.id ===
-                                selectedId
-                        );
+                    obj.color=color;
 
-
-                    if(obj){
-
-                        obj.color =
-                            color;
-
-                        render();
-
-                    }
+                    render();
 
                 }
 
             }
-        );
 
-    }
-);
+        }
+    );
+
+});
 
 
-/* =========================================================
-   BRUSH LIBRARY
-========================================================= */
+/* ================= BRUSHES ================= */
 
-const brushPresets = {
+const brushPresets={
 
     pencil:{
         size:4,
@@ -4168,65 +2926,62 @@ const brushPresets = {
 
 
 document
-.querySelectorAll(
-    ".brush-preset"
-)
-.forEach(
-    button => {
+.querySelectorAll(".brush-preset")
+.forEach(button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+    button.addEventListener(
+        "click",
+        () => {
 
-                document
-                .querySelectorAll(
-                    ".brush-preset"
-                )
-                .forEach(
-                    b =>
-                        b.classList.remove(
-                            "active"
-                        )
+            document
+            .querySelectorAll(
+                ".brush-preset"
+            )
+            .forEach(
+                b =>
+                    b.classList.remove(
+                        "active"
+                    )
+            );
+
+            button.classList.add(
+                "active"
+            );
+
+            currentBrush =
+                button.dataset.brush;
+
+            const preset =
+                brushPresets[
+                    currentBrush
+                ];
+
+            sizeInput.value =
+                preset.size;
+
+            opacityInput.value =
+                preset.opacity;
+
+            currentTool="brush";
+
+            document
+            .querySelectorAll(".tool")
+            .forEach(b => {
+
+                b.classList.toggle(
+                    "active",
+                    b.dataset.tool==="brush"
                 );
 
+            });
 
-                button.classList.add(
-                    "active"
-                );
+        }
+    );
 
-
-                currentBrush =
-                    button.dataset.brush;
+});
 
 
-                const preset =
-                    brushPresets[
-                        currentBrush
-                    ];
-
-
-                sizeInput.value =
-                    preset.size;
-
-
-                opacityInput.value =
-                    preset.opacity;
-
-
-                setTool(
-                    "brush"
-                );
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   SIZE
-========================================================= */
+/* ================= SIZE ================= */
 
 sizeInput.addEventListener(
     "input",
@@ -4235,22 +2990,16 @@ sizeInput.addEventListener(
         if(!selectedId)
             return;
 
-
         const obj =
             objects.find(
-                o =>
-                    o.id ===
-                    selectedId
+                o=>o.id===selectedId
             );
-
 
         if(
             obj &&
             (
-                obj.type ===
-                "stroke" ||
-                obj.type ===
-                "shape"
+                obj.type==="stroke" ||
+                obj.type==="shape"
             )
         ){
 
@@ -4259,7 +3008,6 @@ sizeInput.addEventListener(
                     sizeInput.value
                 );
 
-
             render();
 
         }
@@ -4268,9 +3016,7 @@ sizeInput.addEventListener(
 );
 
 
-/* =========================================================
-   OPACITY
-========================================================= */
+/* ================= OPACITY ================= */
 
 opacityInput.addEventListener(
     "input",
@@ -4279,14 +3025,10 @@ opacityInput.addEventListener(
         if(!selectedId)
             return;
 
-
         const obj =
             objects.find(
-                o =>
-                    o.id ===
-                    selectedId
+                o=>o.id===selectedId
             );
-
 
         if(obj){
 
@@ -4294,7 +3036,6 @@ opacityInput.addEventListener(
                 parseFloat(
                     opacityInput.value
                 );
-
 
             render();
 
@@ -4304,9 +3045,7 @@ opacityInput.addEventListener(
 );
 
 
-/* =========================================================
-   KEYBOARD SHORTCUTS
-========================================================= */
+/* ================= KEYBOARD ================= */
 
 document.addEventListener(
     "keydown",
@@ -4314,82 +3053,59 @@ document.addEventListener(
 
         if(
             e.ctrlKey &&
-            e.key.toLowerCase() ===
-            "z"
+            e.key.toLowerCase()==="z"
         ){
 
             e.preventDefault();
-
             undo();
 
         }
 
-
         if(
             e.ctrlKey &&
-            e.key.toLowerCase() ===
-            "y"
+            e.key.toLowerCase()==="y"
         ){
 
             e.preventDefault();
-
             redo();
 
         }
 
-
-        if(
-            e.key ===
-            "Delete"
-        ){
-
+        if(e.key==="Delete")
             deleteSelected();
 
-        }
+        if(e.key.toLowerCase()==="v")
+            setTool("select");
 
+        if(e.key.toLowerCase()==="b")
+            setTool("brush");
 
-        if(
-            e.key.toLowerCase() ===
-            "v"
-        ){
-
-            setTool(
-                "select"
-            );
-
-        }
-
-
-        if(
-            e.key.toLowerCase() ===
-            "b"
-        ){
-
-            setTool(
-                "brush"
-            );
-
-        }
-
-
-        if(
-            e.key.toLowerCase() ===
-            "e"
-        ){
-
-            setTool(
-                "eraser"
-            );
-
-        }
+        if(e.key.toLowerCase()==="e")
+            setTool("eraser");
 
     }
 );
 
 
-/* =========================================================
-   INIT
-========================================================= */
+function setTool(tool){
+
+    currentTool=tool;
+
+    document
+    .querySelectorAll(".tool")
+    .forEach(b => {
+
+        b.classList.toggle(
+            "active",
+            b.dataset.tool===tool
+        );
+
+    });
+
+}
+
+
+/* ================= INIT ================= */
 
 render();
 
