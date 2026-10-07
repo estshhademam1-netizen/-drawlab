@@ -1,17 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-<title>DrawLab V5.3</title>
+<title>DrawLab V5.4</title>
 
 <style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+
+    --bg:#f7f5ff;
+    --panel:#ffffff;
+    --primary:#8b7cf6;
+    --primary-dark:#6f60dc;
+    --pink:#ff8fb1;
+    --text:#332f44;
+    --muted:#817b91;
+    --border:#e8e3f3;
+    --shadow:
+        0 10px 30px rgba(90,75,130,.12);
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
     box-sizing:border-box;
@@ -19,676 +43,699 @@
     padding:0;
 }
 
-html,
+
 body{
-    width:100%;
-    height:100%;
+
+    font-family:
+        Arial,
+        "Noto Naskh Arabic",
+        Tahoma,
+        sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
     overflow:hidden;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f7f5ff;
+
 }
 
-button,
-input,
-select{
-    font:inherit;
-}
 
-.app{
-    width:100%;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-}
-
-/* ================= HEADER ================= */
+/* =========================================================
+   HEADER
+========================================================= */
 
 header{
+
     height:64px;
-    flex-shrink:0;
-    background:rgba(255,255,255,.97);
-    border-bottom:1px solid #e8e3f5;
+
+    background:white;
+
+    border-bottom:
+        1px solid var(--border);
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
-    padding:0 18px;
+    padding:
+        0 18px;
 
-    z-index:500;
+    position:relative;
+
+    z-index:100;
+
 }
+
 
 .logo{
-    font-size:22px;
-    font-weight:800;
-    color:#6c5ce7;
-}
 
-.logo span{
-    color:#ff6b9d;
-}
-
-.header-actions{
     display:flex;
-    gap:8px;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:20px;
+
+    font-weight:800;
+
+    color:var(--primary);
+
 }
 
-.header-btn{
-    border:none;
-    background:#f1edff;
-    color:#5f50c8;
+
+.logo-icon{
+
+    width:38px;
+
+    height:38px;
 
     border-radius:12px;
-    padding:9px 13px;
-
-    cursor:pointer;
-    font-weight:700;
-}
-
-.header-btn:hover{
-    background:#e7e1ff;
-}
-
-/* ================= MAIN ================= */
-
-.main{
-    flex:1;
-    min-height:0;
-    display:flex;
-    position:relative;
-}
-
-/* ================= WORKSPACE ================= */
-
-.workspace{
-    flex:1;
-    min-width:0;
-    min-height:0;
-
-    position:relative;
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            45deg,
-            #f2effb 25%,
-            transparent 25%
-        ),
-        linear-gradient(
-            -45deg,
-            #f2effb 25%,
-            transparent 25%
-        ),
-        linear-gradient(
-            45deg,
-            transparent 75%,
-            #f2effb 75%
-        ),
-        linear-gradient(
-            -45deg,
-            transparent 75%,
-            #f2effb 75%
-        );
-
-    background-size:28px 28px;
-
-    background-position:
-        0 0,
-        0 14px,
-        14px -14px,
-        -14px 0;
-}
-
-.canvas-wrap{
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    transform:
-        translate(-50%,-50%);
-
-    transform-origin:center center;
-
-    background:white;
-
-    box-shadow:
-        0 15px 45px
-        rgba(60,40,100,.18);
-
-    border-radius:6px;
-
-    overflow:hidden;
-}
-
-#canvas{
-    display:block;
-
-    background:white;
-
-    touch-action:none;
-}
-
-/* ================= ZOOM ================= */
-
-.zoom-controls{
-    position:absolute;
-
-    bottom:14px;
-    left:50%;
-
-    transform:translateX(-50%);
 
     display:flex;
-    align-items:center;
-    gap:5px;
-
-    padding:6px;
-
-    background:rgba(255,255,255,.96);
-
-    border:1px solid #e5def5;
-
-    border-radius:15px;
-
-    box-shadow:
-        0 5px 20px
-        rgba(70,50,100,.12);
-
-    z-index:80;
-}
-
-.zoom-btn{
-    width:34px;
-    height:34px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#f1edff;
-
-    color:#6555d6;
-
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.zoom-value{
-    min-width:58px;
-
-    text-align:center;
-
-    font-size:13px;
-
-    font-weight:700;
-
-    color:#555;
-}
-
-/* ================= TOOLBAR ================= */
-
-.toolbar{
-    width:82px;
-
-    flex-shrink:0;
-
-    background:white;
-
-    border-right:1px solid #e8e3f5;
-
-    display:flex;
-
-    flex-direction:column;
 
     align-items:center;
-
-    padding:12px 8px;
-
-    gap:8px;
-
-    z-index:300;
-
-    overflow-y:auto;
-}
-
-.tool{
-    width:58px;
-    height:52px;
-
-    flex-shrink:0;
-
-    border:none;
-
-    border-radius:15px;
-
-    background:#f5f2ff;
-
-    color:#6658c9;
-
-    cursor:pointer;
-
-    display:flex;
-
-    flex-direction:column;
 
     justify-content:center;
 
+    background:
+        linear-gradient(
+            135deg,
+            #ddd7ff,
+            #ffd9e6
+        );
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+
+    height:
+        calc(100vh - 64px);
+
+    display:flex;
+
+    position:relative;
+
+}
+
+
+/* =========================================================
+   WORKSPACE
+========================================================= */
+
+.workspace{
+
+    flex:1;
+
+    min-width:0;
+
+    position:relative;
+
+    display:flex;
+
     align-items:center;
 
-    gap:3px;
+    justify-content:center;
 
-    font-size:20px;
+    overflow:hidden;
+
 }
 
-.tool small{
-    font-size:9px;
-    font-weight:700;
+
+/* =========================================================
+   CANVAS WRAPPER
+========================================================= */
+
+.canvas-wrap{
+
+    position:relative;
+
+    width:
+        min(92vw,1100px);
+
+    height:
+        min(82vh,720px);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
 }
 
-.tool:hover{
-    background:#ebe5ff;
-}
 
-.tool.active{
-    background:#6c5ce7;
-    color:white;
+#canvas{
+
+    background:white;
+
+    border:
+        1px solid #ddd7e8;
+
+    border-radius:18px;
 
     box-shadow:
-        0 5px 15px
-        rgba(108,92,231,.25);
+        0 18px 50px
+        rgba(80,65,120,.15);
+
+    max-width:100%;
+
+    max-height:100%;
+
+    touch-action:none;
+
 }
 
-.tool-menu{
-    display:none;
+
+/* =========================================================
+   ZOOM
+========================================================= */
+
+.zoom-controls{
+
+    position:absolute;
+
+    bottom:18px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    background:white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:6px;
+
+    box-shadow:var(--shadow);
+
+    z-index:30;
+
 }
 
-/* ================= PANEL ================= */
 
-.panel{
-    width:330px;
+.zoom-controls button{
 
-    flex-shrink:0;
+    border:0;
 
-    background:rgba(255,255,255,.98);
+    background:#f3f0fb;
 
-    border-left:1px solid #e8e3f5;
+    width:34px;
 
-    padding:16px;
+    height:34px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+
+#zoomValue{
+
+    min-width:54px;
+
+    text-align:center;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.toolbar{
+
+    width:70px;
+
+    background:white;
+
+    border-right:
+        1px solid var(--border);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:10px 7px;
 
     overflow-y:auto;
 
-    z-index:200;
+    z-index:50;
+
 }
 
-.panel-top{
+
+.tool{
+
+    width:52px;
+
+    height:46px;
+
+    border:0;
+
+    background:transparent;
+
+    border-radius:13px;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    transition:.2s;
+
+    position:relative;
+
+}
+
+
+.tool:hover{
+
+    background:#f3efff;
+
+}
+
+
+.tool.active{
+
+    background:
+        linear-gradient(
+            135deg,
+            #eeeaff,
+            #ffeaf2
+        );
+
+    color:var(--primary-dark);
+
+}
+
+
+.tool span{
+
+    display:block;
+
+    font-size:9px;
+
+    margin-top:2px;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.panel{
+
+    width:320px;
+
+    background:white;
+
+    border-left:
+        1px solid var(--border);
+
+    overflow-y:auto;
+
+    padding:16px;
+
+    box-shadow:
+        -10px 0 30px
+        rgba(80,65,120,.06);
+
+    z-index:60;
+
+}
+
+
+.panel.hidden{
+
+    display:none;
+
+}
+
+
+.panel-close{
+
+    display:none;
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+
+    width:32px;
+
+    height:32px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#f4f0fb;
+
+    cursor:pointer;
+
+}
+
+
+/* =========================================================
+   PANEL SECTIONS
+========================================================= */
+
+.panel-section{
+
+    margin-bottom:20px;
+
+}
+
+
+.panel-title{
+
+    font-size:14px;
+
+    font-weight:800;
+
+    margin-bottom:12px;
+
     display:flex;
 
     align-items:center;
 
     justify-content:space-between;
 
-    margin-bottom:14px;
 }
 
-.panel-title{
-    font-size:18px;
-
-    font-weight:800;
-
-    color:#5145a8;
-}
-
-.close-panel-btn{
-    width:38px;
-    height:38px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:#ffe8f0;
-
-    color:#e64f83;
-
-    cursor:pointer;
-
-    font-size:20px;
-
-    font-weight:bold;
-}
-
-.close-panel-btn:hover{
-    background:#ffd8e5;
-}
-
-.panel-section{
-    background:#faf9ff;
-
-    border:1px solid #eeeafb;
-
-    border-radius:16px;
-
-    padding:13px;
-
-    margin-bottom:12px;
-}
-
-.section-title{
-    font-size:12px;
-
-    font-weight:800;
-
-    color:#777;
-
-    margin-bottom:10px;
-
-    text-transform:uppercase;
-}
-
-/* ================= COLORS ================= */
-
-.color-row{
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:8px;
-}
-
-.color{
-    width:29px;
-    height:29px;
-
-    border-radius:50%;
-
-    border:3px solid white;
-
-    box-shadow:
-        0 0 0 1px #ddd;
-
-    cursor:pointer;
-}
-
-.color.active{
-    box-shadow:
-        0 0 0 3px #6c5ce7;
-}
-
-.custom-color{
-    width:100%;
-    height:40px;
-
-    border:none;
-
-    padding:0;
-
-    background:transparent;
-
-    cursor:pointer;
-}
-
-/* ================= BRUSHES ================= */
-
-.brush-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:8px;
-}
-
-.brush{
-    border:1px solid #e4dff5;
-
-    background:white;
-
-    border-radius:12px;
-
-    padding:9px 6px;
-
-    cursor:pointer;
-
-    color:#555;
-
-    font-size:12px;
-
-    font-weight:700;
-}
-
-.brush.active{
-    border-color:#6c5ce7;
-
-    background:#eeeaff;
-
-    color:#5b4ec5;
-}
-
-/* ================= CONTROLS ================= */
 
 .control{
-    margin-bottom:13px;
+
+    margin-bottom:12px;
+
 }
 
+
 .control label{
+
     display:flex;
 
     justify-content:space-between;
 
     margin-bottom:6px;
 
-    font-size:12px;
+    font-size:11px;
+
+    color:var(--muted);
 
     font-weight:700;
 
-    color:#666;
 }
+
 
 input[type="range"]{
+
     width:100%;
 
-    accent-color:#6c5ce7;
+    accent-color:var(--primary);
+
 }
 
-.action-row{
-    display:grid;
 
-    grid-template-columns:
-        1fr 1fr;
+button{
 
-    gap:8px;
+    font-family:inherit;
+
 }
 
-.action-btn{
-    border:none;
 
-    border-radius:11px;
+.primary-btn{
 
-    background:#eeeaff;
+    width:100%;
 
-    color:#5c4fc2;
+    border:0;
 
-    padding:9px;
+    border-radius:12px;
 
-    cursor:pointer;
+    padding:10px;
 
-    font-size:12px;
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            #a99dff
+        );
 
-    font-weight:700;
-}
-
-.action-btn:hover{
-    background:#e2dcff;
-}
-
-/* ================= LAYERS ================= */
-
-.layers{
-    display:flex;
-
-    flex-direction:column;
-
-    gap:6px;
-}
-
-.layer{
-    display:flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    background:white;
-
-    border:1px solid #e8e3f5;
-
-    border-radius:10px;
-
-    padding:8px;
-
-    cursor:pointer;
-}
-
-.layer.active{
-    border-color:#6c5ce7;
-
-    background:#f1edff;
-}
-
-.layer-name{
-    flex:1;
-
-    font-size:12px;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
-    white-space:nowrap;
-}
-
-.layer-actions{
-    display:flex;
-
-    gap:3px;
-}
-
-.layer-actions button{
-    border:none;
-
-    background:#f1edff;
-
-    border-radius:6px;
-
-    width:23px;
-    height:23px;
-
-    cursor:pointer;
-
-    font-size:11px;
-}
-
-/* =====================================================
-   FABRIC STUDIO
-===================================================== */
-
-.fabric-studio{
-    display:none;
-
-    margin-bottom:14px;
-}
-
-.fabric-studio.show{
-    display:block;
-}
-
-.fabric-title{
-    font-size:18px;
+    color:white;
 
     font-weight:800;
 
-    color:#5145a8;
+    cursor:pointer;
 
-    margin-bottom:4px;
 }
 
-.fabric-subtitle{
-    font-size:11px;
 
-    color:#888;
+/* =========================================================
+   COLOR PALETTE
+========================================================= */
 
-    margin-bottom:14px;
-}
+.palette{
 
-.fabric-grid{
     display:grid;
 
     grid-template-columns:
-        1fr 1fr;
+        repeat(7,1fr);
 
-    gap:8px;
+    gap:7px;
 
-    margin-bottom:15px;
 }
 
-.fabric-card{
-    min-height:88px;
 
-    border:1px solid #e5e0f3;
+.color-dot{
 
-    background:white;
+    width:28px;
 
-    border-radius:14px;
+    height:28px;
+
+    border-radius:9px;
+
+    border:
+        2px solid white;
+
+    box-shadow:
+        0 0 0 1px #ddd7e8;
 
     cursor:pointer;
 
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:3px;
-
-    color:#555;
-
-    transition:.2s;
 }
 
-.fabric-card:hover{
-    transform:translateY(-2px);
+
+.color-dot.active{
+
+    box-shadow:
+        0 0 0 2px var(--primary);
+
 }
+
+
+/* =========================================================
+   BRUSH PRESETS
+========================================================= */
+
+.brush-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:7px;
+
+}
+
+
+.brush-card{
+
+    border:
+        1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:9px 5px;
+
+    background:#fff;
+
+    cursor:pointer;
+
+    text-align:center;
+
+    font-size:10px;
+
+}
+
+
+.brush-card.active{
+
+    border-color:
+        var(--primary);
+
+    background:#f4f1ff;
+
+}
+
+
+/* =========================================================
+   FONT
+========================================================= */
+
+.font-select{
+
+    width:100%;
+
+    padding:10px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+
+    background:white;
+
+    outline:none;
+
+}
+
+
+.text-input{
+
+    width:100%;
+
+    min-height:70px;
+
+    resize:vertical;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:10px;
+
+    font-size:14px;
+
+    outline:none;
+
+}
+
+
+/* =========================================================
+   FABRIC
+========================================================= */
+
+.fabric-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+
+}
+
+
+.fabric-card{
+
+    border:
+        1px solid var(--border);
+
+    border-radius:13px;
+
+    padding:10px;
+
+    cursor:pointer;
+
+    background:white;
+
+}
+
 
 .fabric-card.active{
-    border:2px solid #6c5ce7;
 
-    background:#f1edff;
+    border-color:
+        var(--primary);
 
-    color:#5749c0;
+    background:#f5f2ff;
+
 }
 
-.fabric-icon{
-    font-size:24px;
+
+.fabric-preview{
+
+    height:48px;
+
+    border-radius:9px;
+
+    margin-bottom:7px;
+
 }
+
 
 .fabric-card strong{
-    font-size:12px;
+
+    display:block;
+
+    font-size:11px;
+
 }
+
 
 .fabric-card small{
+
+    color:var(--muted);
+
     font-size:9px;
 
-    color:#999;
 }
+
 
 .fabric-control{
-    margin-bottom:14px;
+
+    margin-top:12px;
+
 }
 
+
 .fabric-control label{
+
     display:flex;
 
     justify-content:space-between;
@@ -697,62 +744,56 @@ input[type="range"]{
 
     font-weight:700;
 
-    color:#666;
+    color:var(--muted);
 
-    margin-bottom:5px;
+    margin-bottom:6px;
+
 }
 
-.fabric-control input{
-    width:100%;
-
-    accent-color:#6c5ce7;
-}
 
 .fabric-mode-btn{
+
     width:100%;
 
-    border:none;
+    border:0;
 
     border-radius:12px;
 
     padding:11px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #6c5ce7,
-            #a55eea
-        );
+    margin-top:10px;
 
-    color:white;
+    background:#f1edff;
+
+    color:#6758c7;
 
     font-weight:800;
 
     cursor:pointer;
+
 }
 
-.fabric-mode-btn.active{
-    background:
-        linear-gradient(
-            135deg,
-            #ff6b9d,
-            #ff9f43
-        );
-}
 
-/* ================= FONT STUDIO ================= */
+/* =========================================================
+   OBJECT BUTTONS
+========================================================= */
 
-.font-grid{
+.object-actions{
+
     display:grid;
 
     grid-template-columns:
-        1fr 1fr;
+        repeat(2,1fr);
 
     gap:7px;
+
 }
 
-.font-btn{
-    border:1px solid #e4dff5;
+
+.object-actions button{
+
+    border:
+        1px solid var(--border);
 
     background:white;
 
@@ -762,232 +803,249 @@ input[type="range"]{
 
     cursor:pointer;
 
-    font-size:13px;
+    font-size:11px;
+
 }
 
-.font-btn.active{
-    border-color:#6c5ce7;
 
-    background:#eeeaff;
+/* =========================================================
+   LAYERS
+========================================================= */
+
+.layers{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
 }
 
-.text-settings{
-    display:none;
-}
 
-.text-settings.show{
-    display:block;
-}
+.layer{
 
-.text-input{
-    width:100%;
+    display:flex;
 
-    border:1px solid #ddd6f0;
+    align-items:center;
+
+    gap:7px;
+
+    padding:8px;
+
+    border:
+        1px solid var(--border);
 
     border-radius:10px;
 
-    padding:10px;
+    cursor:pointer;
 
-    outline:none;
+    font-size:11px;
 
-    margin-bottom:8px;
 }
 
-.font-select{
-    width:100%;
 
-    border:1px solid #ddd6f0;
+.layer.selected{
 
-    background:white;
+    background:#f2efff;
 
-    border-radius:10px;
+    border-color:
+        var(--primary);
 
-    padding:9px;
-
-    margin-bottom:8px;
 }
 
-/* ================= OVERLAY ================= */
 
-.panel-overlay{
-    display:none;
+.layer-name{
+
+    flex:1;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
 }
 
-/* ================= MOBILE ================= */
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:850px){
 
+    body{
+        overflow:hidden;
+    }
+
     header{
-        height:58px;
-
-        padding:0 12px;
-    }
-
-    .logo{
-        font-size:19px;
-    }
-
-    .header-btn{
-        padding:8px 10px;
-
-        font-size:12px;
+        height:56px;
     }
 
     .main{
+
+        height:
+            calc(100vh - 56px);
+
         flex-direction:column;
+
     }
 
     .workspace{
+
         order:1;
 
-        width:100%;
+        height:
+            calc(100% - 72px);
 
-        height:auto;
-
-        flex:1;
     }
 
     .toolbar{
+
         order:2;
 
         width:100%;
 
-        height:76px;
+        height:72px;
 
-        flex-shrink:0;
-
-        border-right:none;
-
-        border-top:1px solid #e8e3f5;
+        min-height:72px;
 
         flex-direction:row;
-
-        justify-content:flex-start;
-
-        padding:8px 10px;
-
-        gap:8px;
 
         overflow-x:auto;
 
         overflow-y:hidden;
+
+        border-right:0;
+
+        border-top:
+            1px solid var(--border);
+
+        padding:7px;
+
     }
 
     .tool{
-        flex:0 0 58px;
 
-        height:58px;
-    }
+        min-width:54px;
 
-    .tool-menu{
-        display:flex;
+        height:54px;
 
-        background:#6c5ce7;
-
-        color:white;
     }
 
     .panel{
+
         position:absolute;
 
-        right:0;
+        left:8px;
 
-        top:0;
+        right:8px;
 
-        bottom:76px;
+        bottom:80px;
 
-        width:min(340px,90vw);
+        width:auto;
 
-        border-left:1px solid #e2dcf3;
+        max-height:
+            calc(100vh - 150px);
+
+        border:
+            1px solid var(--border);
+
+        border-radius:18px;
 
         box-shadow:
-            -10px 0 35px
-            rgba(50,40,90,.18);
+            0 20px 50px
+            rgba(60,50,100,.22);
 
-        transform:translateX(105%);
-
-        transition:
-            transform .25s ease;
-
-        z-index:250;
     }
 
-    .panel.open{
-        transform:translateX(0);
-    }
-
-    .panel-overlay{
+    .panel-close{
         display:block;
-
-        position:absolute;
-
-        inset:0;
-
-        background:
-            rgba(35,25,60,.22);
-
-        opacity:0;
-
-        pointer-events:none;
-
-        transition:opacity .25s ease;
-
-        z-index:180;
     }
 
-    .panel-overlay.open{
-        opacity:1;
+    .canvas-wrap{
 
-        pointer-events:auto;
+        width:94vw;
+
+        height:78vh;
+
     }
 
     .zoom-controls{
-        bottom:10px;
+
+        bottom:8px;
+
     }
+
 }
 
-@media(max-width:430px){
 
-    .header-btn:nth-child(2){
-        display:none;
-    }
+/* =========================================================
+   DESKTOP PANEL
+========================================================= */
+
+@media(min-width:851px){
 
     .panel{
-        width:92vw;
+        position:relative;
     }
 
-    .zoom-btn{
-        width:32px;
-        height:32px;
-    }
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+
+    width:6px;
+    height:6px;
+
+}
+
+
+::-webkit-scrollbar-thumb{
+
+    background:#d8d2e7;
+
+    border-radius:10px;
+
 }
 
 </style>
-</head>
 
+</head>
 
 <body>
 
-<div class="app">
 
 <header>
 
     <div class="logo">
-        Draw<span>Lab</span> 🎨
+
+        <div class="logo-icon">
+            🎨
+        </div>
+
+        DrawLab
+
     </div>
 
-    <div class="header-actions">
+    <div>
 
         <button
-            class="header-btn"
-            onclick="newProject()">
-            ＋ New
-        </button>
-
-        <button
-            class="header-btn"
-            onclick="exportPNG()">
-            ⬇ Export
+            onclick="newProject()"
+            style="
+                border:0;
+                background:#f2effb;
+                border-radius:10px;
+                padding:8px 12px;
+                cursor:pointer;
+                font-weight:700;
+            "
+        >
+            New
         </button>
 
     </div>
@@ -997,641 +1055,750 @@ input[type="range"]{
 
 <div class="main">
 
-<!-- =====================================================
-     TOOLBAR
-===================================================== -->
 
-<aside class="toolbar">
+    <!-- =====================================================
+         TOOLBAR
+    ====================================================== -->
 
-    <button
-        class="tool tool-menu"
-        onclick="togglePanel()">
-
-        ☰
-        <small>Menu</small>
-
-    </button>
-
-
-    <button
-        class="tool active"
-        data-tool="select"
-        onclick="setTool('select')">
-
-        🖱️
-        <small>Select</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        data-tool="brush"
-        onclick="setTool('brush')">
-
-        🖌️
-        <small>Brush</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        data-tool="eraser"
-        onclick="setTool('eraser')">
-
-        🧽
-        <small>Eraser</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        data-tool="fill"
-        onclick="setTool('fill')">
-
-        🪣
-        <small>Fill</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        data-tool="picker"
-        onclick="setTool('picker')">
-
-        💧
-        <small>Picker</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        data-tool="line"
-        onclick="setTool('line')">
-
-        ╱
-        <small>Line</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        data-tool="rect"
-        onclick="setTool('rect')">
-
-        ▭
-        <small>Square</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        data-tool="circle"
-        onclick="setTool('circle')">
-
-        ○
-        <small>Circle</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        data-tool="text"
-        onclick="setTool('text')">
-
-        T
-        <small>Text</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        data-tool="fabric"
-        onclick="toggleFabricStudio()">
-
-        🧵
-        <small>Fabric</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        onclick="uploadImage()">
-
-        🖼️
-        <small>Image</small>
-
-    </button>
-
-
-    <input
-        id="imageInput"
-        type="file"
-        accept="image/*"
-        hidden>
-
-
-    <button
-        class="tool"
-        onclick="undo()">
-
-        ↶
-        <small>Undo</small>
-
-    </button>
-
-
-    <button
-        class="tool"
-        onclick="redo()">
-
-        ↷
-        <small>Redo</small>
-
-    </button>
-
-</aside>
-
-
-<!-- =====================================================
-     WORKSPACE
-===================================================== -->
-
-<section
-    class="workspace"
-    id="workspace">
-
-    <div
-        class="canvas-wrap"
-        id="canvasWrap">
-
-        <canvas
-            id="canvas"
-            width="1000"
-            height="700">
-        </canvas>
-
-    </div>
-
-
-    <div class="zoom-controls">
-
-        <button
-            class="zoom-btn"
-            onclick="zoomOut()">
-            −
-        </button>
-
-        <div
-            class="zoom-value"
-            id="zoomValue">
-            100%
-        </div>
-
-        <button
-            class="zoom-btn"
-            onclick="zoomIn()">
-            +
-        </button>
-
-        <button
-            class="zoom-btn"
-            onclick="resetZoom()">
-            ↺
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- MOBILE OVERLAY -->
-
-<div
-    class="panel-overlay"
-    id="panelOverlay"
-    onclick="closePanel()">
-</div>
-
-
-<!-- =====================================================
-     PANEL
-===================================================== -->
-
-<aside
-    class="panel"
-    id="panel">
-
-
-    <div class="panel-top">
-
-        <div class="panel-title">
-            🎨 DrawLab Studio
-        </div>
-
-        <button
-            class="close-panel-btn"
-            onclick="closePanel()">
-
-            ✕
-
-        </button>
-
-    </div>
-
-
-    <!-- FABRIC STUDIO -->
-
-    <div
-        class="fabric-studio"
-        id="fabricStudio">
-
-        <div class="fabric-title">
-            🧵 Fabric Studio
-        </div>
-
-        <div class="fabric-subtitle">
-            اختاري خامة القماش
-        </div>
-
-
-        <div class="fabric-grid">
-
-            <button
-                class="fabric-card active"
-                data-fabric="satin"
-                onclick="setFabric('satin')">
-
-                <span class="fabric-icon">
-                    ✨
-                </span>
-
-                <strong>Satin</strong>
-
-                <small>
-                    لامع وناعم
-                </small>
-
-            </button>
-
-
-            <button
-                class="fabric-card"
-                data-fabric="silk"
-                onclick="setFabric('silk')">
-
-                <span class="fabric-icon">
-                    🌙
-                </span>
-
-                <strong>Silk</strong>
-
-                <small>
-                    حريري
-                </small>
-
-            </button>
-
-
-            <button
-                class="fabric-card"
-                data-fabric="chiffon"
-                onclick="setFabric('chiffon')">
-
-                <span class="fabric-icon">
-                    🫧
-                </span>
-
-                <strong>Chiffon</strong>
-
-                <small>
-                    خفيف وشفاف
-                </small>
-
-            </button>
-
-
-            <button
-                class="fabric-card"
-                data-fabric="crepe"
-                onclick="setFabric('crepe')">
-
-                <span class="fabric-icon">
-                    〰️
-                </span>
-
-                <strong>Crepe</strong>
-
-                <small>
-                    مطفي وناعم
-                </small>
-
-            </button>
-
-
-            <button
-                class="fabric-card"
-                data-fabric="velvet"
-                onclick="setFabric('velvet')">
-
-                <span class="fabric-icon">
-                    🪶
-                </span>
-
-                <strong>Velvet</strong>
-
-                <small>
-                    ملمس غني
-                </small>
-
-            </button>
-
-
-            <button
-                class="fabric-card"
-                data-fabric="cotton"
-                onclick="setFabric('cotton')">
-
-                <span class="fabric-icon">
-                    ☁️
-                </span>
-
-                <strong>Cotton</strong>
-
-                <small>
-                    طبيعي
-                </small>
-
-            </button>
-
-        </div>
-
-
-        <div class="fabric-control">
-
-            <label>
-
-                <span>
-                    ✨ Shine
-                </span>
-
-                <span
-                    id="fabricShineValue">
-                    60%
-                </span>
-
-            </label>
-
-            <input
-                type="range"
-                id="fabricShine"
-                min="0"
-                max="100"
-                value="60">
-
-        </div>
-
-
-        <div class="fabric-control">
-
-            <label>
-
-                <span>
-                    🧶 Texture
-                </span>
-
-                <span
-                    id="fabricTextureValue">
-                    45%
-                </span>
-
-            </label>
-
-            <input
-                type="range"
-                id="fabricTexture"
-                min="0"
-                max="100"
-                value="45">
-
-        </div>
+    <div class="toolbar">
 
 
         <button
-            class="fabric-mode-btn"
-            onclick="toggleRealisticFabric()">
-
-            ✨ Realistic Fabric View
-
+            class="tool"
+            data-tool="menu"
+            onclick="togglePanel()"
+        >
+            ☰
+            <span>Menu</span>
         </button>
 
-    </div>
+
+        <button
+            class="tool active"
+            data-tool="select"
+            onclick="setTool('select')"
+        >
+            🖱️
+            <span>Select</span>
+        </button>
 
 
-    <!-- COLORS -->
-
-    <div class="panel-section">
-
-        <div class="section-title">
-            🎨 Colors
-        </div>
-
-
-        <div
-            class="color-row"
-            id="colorPalette">
+        <button
+            class="tool"
+            data-tool="brush"
+            onclick="setTool('brush')"
+        >
+            🖌️
+            <span>Brush</span>
+        </button>
 
 
-            <button
-                class="color active"
-                style="background:#111111"
-                data-color="#111111">
-            </button>
+        <button
+            class="tool"
+            data-tool="eraser"
+            onclick="setTool('eraser')"
+        >
+            🧽
+            <span>Eraser</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#ff4757"
-                data-color="#ff4757">
-            </button>
+        <button
+            class="tool"
+            data-tool="fill"
+            onclick="setTool('fill')"
+        >
+            🪣
+            <span>Fill</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#ff6b81"
-                data-color="#ff6b81">
-            </button>
+        <button
+            class="tool"
+            data-tool="picker"
+            onclick="setTool('picker')"
+        >
+            💧
+            <span>Picker</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#ffa502"
-                data-color="#ffa502">
-            </button>
+        <button
+            class="tool"
+            data-tool="line"
+            onclick="setTool('line')"
+        >
+            ╱
+            <span>Line</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#ffd32a"
-                data-color="#ffd32a">
-            </button>
+        <button
+            class="tool"
+            data-tool="rect"
+            onclick="setTool('rect')"
+        >
+            ▭
+            <span>Rect</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#2ed573"
-                data-color="#2ed573">
-            </button>
+        <button
+            class="tool"
+            data-tool="circle"
+            onclick="setTool('circle')"
+        >
+            ○
+            <span>Circle</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#1e90ff"
-                data-color="#1e90ff">
-            </button>
+        <button
+            class="tool"
+            data-tool="text"
+            onclick="setTool('text')"
+        >
+            T
+            <span>Text</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#3742fa"
-                data-color="#3742fa">
-            </button>
+        <button
+            class="tool"
+            data-tool="fabric"
+            onclick="toggleFabricStudio()"
+        >
+            🧵
+            <span>Fabric</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#5352ed"
-                data-color="#5352ed">
-            </button>
+        <button
+            class="tool"
+            onclick="document.getElementById('imageInput').click()"
+        >
+            🖼️
+            <span>Image</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#a55eea"
-                data-color="#a55eea">
-            </button>
+        <button
+            class="tool"
+            onclick="undo()"
+        >
+            ↩️
+            <span>Undo</span>
+        </button>
 
 
-            <button
-                class="color"
-                style="background:#ff9ff3"
-                data-color="#ff9ff3">
-            </button>
-
-
-            <button
-                class="color"
-                style="background:#ffffff"
-                data-color="#ffffff">
-            </button>
-
-        </div>
-
-
-        <br>
+        <button
+            class="tool"
+            onclick="redo()"
+        >
+            ↪️
+            <span>Redo</span>
+        </button>
 
 
         <input
-            type="color"
-            id="customColor"
-            class="custom-color"
-            value="#111111">
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            hidden
+            onchange="uploadImage(event)"
+        >
+
 
     </div>
 
 
-    <!-- BRUSHES -->
+    <!-- =====================================================
+         WORKSPACE
+    ====================================================== -->
 
-    <div class="panel-section">
+    <div class="workspace">
 
-        <div class="section-title">
-            🖌️ Brush Library
+
+        <div class="canvas-wrap">
+
+
+            <canvas
+                id="canvas"
+                width="1100"
+                height="700"
+            ></canvas>
+
+
+            <div class="zoom-controls">
+
+                <button onclick="changeZoom(-.1)">
+                    −
+                </button>
+
+                <span id="zoomValue">
+                    100%
+                </span>
+
+                <button onclick="changeZoom(.1)">
+                    +
+                </button>
+
+                <button onclick="resetZoom()">
+                    ⛶
+                </button>
+
+            </div>
+
+
         </div>
 
-
-        <div class="brush-grid">
-
-            <button
-                class="brush active"
-                data-brush="pencil"
-                onclick="setBrush('pencil')">
-                ✏️ Pencil
-            </button>
-
-
-            <button
-                class="brush"
-                data-brush="ink"
-                onclick="setBrush('ink')">
-                🖊️ Ink
-            </button>
-
-
-            <button
-                class="brush"
-                data-brush="marker"
-                onclick="setBrush('marker')">
-                🖍️ Marker
-            </button>
-
-
-            <button
-                class="brush"
-                data-brush="watercolor"
-                onclick="setBrush('watercolor')">
-                🎨 Water
-            </button>
-
-
-            <button
-                class="brush"
-                data-brush="neon"
-                onclick="setBrush('neon')">
-                ✨ Neon
-            </button>
-
-
-            <button
-                class="brush"
-                data-brush="spray"
-                onclick="setBrush('spray')">
-                💨 Spray
-            </button>
-
-        </div>
 
     </div>
 
 
-    <!-- FONT STUDIO -->
+    <!-- =====================================================
+         PANEL
+    ====================================================== -->
 
-    <div class="panel-section">
+    <aside
+        class="panel"
+        id="panel"
+    >
 
-        <div class="section-title">
-            ✍️ Font Studio
-        </div>
+        <button
+            class="panel-close"
+            onclick="closePanel()"
+        >
+            ✕
+        </button>
 
 
-        <div class="text-settings">
+        <!-- FABRIC STUDIO -->
 
-            <input
-                class="text-input"
+        <section
+            class="panel-section"
+            id="fabricStudio"
+        >
+
+            <div class="panel-title">
+
+                🧵 Fabric Studio
+
+                <span>
+                    150×150
+                </span>
+
+            </div>
+
+
+            <div class="fabric-grid">
+
+
+                <div
+                    class="fabric-card active"
+                    onclick="setFabric('satin',this)"
+                >
+
+                    <div
+                        class="fabric-preview"
+                        style="
+                            background:
+                            linear-gradient(
+                                120deg,
+                                #ddd,
+                                #fff,
+                                #cfcfcf
+                            );
+                        "
+                    ></div>
+
+                    <strong>
+                        Satin
+                    </strong>
+
+                    <small>
+                        Glossy
+                    </small>
+
+                </div>
+
+
+                <div
+                    class="fabric-card"
+                    onclick="setFabric('silk',this)"
+                >
+
+                    <div
+                        class="fabric-preview"
+                        style="
+                            background:
+                            linear-gradient(
+                                120deg,
+                                #eee,
+                                #fff,
+                                #ddd
+                            );
+                        "
+                    ></div>
+
+                    <strong>
+                        Silk
+                    </strong>
+
+                    <small>
+                        Soft shine
+                    </small>
+
+                </div>
+
+
+                <div
+                    class="fabric-card"
+                    onclick="setFabric('chiffon',this)"
+                >
+
+                    <div
+                        class="fabric-preview"
+                        style="
+                            background:
+                            repeating-linear-gradient(
+                                45deg,
+                                #eee,
+                                #eee 3px,
+                                #f8f8f8 3px,
+                                #f8f8f8 6px
+                            );
+                        "
+                    ></div>
+
+                    <strong>
+                        Chiffon
+                    </strong>
+
+                    <small>
+                        Light
+                    </small>
+
+                </div>
+
+
+                <div
+                    class="fabric-card"
+                    onclick="setFabric('crepe',this)"
+                >
+
+                    <div
+                        class="fabric-preview"
+                        style="
+                            background:
+                            radial-gradient(
+                                circle,
+                                #ddd 1px,
+                                #eee 2px
+                            );
+                            background-size:6px 6px;
+                        "
+                    ></div>
+
+                    <strong>
+                        Crepe
+                    </strong>
+
+                    <small>
+                        Grainy
+                    </small>
+
+                </div>
+
+
+                <div
+                    class="fabric-card"
+                    onclick="setFabric('velvet',this)"
+                >
+
+                    <div
+                        class="fabric-preview"
+                        style="
+                            background:
+                            linear-gradient(
+                                120deg,
+                                #777,
+                                #aaa,
+                                #666
+                            );
+                        "
+                    ></div>
+
+                    <strong>
+                        Velvet
+                    </strong>
+
+                    <small>
+                        Soft
+                    </small>
+
+                </div>
+
+
+                <div
+                    class="fabric-card"
+                    onclick="setFabric('cotton',this)"
+                >
+
+                    <div
+                        class="fabric-preview"
+                        style="
+                            background:
+                            repeating-linear-gradient(
+                                0deg,
+                                #eee,
+                                #eee 2px,
+                                #ddd 3px
+                            );
+                        "
+                    ></div>
+
+                    <strong>
+                        Cotton
+                    </strong>
+
+                    <small>
+                        Natural
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="fabric-control">
+
+                <label>
+
+                    <span>
+                        ✨ Shine
+                    </span>
+
+                    <span id="shineValue">
+                        50
+                    </span>
+
+                </label>
+
+                <input
+                    type="range"
+                    id="shineSlider"
+                    min="0"
+                    max="100"
+                    value="50"
+                >
+
+            </div>
+
+
+            <div class="fabric-control">
+
+                <label>
+
+                    <span>
+                        🧶 Texture
+                    </span>
+
+                    <span id="textureValue">
+                        45
+                    </span>
+
+                </label>
+
+                <input
+                    type="range"
+                    id="textureSlider"
+                    min="0"
+                    max="100"
+                    value="45"
+                >
+
+            </div>
+
+
+            <!-- PATTERN REPEAT -->
+
+            <div class="fabric-control">
+
+                <label>
+
+                    <span>
+                        🔁 Pattern Repeat
+                    </span>
+
+                    <span id="patternValue">
+                        Grid
+                    </span>
+
+                </label>
+
+                <select
+                    id="patternType"
+                    class="font-select"
+                >
+
+                    <option value="grid">
+                        Grid
+                    </option>
+
+                    <option value="brick">
+                        Brick
+                    </option>
+
+                    <option value="halfdrop">
+                        Half Drop
+                    </option>
+
+                    <option value="mirror">
+                        Mirror
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="fabric-control">
+
+                <label>
+
+                    <span>
+                        📐 Pattern Scale
+                    </span>
+
+                    <span id="patternScaleValue">
+                        35
+                    </span>
+
+                </label>
+
+                <input
+                    type="range"
+                    id="patternScale"
+                    min="10"
+                    max="100"
+                    value="35"
+                >
+
+            </div>
+
+
+            <!-- HIJAB PREVIEW -->
+
+            <div class="fabric-control">
+
+                <div
+                    style="
+                        width:100%;
+                        aspect-ratio:1/1;
+                        border-radius:16px;
+                        overflow:hidden;
+                        border:1px solid #e5e0f3;
+                        position:relative;
+                        background:#eee9df;
+                    "
+                >
+
+                    <canvas
+                        id="hijabPreviewCanvas"
+                        width="500"
+                        height="500"
+                        style="
+                            width:100%;
+                            height:100%;
+                            display:block
+                        "
+                    ></canvas>
+
+
+                    <span
+                        style="
+                            position:absolute;
+                            right:8px;
+                            bottom:8px;
+                            background:
+                                rgba(255,255,255,.82);
+                            border-radius:8px;
+                            padding:4px 7px;
+                            font-size:10px;
+                            font-weight:700;
+                        "
+                    >
+                        150 × 150 cm
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="fabric-mode-btn"
+                onclick="toggleRealisticFabric()"
+            >
+                ✨ Realistic Fabric View
+            </button>
+
+
+        </section>
+
+
+        <!-- COLOR -->
+
+        <section class="panel-section">
+
+            <div class="panel-title">
+                🎨 Colors
+            </div>
+
+
+            <div
+                class="palette"
+                id="palette"
+            ></div>
+
+
+            <div
+                style="
+                    margin-top:10px;
+                    display:flex;
+                    gap:8px;
+                    align-items:center;
+                "
+            >
+
+                <input
+                    type="color"
+                    id="customColor"
+                    value="#8b7cf6"
+                    style="
+                        width:45px;
+                        height:38px;
+                        border:0;
+                        padding:0;
+                    "
+                >
+
+                <span
+                    style="
+                        font-size:11px;
+                        color:var(--muted);
+                    "
+                >
+                    Custom Color
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- BRUSH -->
+
+        <section class="panel-section">
+
+            <div class="panel-title">
+                🖌️ Brush Library
+            </div>
+
+
+            <div class="brush-grid">
+
+
+                <div
+                    class="brush-card active"
+                    onclick="setBrush('pencil',this)"
+                >
+                    ✏️
+                    <br>
+                    Pencil
+                </div>
+
+
+                <div
+                    class="brush-card"
+                    onclick="setBrush('ink',this)"
+                >
+                    🖋️
+                    <br>
+                    Ink
+                </div>
+
+
+                <div
+                    class="brush-card"
+                    onclick="setBrush('marker',this)"
+                >
+                    🖍️
+                    <br>
+                    Marker
+                </div>
+
+
+                <div
+                    class="brush-card"
+                    onclick="setBrush('watercolor',this)"
+                >
+                    💧
+                    <br>
+                    Water
+                </div>
+
+
+                <div
+                    class="brush-card"
+                    onclick="setBrush('neon',this)"
+                >
+                    🌈
+                    <br>
+                    Neon
+                </div>
+
+
+                <div
+                    class="brush-card"
+                    onclick="setBrush('spray',this)"
+                >
+                    ✨
+                    <br>
+                    Spray
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- FONT STUDIO -->
+
+        <section class="panel-section">
+
+            <div class="panel-title">
+                🔤 Font Studio
+            </div>
+
+
+            <textarea
                 id="textInput"
-                placeholder="اكتبي النص هنا...">
+                class="text-input"
+                placeholder="اكتبي النص هنا / Type text here..."
+            ></textarea>
+
+
+            <div style="height:8px"></div>
 
 
             <select
+                id="fontSelect"
                 class="font-select"
-                id="fontSelect">
+            >
 
                 <option value="Arial">
                     Arial
@@ -1661,194 +1828,161 @@ input[type="range"]{
                     Verdana
                 </option>
 
+                <option value="Noto Naskh Arabic">
+                    Noto Naskh Arabic
+                </option>
+
+                <option value="Amiri">
+                    Amiri
+                </option>
+
             </select>
 
-        </div>
+        </section>
 
 
-        <div class="font-grid">
+        <!-- SIZE -->
 
-            <button
-                class="font-btn active"
-                onclick="selectFont('Arial',this)">
-                Aa
-            </button>
+        <section class="panel-section">
 
-            <button
-                class="font-btn"
-                onclick="selectFont('Georgia',this)">
-                Aa
-            </button>
+            <div class="control">
 
-            <button
-                class="font-btn"
-                onclick="selectFont('Times New Roman',this)">
-                Aa
-            </button>
+                <label>
 
-            <button
-                class="font-btn"
-                onclick="selectFont('Impact',this)">
-                Aa
-            </button>
+                    <span>
+                        Size
+                    </span>
 
-        </div>
+                    <span id="sizeValue">
+                        8
+                    </span>
 
-    </div>
+                </label>
+
+                <input
+                    type="range"
+                    id="sizeSlider"
+                    min="1"
+                    max="80"
+                    value="8"
+                >
+
+            </div>
 
 
-    <!-- SETTINGS -->
+            <div class="control">
 
-    <div class="panel-section">
+                <label>
 
-        <div class="section-title">
-            ⚙️ Settings
-        </div>
+                    <span>
+                        Opacity
+                    </span>
 
+                    <span id="opacityValue">
+                        100
+                    </span>
 
-        <div class="control">
+                </label>
 
-            <label>
+                <input
+                    type="range"
+                    id="opacitySlider"
+                    min="1"
+                    max="100"
+                    value="100"
+                >
 
-                <span>
-                    Size
-                </span>
+            </div>
 
-                <span id="sizeValue">
-                    8
-                </span>
-
-            </label>
-
-
-            <input
-                type="range"
-                id="size"
-                min="1"
-                max="80"
-                value="8">
-
-        </div>
+        </section>
 
 
-        <div class="control">
+        <!-- OBJECT -->
 
-            <label>
+        <section class="panel-section">
 
-                <span>
-                    Opacity
-                </span>
-
-                <span id="opacityValue">
-                    100%
-                </span>
-
-            </label>
+            <div class="panel-title">
+                🧩 Object
+            </div>
 
 
-            <input
-                type="range"
-                id="opacity"
-                min="5"
-                max="100"
-                value="100">
+            <div class="object-actions">
 
-        </div>
+                <button onclick="duplicateSelected()">
+                    Duplicate
+                </button>
 
-    </div>
+                <button onclick="deleteSelected()">
+                    Delete
+                </button>
 
+                <button onclick="moveLayerUp()">
+                    ↑ Up
+                </button>
 
-    <!-- OBJECT -->
+                <button onclick="moveLayerDown()">
+                    ↓ Down
+                </button>
 
-    <div class="panel-section">
+            </div>
 
-        <div class="section-title">
-            ✨ Object
-        </div>
-
-
-        <div class="action-row">
-
-            <button
-                class="action-btn"
-                onclick="duplicateSelected()">
-                Duplicate
-            </button>
+        </section>
 
 
-            <button
-                class="action-btn"
-                onclick="deleteSelected()">
-                Delete
-            </button>
+        <!-- PROJECT -->
+
+        <section class="panel-section">
+
+            <div class="panel-title">
+                📁 Project
+            </div>
+
+
+            <div class="object-actions">
+
+                <button onclick="clearCanvas()">
+                    Clear
+                </button>
+
+                <button onclick="newProject()">
+                    New
+                </button>
+
+            </div>
+
+
+            <div style="height:8px"></div>
 
 
             <button
-                class="action-btn"
-                onclick="moveLayerUp()">
-                ↑ Up
+                class="primary-btn"
+                onclick="exportPNG()"
+            >
+                💾 Export PNG
             </button>
 
-
-            <button
-                class="action-btn"
-                onclick="moveLayerDown()">
-                ↓ Down
-            </button>
-
-        </div>
-
-    </div>
+        </section>
 
 
-    <!-- PROJECT -->
+        <!-- LAYERS -->
 
-    <div class="panel-section">
+        <section class="panel-section">
 
-        <div class="section-title">
-            📁 Project
-        </div>
-
-
-        <div class="action-row">
-
-            <button
-                class="action-btn"
-                onclick="clearCanvas()">
-                🗑️ Clear
-            </button>
+            <div class="panel-title">
+                📚 Layers
+            </div>
 
 
-            <button
-                class="action-btn"
-                onclick="exportPNG()">
-                💾 Export
-            </button>
+            <div
+                class="layers"
+                id="layers"
+            ></div>
 
-        </div>
-
-    </div>
+        </section>
 
 
-    <!-- LAYERS -->
+    </aside>
 
-    <div class="panel-section">
-
-        <div class="section-title">
-            📚 Layers
-        </div>
-
-
-        <div
-            class="layers"
-            id="layers">
-        </div>
-
-    </div>
-
-</aside>
-
-</div>
 
 </div>
 
@@ -1856,7 +1990,7 @@ input[type="range"]{
 <script>
 
 /* =========================================================
-   DRAWLAB V5.3
+   CANVAS
 ========================================================= */
 
 const canvas =
@@ -1865,27 +1999,10 @@ const canvas =
 const ctx =
     canvas.getContext("2d");
 
-const canvasWrap =
-    document.getElementById("canvasWrap");
 
-const panel =
-    document.getElementById("panel");
-
-const panelOverlay =
-    document.getElementById("panelOverlay");
-
-const sizeInput =
-    document.getElementById("size");
-
-const opacityInput =
-    document.getElementById("opacity");
-
-const sizeValue =
-    document.getElementById("sizeValue");
-
-const opacityValue =
-    document.getElementById("opacityValue");
-
+/* =========================================================
+   STATE
+========================================================= */
 
 let objects = [];
 
@@ -1893,7 +2010,7 @@ let selectedId = null;
 
 let currentTool = "select";
 
-let currentColor = "#111111";
+let currentColor = "#8b7cf6";
 
 let brushType = "pencil";
 
@@ -1911,126 +2028,177 @@ let startY = 0;
 
 let currentObject = null;
 
-let history = [];
-
-let historyIndex = -1;
-
 let pointerStart = null;
 
 let dragOffset = null;
 
+let resizing = false;
+
+let resizeStart = null;
+
+let resizeOriginal = null;
+
 
 /* =========================================================
-   FABRIC STATE
+   HISTORY
 ========================================================= */
 
-let fabricMode = false;
+let history = [];
+
+let historyIndex = -1;
+
+
+/* =========================================================
+   FABRIC
+========================================================= */
+
+let fabricMode = true;
 
 let realisticFabric = false;
 
 let currentFabric = "satin";
 
-let fabricShine = .60;
+let fabricShine = .5;
 
 let fabricTexture = .45;
 
+let patternType = "grid";
+
+let patternScale = 35;
+
+
+/* =========================================================
+   FABRIC SETTINGS
+========================================================= */
 
 const fabricSettings = {
 
     satin:{
-        base:"#eee7ed",
-        shine:.85,
-        texture:.18
+        base:"#e8dfe7",
+        thread:"#ffffff",
+        opacity:.16
     },
 
     silk:{
-        base:"#eee9df",
-        shine:.95,
-        texture:.12
+        base:"#e9e6e9",
+        thread:"#ffffff",
+        opacity:.20
     },
 
     chiffon:{
-        base:"#eeeef5",
-        shine:.45,
-        texture:.10
+        base:"#eeeaf0",
+        thread:"#d5cfdb",
+        opacity:.12
     },
 
     crepe:{
-        base:"#e8e4df",
-        shine:.18,
-        texture:.70
+        base:"#e5e1e7",
+        thread:"#aaa2b1",
+        opacity:.18
     },
 
     velvet:{
-        base:"#4e405d",
-        shine:.35,
-        texture:.90
+        base:"#aaa1ae",
+        thread:"#ffffff",
+        opacity:.10
     },
 
     cotton:{
-        base:"#eee9df",
-        shine:.12,
-        texture:.75
+        base:"#e8e4dc",
+        thread:"#b7b0a3",
+        opacity:.20
     }
 
 };
 
 
 /* =========================================================
+   HELPERS
+========================================================= */
+
+function uid(){
+
+    return Date.now().toString(36)
+        + Math.random()
+            .toString(36)
+            .slice(2);
+
+}
+
+
+function getSelected(){
+
+    return objects.find(
+        o => o.id === selectedId
+    );
+
+}
+
+
+function clamp(
+    value,
+    min,
+    max
+){
+
+    return Math.max(
+        min,
+        Math.min(max,value)
+    );
+
+}
+
+
+/* =========================================================
    PANEL
 ========================================================= */
 
+const panel =
+    document.getElementById("panel");
+
+
 function togglePanel(){
 
-    if(
-        panel.classList.contains("open")
-    ){
+    panel.classList.toggle("hidden");
 
-        closePanel();
-
-    }else{
-
-        panel.classList.add("open");
-
-        panelOverlay.classList.add("open");
-
-    }
 }
 
 
 function closePanel(){
 
-    panel.classList.remove("open");
+    panel.classList.add("hidden");
 
-    panelOverlay.classList.remove("open");
 }
 
 
+document.addEventListener(
+    "pointerdown",
+    e=>{
+
+        if(
+            window.innerWidth <= 850 &&
+            !panel.contains(e.target) &&
+            !e.target.closest(".tool")
+        ){
+
+            panel.classList.add("hidden");
+
+        }
+
+    }
+);
+
+
 /* =========================================================
-   TOOL
+   TOOLS
 ========================================================= */
 
 function setTool(tool){
 
     currentTool = tool;
 
-    /*
-       IMPORTANT:
-       Remove selection frame whenever
-       we are not using Select.
-    */
-
-    if(tool !== "select"){
-
-        selectedId = null;
-
-    }
-
-
     document
-        .querySelectorAll(
-            ".tool[data-tool]"
-        )
+        .querySelectorAll(".tool")
         .forEach(btn=>{
 
             btn.classList.toggle(
@@ -2040,10 +2208,16 @@ function setTool(tool){
 
         });
 
+    if(tool !== "select"){
+
+        selectedId = null;
+
+    }
 
     render();
 
     updateLayers();
+
 }
 
 
@@ -2051,320 +2225,168 @@ function setTool(tool){
    COLORS
 ========================================================= */
 
-document
-.querySelectorAll(".color")
-.forEach(btn=>{
+const paletteColors = [
 
-    btn.addEventListener(
-        "click",
-        ()=>{
+    "#000000",
+    "#ffffff",
+    "#ff6b6b",
+    "#ff8fb1",
+    "#ffb86b",
+    "#ffd166",
+    "#8bd17c",
+    "#4ecdc4",
+    "#55a7ff",
+    "#6c63ff",
+    "#9b5de5",
+    "#f15bb5",
+    "#795548",
+    "#8d99ae",
+    "#2b2d42",
+    "#f4a261",
+    "#e76f51",
+    "#2a9d8f",
+    "#264653",
+    "#e9c46a",
+    "#8338ec"
+];
 
-            currentColor =
-                btn.dataset.color;
 
-            document
-                .querySelectorAll(".color")
-                .forEach(c=>
-                    c.classList.remove(
-                        "active"
-                    )
-                );
+const palette =
+    document.getElementById("palette");
 
-            btn.classList.add("active");
 
-            document
-                .getElementById(
-                    "customColor"
-                )
-                .value =
-                currentColor;
-        }
-    );
+paletteColors.forEach(color=>{
+
+    const dot =
+        document.createElement("div");
+
+    dot.className =
+        "color-dot";
+
+    dot.style.background =
+        color;
+
+    dot.onclick =
+        ()=>setColor(color,dot);
+
+    palette.appendChild(dot);
 
 });
 
 
-document
-.getElementById("customColor")
-.addEventListener(
-    "input",
-    e=>{
+function setColor(
+    color,
+    element=null
+){
 
-        currentColor =
-            e.target.value;
+    currentColor = color;
 
-        document
-            .querySelectorAll(".color")
-            .forEach(c=>
-                c.classList.remove(
-                    "active"
-                )
-            );
+    document
+        .querySelectorAll(".color-dot")
+        .forEach(
+            d=>
+                d.classList.remove("active")
+        );
+
+    if(element){
+
+        element.classList.add("active");
 
     }
-);
+
+    document.getElementById(
+        "customColor"
+    ).value = color;
+
+}
+
+
+document
+    .getElementById("customColor")
+    .addEventListener(
+        "input",
+        e=>
+            setColor(e.target.value)
+    );
 
 
 /* =========================================================
-   BRUSHES
+   BRUSH
 ========================================================= */
 
-const brushSettings = {
-
-    pencil:{
-        size:4,
-        opacity:.8
-    },
-
-    ink:{
-        size:7,
-        opacity:1
-    },
-
-    marker:{
-        size:18,
-        opacity:.7
-    },
-
-    watercolor:{
-        size:28,
-        opacity:.25
-    },
-
-    neon:{
-        size:8,
-        opacity:1
-    },
-
-    spray:{
-        size:30,
-        opacity:.35
-    }
-
-};
-
-
-function setBrush(type){
+function setBrush(
+    type,
+    element
+){
 
     brushType = type;
 
     document
-        .querySelectorAll(".brush")
-        .forEach(b=>{
-
-            b.classList.toggle(
-                "active",
-                b.dataset.brush === type
-            );
-
-        });
-
-
-    const preset =
-        brushSettings[type];
-
-
-    brushSize =
-        preset.size;
-
-    brushOpacity =
-        preset.opacity;
-
-
-    sizeInput.value =
-        brushSize;
-
-    opacityInput.value =
-        Math.round(
-            brushOpacity * 100
+        .querySelectorAll(".brush-card")
+        .forEach(
+            b=>
+                b.classList.remove("active")
         );
 
+    if(element){
 
-    updateLabels();
-
-    setTool("brush");
-}
-
-
-function updateLabels(){
-
-    sizeValue.textContent =
-        brushSize;
-
-    opacityValue.textContent =
-        Math.round(
-            brushOpacity * 100
-        ) + "%";
-}
-
-
-sizeInput.addEventListener(
-    "input",
-    e=>{
-
-        brushSize =
-            Number(e.target.value);
-
-        updateLabels();
+        element.classList.add("active");
 
     }
-);
 
-
-opacityInput.addEventListener(
-    "input",
-    e=>{
-
-        brushOpacity =
-            Number(e.target.value) / 100;
-
-        updateLabels();
-
-    }
-);
+}
 
 
 /* =========================================================
-   FABRIC STUDIO
+   FABRIC
 ========================================================= */
 
-function toggleFabricStudio(){
+function setFabric(
+    type,
+    element
+){
 
-    fabricMode =
-        !fabricMode;
-
-
-    const studio =
-        document.getElementById(
-            "fabricStudio"
-        );
-
-
-    studio.classList.toggle(
-        "show",
-        fabricMode
-    );
-
-
-    if(fabricMode){
-
-        panel.classList.add("open");
-
-        panelOverlay.classList.add(
-            "open"
-        );
-
-        setTool("brush");
-    }
-
-
-    render();
-}
-
-
-function setFabric(type){
-
-    currentFabric =
-        type;
-
-
-    const settings =
-        fabricSettings[type];
-
-
-    fabricShine =
-        settings.shine;
-
-    fabricTexture =
-        settings.texture;
-
-
-    document.getElementById(
-        "fabricShine"
-    ).value =
-        Math.round(
-            fabricShine * 100
-        );
-
-
-    document.getElementById(
-        "fabricTexture"
-    ).value =
-        Math.round(
-            fabricTexture * 100
-        );
-
-
-    document.getElementById(
-        "fabricShineValue"
-    ).textContent =
-        Math.round(
-            fabricShine * 100
-        ) + "%";
-
-
-    document.getElementById(
-        "fabricTextureValue"
-    ).textContent =
-        Math.round(
-            fabricTexture * 100
-        ) + "%";
-
+    currentFabric = type;
 
     document
         .querySelectorAll(".fabric-card")
-        .forEach(card=>{
+        .forEach(
+            card=>
+                card.classList.remove("active")
+        );
 
-            card.classList.toggle(
-                "active",
-                card.dataset.fabric === type
-            );
+    if(element){
 
-        });
+        element.classList.add("active");
 
+    }
 
     render();
+
+    drawHijabPreview();
+
 }
 
 
-document
-.getElementById("fabricShine")
-.addEventListener(
-    "input",
-    e=>{
+function toggleFabricStudio(){
 
-        fabricShine =
-            Number(e.target.value) / 100;
+    fabricMode = !fabricMode;
 
-        document.getElementById(
-            "fabricShineValue"
-        ).textContent =
-            e.target.value + "%";
+    if(fabricMode){
 
-        render();
+        document
+            .getElementById(
+                "fabricStudio"
+            )
+            .scrollIntoView({
+                behavior:"smooth"
+            });
 
     }
-);
 
+    render();
 
-document
-.getElementById("fabricTexture")
-.addEventListener(
-    "input",
-    e=>{
-
-        fabricTexture =
-            Number(e.target.value) / 100;
-
-        document.getElementById(
-            "fabricTextureValue"
-        ).textContent =
-            e.target.value + "%";
-
-        render();
-
-    }
-);
+}
 
 
 function toggleRealisticFabric(){
@@ -2372,20 +2394,482 @@ function toggleRealisticFabric(){
     realisticFabric =
         !realisticFabric;
 
+    render();
 
-    const btn =
-        document.querySelector(
-            ".fabric-mode-btn"
-        );
+    drawHijabPreview();
+
+}
 
 
-    btn.classList.toggle(
-        "active",
-        realisticFabric
+/* =========================================================
+   FABRIC SLIDERS
+========================================================= */
+
+document
+    .getElementById("shineSlider")
+    .addEventListener(
+        "input",
+        e=>{
+
+            fabricShine =
+                Number(e.target.value)/100;
+
+            document.getElementById(
+                "shineValue"
+            ).textContent =
+                e.target.value;
+
+            render();
+
+            drawHijabPreview();
+
+        }
     );
 
 
-    render();
+document
+    .getElementById("textureSlider")
+    .addEventListener(
+        "input",
+        e=>{
+
+            fabricTexture =
+                Number(e.target.value)/100;
+
+            document.getElementById(
+                "textureValue"
+            ).textContent =
+                e.target.value;
+
+            render();
+
+            drawHijabPreview();
+
+        }
+    );
+
+
+/* =========================================================
+   PATTERN CONTROLS
+========================================================= */
+
+const patternTypeInput =
+    document.getElementById(
+        "patternType"
+    );
+
+
+const patternScaleInput =
+    document.getElementById(
+        "patternScale"
+    );
+
+
+patternTypeInput.addEventListener(
+    "change",
+    e=>{
+
+        patternType =
+            e.target.value;
+
+        document.getElementById(
+            "patternValue"
+        ).textContent =
+            e.target.options[
+                e.target.selectedIndex
+            ].text;
+
+        render();
+
+        drawHijabPreview();
+
+    }
+);
+
+
+patternScaleInput.addEventListener(
+    "input",
+    e=>{
+
+        patternScale =
+            Number(e.target.value);
+
+        document.getElementById(
+            "patternScaleValue"
+        ).textContent =
+            patternScale;
+
+        render();
+
+        drawHijabPreview();
+
+    }
+);
+
+
+/* =========================================================
+   PATTERN
+========================================================= */
+
+function drawPattern(
+    c,
+    w,
+    h
+){
+
+    const s =
+        Math.max(
+            10,
+            patternScale
+        );
+
+    c.save();
+
+    c.globalAlpha =
+        .10 +
+        fabricTexture*.18;
+
+    c.strokeStyle =
+        "#665b72";
+
+    c.lineWidth = 1;
+
+
+    if(
+        patternType === "grid"
+    ){
+
+        for(
+            let x=0;
+            x<w;
+            x+=s
+        ){
+
+            c.beginPath();
+
+            c.moveTo(x,0);
+
+            c.lineTo(x,h);
+
+            c.stroke();
+
+        }
+
+
+        for(
+            let y=0;
+            y<h;
+            y+=s
+        ){
+
+            c.beginPath();
+
+            c.moveTo(0,y);
+
+            c.lineTo(w,y);
+
+            c.stroke();
+
+        }
+
+    }
+
+
+    else if(
+        patternType === "brick"
+    ){
+
+        for(
+            let y=0;
+            y<h;
+            y+=s
+        ){
+
+            const off =
+                (Math.floor(y/s)%2)
+                *s/2;
+
+            c.beginPath();
+
+            c.moveTo(0,y);
+
+            c.lineTo(w,y);
+
+            c.stroke();
+
+
+            for(
+                let x=-s;
+                x<w+s;
+                x+=s
+            ){
+
+                c.beginPath();
+
+                c.moveTo(
+                    x+off,
+                    y
+                );
+
+                c.lineTo(
+                    x+off,
+                    y+s
+                );
+
+                c.stroke();
+
+            }
+
+        }
+
+    }
+
+
+    else if(
+        patternType === "halfdrop"
+    ){
+
+        for(
+            let y=0;
+            y<h;
+            y+=s
+        ){
+
+            const off =
+                (Math.floor(y/s)%2)
+                *s/2;
+
+
+            for(
+                let x=-s;
+                x<w+s;
+                x+=s
+            ){
+
+                c.beginPath();
+
+                c.arc(
+                    x+off,
+                    y,
+                    s*.28,
+                    0,
+                    Math.PI*2
+                );
+
+                c.stroke();
+
+            }
+
+        }
+
+    }
+
+
+    else if(
+        patternType === "mirror"
+    ){
+
+        for(
+            let y=0;
+            y<h;
+            y+=s
+        ){
+
+            for(
+                let x=0;
+                x<w;
+                x+=s
+            ){
+
+                c.save();
+
+                c.translate(
+                    x+s/2,
+                    y+s/2
+                );
+
+                c.rotate(
+                    Math.PI/4
+                );
+
+                c.strokeRect(
+                    -s*.22,
+                    -s*.22,
+                    s*.44,
+                    s*.44
+                );
+
+                c.restore();
+
+            }
+
+        }
+
+    }
+
+
+    c.restore();
+
+}
+
+
+/* =========================================================
+   HIJAB PREVIEW
+========================================================= */
+
+function drawHijabPreview(){
+
+    const hCanvas =
+        document.getElementById(
+            "hijabPreviewCanvas"
+        );
+
+    if(!hCanvas){
+        return;
+    }
+
+
+    const hc =
+        hCanvas.getContext("2d");
+
+
+    const settings =
+        fabricSettings[
+            currentFabric
+        ];
+
+
+    hc.clearRect(
+        0,
+        0,
+        hCanvas.width,
+        hCanvas.height
+    );
+
+
+    hc.fillStyle =
+        settings.base;
+
+    hc.fillRect(
+        0,
+        0,
+        hCanvas.width,
+        hCanvas.height
+    );
+
+
+    drawPattern(
+        hc,
+        hCanvas.width,
+        hCanvas.height
+    );
+
+
+    if(
+        realisticFabric
+    ){
+
+        const texture =
+            hc.createRadialGradient(
+                250,
+                250,
+                20,
+                250,
+                250,
+                350
+            );
+
+        texture.addColorStop(
+            0,
+            "rgba(255,255,255,.22)"
+        );
+
+        texture.addColorStop(
+            1,
+            "rgba(0,0,0,.10)"
+        );
+
+        hc.fillStyle =
+            texture;
+
+        hc.fillRect(
+            0,
+            0,
+            hCanvas.width,
+            hCanvas.height
+        );
+
+    }
+
+
+    if(
+        currentFabric === "satin" ||
+        currentFabric === "silk"
+    ){
+
+        const shine =
+            hc.createLinearGradient(
+                0,
+                0,
+                hCanvas.width,
+                hCanvas.height
+            );
+
+
+        shine.addColorStop(
+            0,
+            "rgba(255,255,255,0)"
+        );
+
+
+        shine.addColorStop(
+            .48,
+            `rgba(
+                255,
+                255,
+                255,
+                ${.45*fabricShine}
+            )`
+        );
+
+
+        shine.addColorStop(
+            .55,
+            "rgba(255,255,255,0)"
+        );
+
+
+        shine.addColorStop(
+            1,
+            "rgba(255,255,255,0)"
+        );
+
+
+        hc.fillStyle =
+            shine;
+
+        hc.fillRect(
+            0,
+            0,
+            hCanvas.width,
+            hCanvas.height
+        );
+
+    }
+
+
+    hc.strokeStyle =
+        "rgba(255,255,255,.5)";
+
+    hc.lineWidth = 5;
+
+    hc.strokeRect(
+        5,
+        5,
+        hCanvas.width-10,
+        hCanvas.height-10
+    );
+
 }
 
 
@@ -2395,13 +2879,21 @@ function toggleRealisticFabric(){
 
 function drawFabricSurface(){
 
+    if(!fabricMode){
+        return;
+    }
+
+
     const settings =
-        fabricSettings[currentFabric];
+        fabricSettings[
+            currentFabric
+        ];
 
 
-    /*
-       BASE
-    */
+    ctx.save();
+
+
+    ctx.globalAlpha = 1;
 
     ctx.fillStyle =
         settings.base;
@@ -2414,62 +2906,56 @@ function drawFabricSurface(){
     );
 
 
-    /*
-       FABRIC THREADS
-    */
+    drawPattern(
+        ctx,
+        canvas.width,
+        canvas.height
+    );
 
-    const textureStrength =
-        fabricTexture;
 
+    const count =
+        Math.floor(
+            300 +
+            fabricTexture*800
+        );
 
-    ctx.save();
 
     ctx.globalAlpha =
-        .025 +
-        textureStrength * .12;
+        settings.opacity;
+
 
     ctx.strokeStyle =
-        "#777";
-
-    ctx.lineWidth = 1;
+        settings.thread;
 
 
-    let spacing = 7;
-
-
-    if(
-        currentFabric === "crepe"
-    ){
-
-        spacing = 4;
-
-    }else if(
-        currentFabric === "velvet"
-    ){
-
-        spacing = 5;
-
-    }else if(
-        currentFabric === "chiffon"
-    ){
-
-        spacing = 9;
-    }
+    ctx.lineWidth = .5;
 
 
     for(
-        let x=0;
-        x<canvas.width;
-        x+=spacing
+        let i=0;
+        i<count;
+        i++
     ){
+
+        const x =
+            Math.random()
+            *canvas.width;
+
+        const y =
+            Math.random()
+            *canvas.height;
+
 
         ctx.beginPath();
 
-        ctx.moveTo(x,0);
+        ctx.moveTo(
+            x,
+            y
+        );
 
         ctx.lineTo(
-            x+10,
-            canvas.height
+            x + 20,
+            y + 2
         );
 
         ctx.stroke();
@@ -2477,36 +2963,12 @@ function drawFabricSurface(){
     }
 
 
-    for(
-        let y=0;
-        y<canvas.height;
-        y+=spacing
-    ){
-
-        ctx.beginPath();
-
-        ctx.moveTo(0,y);
-
-        ctx.lineTo(
-            canvas.width,
-            y+10
-        );
-
-        ctx.stroke();
-
-    }
-
-
-    ctx.restore();
-
-
-    /*
-       SATIN / SILK LIGHT
-    */
-
     if(
-        currentFabric === "satin" ||
-        currentFabric === "silk"
+        realisticFabric &&
+        (
+            currentFabric === "satin" ||
+            currentFabric === "silk"
+        )
     ){
 
         const gradient =
@@ -2518,185 +2980,39 @@ function drawFabricSurface(){
             );
 
 
-        const shine =
-            fabricShine;
-
-
         gradient.addColorStop(
             0,
-            `rgba(
-                255,
-                255,
-                255,
-                ${.05 * shine}
-            )`
-        );
-
-
-        gradient.addColorStop(
-            .35,
-            `rgba(
-                255,
-                255,
-                255,
-                ${.30 * shine}
-            )`
-        );
-
-
-        gradient.addColorStop(
-            .50,
-            `rgba(
-                255,
-                255,
-                255,
-                ${.08 * shine}
-            )`
-        );
-
-
-        gradient.addColorStop(
-            .65,
-            `rgba(
-                255,
-                255,
-                255,
-                ${.40 * shine}
-            )`
-        );
-
-
-        gradient.addColorStop(
-            1,
-            `rgba(
-                255,
-                255,
-                255,
-                ${.03 * shine}
-            )`
-        );
-
-
-        ctx.fillStyle =
-            gradient;
-
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-    }
-
-
-    /*
-       VELVET
-    */
-
-    if(
-        currentFabric === "velvet"
-    ){
-
-        const gradient =
-            ctx.createRadialGradient(
-                canvas.width*.5,
-                canvas.height*.4,
-                50,
-                canvas.width*.5,
-                canvas.height*.5,
-                canvas.width*.8
-            );
-
-
-        gradient.addColorStop(
-            0,
-            "rgba(255,255,255,.12)"
-        );
-
-
-        gradient.addColorStop(
-            1,
-            "rgba(0,0,0,.22)"
-        );
-
-
-        ctx.fillStyle =
-            gradient;
-
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-    }
-
-
-    /*
-       CHIFFON
-    */
-
-    if(
-        currentFabric === "chiffon"
-    ){
-
-        ctx.fillStyle =
-            "rgba(255,255,255,.18)";
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-    }
-
-
-    /*
-       REALISTIC SHADOW / LIGHT
-    */
-
-    if(realisticFabric){
-
-        const light =
-            ctx.createRadialGradient(
-                canvas.width*.35,
-                canvas.height*.25,
-                30,
-                canvas.width*.5,
-                canvas.height*.5,
-                canvas.width*.8
-            );
-
-
-        light.addColorStop(
-            0,
-            `rgba(
-                255,
-                255,
-                255,
-                ${.20 * fabricShine}
-            )`
-        );
-
-
-        light.addColorStop(
-            .45,
             "rgba(255,255,255,0)"
         );
 
 
-        light.addColorStop(
-            1,
-            "rgba(0,0,0,.12)"
+        gradient.addColorStop(
+            .48,
+            `rgba(
+                255,
+                255,
+                255,
+                ${.32*fabricShine}
+            )`
         );
 
 
-        ctx.fillStyle =
-            light;
+        gradient.addColorStop(
+            .55,
+            "rgba(255,255,255,0)"
+        );
 
+
+        gradient.addColorStop(
+            1,
+            "rgba(255,255,255,0)"
+        );
+
+
+        ctx.globalAlpha = 1;
+
+        ctx.fillStyle =
+            gradient;
 
         ctx.fillRect(
             0,
@@ -2704,7 +3020,11 @@ function drawFabricSurface(){
             canvas.width,
             canvas.height
         );
+
     }
+
+
+    ctx.restore();
 
 }
 
@@ -2713,270 +3033,94 @@ function drawFabricSurface(){
    FONT
 ========================================================= */
 
-let selectedFont =
-    "Arial";
-
-
-function selectFont(
-    font,
-    button
-){
-
-    selectedFont =
-        font;
-
-
-    document
-        .querySelectorAll(".font-btn")
-        .forEach(
-            b=>b.classList.remove(
-                "active"
-            )
-        );
-
-
-    if(button){
-        button.classList.add(
-            "active"
-        );
-    }
-
-
+const fontSelect =
     document.getElementById(
         "fontSelect"
-    ).value =
-        font;
-}
+    );
+
+
+/* =========================================================
+   SIZE / OPACITY
+========================================================= */
+
+document
+    .getElementById("sizeSlider")
+    .addEventListener(
+        "input",
+        e=>{
+
+            brushSize =
+                Number(e.target.value);
+
+            document.getElementById(
+                "sizeValue"
+            ).textContent =
+                e.target.value;
+
+        }
+    );
 
 
 document
-.getElementById("fontSelect")
-.addEventListener(
-    "change",
-    e=>{
+    .getElementById("opacitySlider")
+    .addEventListener(
+        "input",
+        e=>{
 
-        selectedFont =
-            e.target.value;
+            brushOpacity =
+                Number(e.target.value)/100;
 
-    }
-);
-
-
-/* =========================================================
-   CANVAS COORDINATES
-========================================================= */
-
-function getCanvasPoint(e){
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-
-    return {
-
-        x:
-            (e.clientX - rect.left) *
-            (
-                canvas.width /
-                rect.width
-            ),
-
-        y:
-            (e.clientY - rect.top) *
-            (
-                canvas.height /
-                rect.height
-            )
-
-    };
-
-}
-
-
-/* =========================================================
-   RENDER
-========================================================= */
-
-function render(){
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    /*
-       Fabric first
-    */
-
-    if(fabricMode){
-
-        drawFabricSurface();
-
-    }
-
-
-    ctx.save();
-
-
-    objects.forEach(
-        obj=>{
-
-            if(
-                obj.visible === false
-            ){
-                return;
-            }
-
-
-            drawObject(obj);
+            document.getElementById(
+                "opacityValue"
+            ).textContent =
+                e.target.value;
 
         }
     );
 
 
-    ctx.restore();
-
-
-    /*
-       Selection frame ONLY
-       when Select tool is active
-    */
-
-    if(
-        currentTool === "select" &&
-        selectedId
-    ){
-
-        const obj =
-            objects.find(
-                o=>o.id === selectedId
-            );
-
-
-        if(obj){
-
-            drawSelection(obj);
-
-        }
-
-    }
-
-}
-
-
 /* =========================================================
-   DRAW OBJECT
+   DRAWING HELPERS
 ========================================================= */
 
-function drawObject(obj){
+function drawStroke(
+    c,
+    obj
+){
 
-    ctx.save();
-
-
-    ctx.globalAlpha =
-        obj.opacity ?? 1;
-
-
-    if(
-        obj.type === "stroke"
-    ){
-
-        drawStroke(obj);
-
-    }
-
-
-    else if(
-        obj.type === "line"
-    ){
-
-        drawLine(obj);
-
-    }
-
-
-    else if(
-        obj.type === "rect"
-    ){
-
-        drawRect(obj);
-
-    }
-
-
-    else if(
-        obj.type === "circle"
-    ){
-
-        drawCircle(obj);
-
-    }
-
-
-    else if(
-        obj.type === "text"
-    ){
-
-        drawText(obj);
-
-    }
-
-
-    else if(
-        obj.type === "image"
-    ){
-
-        if(obj.img){
-
-            drawImage(obj);
-
-        }
-
-    }
-
-
-    ctx.restore();
-
-}
-
-
-/* =========================================================
-   STROKE
-========================================================= */
-
-function drawStroke(obj){
-
-    if(
-        !obj.points ||
-        !obj.points.length
-    ){
+    if(!obj.points || !obj.points.length){
         return;
     }
 
 
-    ctx.save();
+    c.save();
 
 
-    ctx.lineCap =
+    c.globalAlpha =
+        obj.opacity;
+
+
+    c.lineCap =
         "round";
 
-    ctx.lineJoin =
+    c.lineJoin =
         "round";
 
 
-    let alpha =
-        obj.opacity ?? 1;
+    c.strokeStyle =
+        obj.color;
+
+
+    c.lineWidth =
+        obj.size;
 
 
     if(
-        obj.brush === "watercolor"
+        obj.brush === "ink"
     ){
 
-        ctx.globalAlpha =
-            alpha * .35;
+        c.lineWidth =
+            obj.size*1.25;
 
     }
 
@@ -2985,8 +3129,36 @@ function drawStroke(obj){
         obj.brush === "marker"
     ){
 
-        ctx.globalAlpha =
-            alpha * .7;
+        c.lineWidth =
+            obj.size*2;
+
+        c.globalAlpha =
+            obj.opacity*.65;
+
+    }
+
+
+    if(
+        obj.brush === "watercolor"
+    ){
+
+        c.lineWidth =
+            obj.size*2;
+
+        c.globalAlpha =
+            obj.opacity*.22;
+
+    }
+
+
+    if(
+        obj.brush === "neon"
+    ){
+
+        c.shadowBlur = 14;
+
+        c.shadowColor =
+            obj.color;
 
     }
 
@@ -2995,200 +3167,203 @@ function drawStroke(obj){
         obj.brush === "spray"
     ){
 
-        drawSpray(obj);
+        drawSpray(
+            c,
+            obj
+        );
 
-        ctx.restore();
+        c.restore();
 
         return;
+
     }
 
 
-    if(
-        obj.brush === "neon"
+    c.beginPath();
+
+
+    c.moveTo(
+        obj.points[0].x,
+        obj.points[0].y
+    );
+
+
+    for(
+        let i=1;
+        i<obj.points.length;
+        i++
     ){
 
-        ctx.shadowBlur = 15;
-
-        ctx.shadowColor =
-            obj.color;
+        c.lineTo(
+            obj.points[i].x,
+            obj.points[i].y
+        );
 
     }
 
 
-    ctx.strokeStyle =
-        obj.color;
-
-    ctx.lineWidth =
-        obj.size;
+    c.stroke();
 
 
-    ctx.beginPath();
-
-
-    obj.points.forEach(
-        (p,i)=>{
-
-            if(i === 0){
-
-                ctx.moveTo(
-                    p.x,
-                    p.y
-                );
-
-            }else{
-
-                ctx.lineTo(
-                    p.x,
-                    p.y
-                );
-
-            }
-
-        }
-    );
-
-
-    ctx.stroke();
-
-
-    ctx.restore();
+    c.restore();
 
 }
 
 
-function drawSpray(obj){
+function drawSpray(
+    c,
+    obj
+){
 
-    ctx.fillStyle =
+    const amount =
+        Math.max(
+            40,
+            obj.size*10
+        );
+
+
+    c.fillStyle =
         obj.color;
 
 
-    obj.points.forEach(
-        p=>{
+    for(
+        let i=0;
+        i<amount;
+        i++
+    ){
 
-            for(
-                let i=0;
-                i<20;
-                i++
-            ){
-
-                const angle =
-                    Math.random() *
-                    Math.PI * 2;
-
-
-                const radius =
-                    Math.random() *
-                    obj.size;
+        const p =
+            obj.points[
+                Math.floor(
+                    Math.random()
+                    *obj.points.length
+                )
+            ];
 
 
-                const x =
-                    p.x +
-                    Math.cos(angle) *
-                    radius;
+        const angle =
+            Math.random()
+            *Math.PI*2;
 
 
-                const y =
-                    p.y +
-                    Math.sin(angle) *
-                    radius;
+        const radius =
+            Math.random()
+            *obj.size*2;
 
 
-                ctx.globalAlpha =
-                    (obj.opacity ?? 1) *
-                    Math.random() *
-                    .35;
+        const x =
+            p.x +
+            Math.cos(angle)*radius;
 
 
-                ctx.beginPath();
+        const y =
+            p.y +
+            Math.sin(angle)*radius;
 
 
-                ctx.arc(
-                    x,
-                    y,
-                    Math.random()*2+1,
-                    0,
-                    Math.PI*2
-                );
+        c.globalAlpha =
+            Math.random()
+            *.4*
+            obj.opacity;
 
 
-                ctx.fill();
+        c.fillRect(
+            x,
+            y,
+            1.5,
+            1.5
+        );
 
-            }
-
-        }
-    );
+    }
 
 }
 
 
-/* =========================================================
-   SHAPES
-========================================================= */
+function drawLine(
+    c,
+    obj
+){
 
-function drawLine(obj){
+    c.save();
 
-    ctx.strokeStyle =
+    c.globalAlpha =
+        obj.opacity;
+
+    c.strokeStyle =
         obj.color;
 
-    ctx.lineWidth =
+    c.lineWidth =
         obj.size;
 
-    ctx.lineCap =
+    c.lineCap =
         "round";
 
+    c.beginPath();
 
-    ctx.beginPath();
-
-
-    ctx.moveTo(
+    c.moveTo(
         obj.x1,
         obj.y1
     );
 
-
-    ctx.lineTo(
+    c.lineTo(
         obj.x2,
         obj.y2
     );
 
+    c.stroke();
 
-    ctx.stroke();
+    c.restore();
 
 }
 
 
-function drawRect(obj){
+function drawRect(
+    c,
+    obj
+){
 
-    ctx.strokeStyle =
+    c.save();
+
+    c.globalAlpha =
+        obj.opacity;
+
+    c.strokeStyle =
         obj.color;
 
-    ctx.lineWidth =
+    c.lineWidth =
         obj.size;
 
-
-    ctx.strokeRect(
+    c.strokeRect(
         obj.x,
         obj.y,
         obj.w,
         obj.h
     );
 
+    c.restore();
+
 }
 
 
-function drawCircle(obj){
+function drawCircle(
+    c,
+    obj
+){
 
-    ctx.strokeStyle =
+    c.save();
+
+    c.globalAlpha =
+        obj.opacity;
+
+    c.strokeStyle =
         obj.color;
 
-    ctx.lineWidth =
+    c.lineWidth =
         obj.size;
 
+    c.beginPath();
 
-    ctx.beginPath();
-
-
-    ctx.ellipse(
+    c.ellipse(
         obj.cx,
         obj.cy,
         Math.abs(obj.rx),
@@ -3198,60 +3373,91 @@ function drawCircle(obj){
         Math.PI*2
     );
 
+    c.stroke();
 
-    ctx.stroke();
+    c.restore();
 
 }
 
 
-/* =========================================================
-   TEXT
-========================================================= */
+function drawText(
+    c,
+    obj
+){
 
-function drawText(obj){
+    c.save();
 
-    ctx.fillStyle =
+    c.globalAlpha =
+        obj.opacity;
+
+    c.fillStyle =
         obj.color;
 
+    c.font =
+        `${obj.size}px ${obj.font}`;
 
-    ctx.font =
-        `${obj.size}px ${obj.font || "Arial"}`;
-
-
-    ctx.textBaseline =
+    c.textBaseline =
         "top";
 
+    c.direction =
+        /[\u0600-\u06FF]/.test(
+            obj.text
+        )
+        ? "rtl"
+        : "ltr";
 
-    ctx.fillText(
+
+    c.fillText(
         obj.text,
         obj.x,
         obj.y
     );
 
+
+    c.restore();
+
 }
 
 
-/* =========================================================
-   IMAGE
-========================================================= */
+function drawImageObject(
+    c,
+    obj
+){
 
-function drawImage(obj){
+    if(!obj.img){
+        return;
+    }
 
-    ctx.save();
+
+    c.save();
 
 
-    ctx.translate(
-        obj.x + obj.w/2,
-        obj.y + obj.h/2
+    c.globalAlpha =
+        obj.opacity;
+
+
+    const cx =
+        obj.x +
+        obj.w/2;
+
+
+    const cy =
+        obj.y +
+        obj.h/2;
+
+
+    c.translate(
+        cx,
+        cy
     );
 
 
-    ctx.rotate(
+    c.rotate(
         obj.rotation || 0
     );
 
 
-    ctx.drawImage(
+    c.drawImage(
         obj.img,
         -obj.w/2,
         -obj.h/2,
@@ -3260,7 +3466,7 @@ function drawImage(obj){
     );
 
 
-    ctx.restore();
+    c.restore();
 
 }
 
@@ -3271,30 +3477,12 @@ function drawImage(obj){
 
 function getBounds(obj){
 
-    if(
-        obj.type === "stroke"
-    ){
-
-        if(
-            !obj.points ||
-            !obj.points.length
-        ){
-
-            return {
-                x:0,
-                y:0,
-                w:0,
-                h:0
-            };
-
-        }
-
+    if(obj.type === "stroke"){
 
         const xs =
             obj.points.map(
                 p=>p.x
             );
-
 
         const ys =
             obj.points.map(
@@ -3302,108 +3490,89 @@ function getBounds(obj){
             );
 
 
+        const minX =
+            Math.min(...xs);
+
+        const maxX =
+            Math.max(...xs);
+
+        const minY =
+            Math.min(...ys);
+
+        const maxY =
+            Math.max(...ys);
+
+
         return {
 
-            x:Math.min(...xs),
-
-            y:Math.min(...ys),
-
-            w:
-                Math.max(...xs) -
-                Math.min(...xs),
-
-            h:
-                Math.max(...ys) -
-                Math.min(...ys)
+            x:minX,
+            y:minY,
+            w:maxX-minX || 1,
+            h:maxY-minY || 1
 
         };
 
     }
 
 
-    if(
-        obj.type === "line"
-    ){
+    if(obj.type === "line"){
 
         return {
 
-            x:
-                Math.min(
-                    obj.x1,
-                    obj.x2
-                ),
+            x:Math.min(
+                obj.x1,
+                obj.x2
+            ),
 
-            y:
-                Math.min(
-                    obj.y1,
-                    obj.y2
-                ),
+            y:Math.min(
+                obj.y1,
+                obj.y2
+            ),
 
-            w:
-                Math.abs(
-                    obj.x2 -
-                    obj.x1
-                ),
+            w:Math.abs(
+                obj.x2-obj.x1
+            ),
 
-            h:
-                Math.abs(
-                    obj.y2 -
-                    obj.y1
-                )
+            h:Math.abs(
+                obj.y2-obj.y1
+            )
 
         };
 
     }
 
 
-    if(
-        obj.type === "rect"
-    ){
+    if(obj.type === "rect"){
 
         return {
 
-            x:
-                Math.min(
-                    obj.x,
-                    obj.x + obj.w
-                ),
-
-            y:
-                Math.min(
-                    obj.y,
-                    obj.y + obj.h
-                ),
-
-            w:
-                Math.abs(obj.w),
-
-            h:
-                Math.abs(obj.h)
+            x:obj.x,
+            y:obj.y,
+            w:obj.w,
+            h:obj.h
 
         };
 
     }
 
 
-    if(
-        obj.type === "circle"
-    ){
+    if(obj.type === "circle"){
 
         return {
 
             x:
                 obj.cx -
-                Math.abs(obj.rx),
+                obj.rx,
 
             y:
                 obj.cy -
-                Math.abs(obj.ry),
+                obj.ry,
 
             w:
-                Math.abs(obj.rx)*2,
+                obj.rx*2,
 
             h:
-                Math.abs(obj.ry)*2
+                obj.ry*2
 
         };
 
@@ -3414,32 +3583,17 @@ function getBounds(obj){
         obj.type === "text"
     ){
 
-        ctx.save();
-
-
-        ctx.font =
-            `${obj.size}px ${
-                obj.font || "Arial"
-            }`;
-
-
         const width =
             ctx.measureText(
                 obj.text
             ).width;
 
 
-        ctx.restore();
-
-
         return {
 
             x:obj.x,
-
             y:obj.y,
-
             w:width,
-
             h:obj.size*1.2
 
         };
@@ -3454,11 +3608,8 @@ function getBounds(obj){
         return {
 
             x:obj.x,
-
             y:obj.y,
-
             w:obj.w,
-
             h:obj.h
 
         };
@@ -3490,20 +3641,21 @@ function drawSelection(obj){
 
 
     ctx.strokeStyle =
-        "#6c5ce7";
+        "#7d6df0";
 
     ctx.lineWidth = 2;
 
-    ctx.setLineDash(
-        [6,5]
-    );
+    ctx.setLineDash([
+        6,
+        5
+    ]);
 
 
     ctx.strokeRect(
-        b.x-6,
-        b.y-6,
-        b.w+12,
-        b.h+12
+        b.x-5,
+        b.y-5,
+        b.w+10,
+        b.h+10
     );
 
 
@@ -3511,20 +3663,18 @@ function drawSelection(obj){
 
 
     ctx.fillStyle =
-        "#6c5ce7";
+        "#7d6df0";
 
 
     ctx.beginPath();
 
-
     ctx.arc(
-        b.x+b.w/2,
-        b.y-14,
-        5,
+        b.x+b.w+6,
+        b.y+b.h+6,
+        6,
         0,
         Math.PI*2
     );
-
 
     ctx.fill();
 
@@ -3535,10 +3685,163 @@ function drawSelection(obj){
 
 
 /* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+
+    ctx.setTransform(
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+    );
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    if(fabricMode){
+
+        drawFabricSurface();
+
+    }else{
+
+        ctx.fillStyle =
+            "#ffffff";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+    }
+
+
+    objects.forEach(
+        obj=>{
+
+            if(
+                obj.visible === false
+            ){
+                return;
+            }
+
+
+            if(
+                obj.type === "stroke"
+            ){
+
+                drawStroke(
+                    ctx,
+                    obj
+                );
+
+            }
+
+
+            else if(
+                obj.type === "line"
+            ){
+
+                drawLine(
+                    ctx,
+                    obj
+                );
+
+            }
+
+
+            else if(
+                obj.type === "rect"
+            ){
+
+                drawRect(
+                    ctx,
+                    obj
+                );
+
+            }
+
+
+            else if(
+                obj.type === "circle"
+            ){
+
+                drawCircle(
+                    ctx,
+                    obj
+                );
+
+            }
+
+
+            else if(
+                obj.type === "text"
+            ){
+
+                drawText(
+                    ctx,
+                    obj
+                );
+
+            }
+
+
+            else if(
+                obj.type === "image"
+            ){
+
+                drawImageObject(
+                    ctx,
+                    obj
+                );
+
+            }
+
+        }
+    );
+
+
+    if(
+        currentTool === "select" &&
+        selectedId
+    ){
+
+        const obj =
+            getSelected();
+
+
+        if(obj){
+
+            drawSelection(
+                obj
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
    HIT TEST
 ========================================================= */
 
-function hitTest(x,y){
+function hitTest(
+    x,
+    y
+){
 
     for(
         let i=objects.length-1;
@@ -3554,7 +3857,7 @@ function hitTest(x,y){
             getBounds(obj);
 
 
-        const padding = 12;
+        const padding = 8;
 
 
         if(
@@ -3577,6 +3880,35 @@ function hitTest(x,y){
 
 
 /* =========================================================
+   POINTER POSITION
+========================================================= */
+
+function getPointerPosition(e){
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    return {
+
+        x:
+            (e.clientX-rect.left)
+            *
+            canvas.width/
+            rect.width,
+
+        y:
+            (e.clientY-rect.top)
+            *
+            canvas.height/
+            rect.height
+
+    };
+
+}
+
+
+/* =========================================================
    POINTER DOWN
 ========================================================= */
 
@@ -3584,24 +3916,77 @@ canvas.addEventListener(
     "pointerdown",
     e=>{
 
-        e.preventDefault();
+        canvas.setPointerCapture(
+            e.pointerId
+        );
 
 
         const p =
-            getCanvasPoint(e);
+            getPointerPosition(e);
 
 
-        pointerStart =
-            p;
+        pointerStart = {
+            x:p.x,
+            y:p.y
+        };
 
 
-        /*
-           SELECT
-        */
+        startX =
+            p.x;
+
+        startY =
+            p.y;
+
+
+        drawing = true;
+
 
         if(
             currentTool === "select"
         ){
+
+            const current =
+                getSelected();
+
+
+            if(
+                current &&
+                isOnResizeHandle(
+                    p.x,
+                    p.y,
+                    current
+                )
+            ){
+
+                resizing = true;
+
+                resizeStart = {
+                    x:p.x,
+                    y:p.y
+                };
+
+
+                resizeOriginal = {
+
+                    w:current.w,
+                    h:current.h,
+
+                    rx:current.rx,
+                    ry:current.ry,
+
+                    size:current.size
+
+                };
+
+
+                saveHistory();
+
+                render();
+
+                return;
+
+            }
+
 
             const obj =
                 hitTest(
@@ -3640,10 +4025,6 @@ canvas.addEventListener(
         }
 
 
-        /*
-           COLOR PICKER
-        */
-
         if(
             currentTool === "picker"
         ){
@@ -3653,14 +4034,12 @@ canvas.addEventListener(
                 p.y
             );
 
+            drawing = false;
+
             return;
 
         }
 
-
-        /*
-           FILL
-        */
 
         if(
             currentTool === "fill"
@@ -3671,14 +4050,12 @@ canvas.addEventListener(
                 p.y
             );
 
+            drawing = false;
+
             return;
 
         }
 
-
-        /*
-           TEXT
-        */
 
         if(
             currentTool === "text"
@@ -3689,27 +4066,15 @@ canvas.addEventListener(
                 p.y
             );
 
+            drawing = false;
+
             return;
 
         }
 
 
-        drawing = true;
-
-
-        startX =
-            p.x;
-
-        startY =
-            p.y;
-
-
         saveHistory();
 
-
-        /*
-           BRUSH / ERASER
-        */
 
         if(
             currentTool === "brush" ||
@@ -3731,23 +4096,21 @@ canvas.addEventListener(
 
                 color:
                     currentTool === "eraser"
-                        ? (
-                            fabricMode
-                                ? fabricSettings[
-                                    currentFabric
-                                  ].base
-                                : "#ffffff"
-                          )
-                        : currentColor,
+                    ? "#ffffff"
+                    : currentColor,
 
-                size:brushSize,
+                size:
+                    currentTool === "eraser"
+                    ? brushSize*2
+                    : brushSize,
 
                 opacity:
-                    currentTool === "eraser"
-                        ? 1
-                        : brushOpacity,
+                    brushOpacity,
 
-                brush:brushType,
+                brush:
+                    currentTool === "eraser"
+                    ? "marker"
+                    : brushType,
 
                 visible:true
 
@@ -3758,16 +4121,8 @@ canvas.addEventListener(
                 currentObject
             );
 
-
-            selectedId =
-                currentObject.id;
-
         }
 
-
-        /*
-           LINE
-        */
 
         else if(
             currentTool === "line"
@@ -3780,11 +4135,9 @@ canvas.addEventListener(
                 type:"line",
 
                 x1:p.x,
-
                 y1:p.y,
 
                 x2:p.x,
-
                 y2:p.y,
 
                 color:currentColor,
@@ -3802,16 +4155,8 @@ canvas.addEventListener(
                 currentObject
             );
 
-
-            selectedId =
-                currentObject.id;
-
         }
 
-
-        /*
-           RECT
-        */
 
         else if(
             currentTool === "rect"
@@ -3824,12 +4169,10 @@ canvas.addEventListener(
                 type:"rect",
 
                 x:p.x,
-
                 y:p.y,
 
-                w:0,
-
-                h:0,
+                w:1,
+                h:1,
 
                 color:currentColor,
 
@@ -3846,16 +4189,8 @@ canvas.addEventListener(
                 currentObject
             );
 
-
-            selectedId =
-                currentObject.id;
-
         }
 
-
-        /*
-           CIRCLE
-        */
 
         else if(
             currentTool === "circle"
@@ -3871,9 +4206,9 @@ canvas.addEventListener(
 
                 cy:p.y,
 
-                rx:0,
+                rx:1,
 
-                ry:0,
+                ry:1,
 
                 color:currentColor,
 
@@ -3890,21 +4225,10 @@ canvas.addEventListener(
                 currentObject
             );
 
-
-            selectedId =
-                currentObject.id;
-
         }
 
 
-        /*
-           IMPORTANT:
-           No selection frame while drawing.
-        */
-
         render();
-
-        updateLayers();
 
     }
 );
@@ -3918,33 +4242,59 @@ canvas.addEventListener(
     "pointermove",
     e=>{
 
-        e.preventDefault();
+        if(!drawing){
+            return;
+        }
 
 
         const p =
-            getCanvasPoint(e);
+            getPointerPosition(e);
 
-
-        /*
-           SELECT
-        */
 
         if(
             currentTool === "select"
         ){
 
             if(
+                resizing &&
                 selectedId &&
-                pointerStart &&
-                dragOffset
+                resizeStart &&
+                resizeOriginal
             ){
 
                 const obj =
-                    objects.find(
-                        o=>
-                            o.id ===
-                            selectedId
+                    getSelected();
+
+
+                if(obj){
+
+                    resizeObject(
+                        obj,
+                        p.x -
+                        resizeStart.x,
+
+                        p.y -
+                        resizeStart.y
                     );
+
+
+                    render();
+
+                }
+
+
+                return;
+
+            }
+
+
+            if(
+                selectedId &&
+                pointerStart
+            ){
+
+                const obj =
+                    getSelected();
 
 
                 if(obj){
@@ -3969,7 +4319,34 @@ canvas.addEventListener(
                     pointerStart =
                         p;
 
+
+                    render();
+
                 }
+
+            }
+
+
+            return;
+
+        }
+
+
+        if(
+            currentTool === "brush" ||
+            currentTool === "eraser"
+        ){
+
+            if(
+                currentObject
+            ){
+
+                currentObject.points.push({
+
+                    x:p.x,
+                    y:p.y
+
+                });
 
 
                 render();
@@ -3983,87 +4360,70 @@ canvas.addEventListener(
 
 
         if(
-            !drawing ||
-            !currentObject
+            currentTool === "line"
         ){
+
+            if(currentObject){
+
+                currentObject.x2 =
+                    p.x;
+
+                currentObject.y2 =
+                    p.y;
+
+                render();
+
+            }
 
             return;
 
         }
 
 
-        /*
-           BRUSH
-        */
-
         if(
-            currentTool === "brush" ||
-            currentTool === "eraser"
-        ){
-
-            currentObject.points.push({
-
-                x:p.x,
-
-                y:p.y
-
-            });
-
-        }
-
-
-        /*
-           LINE
-        */
-
-        else if(
-            currentTool === "line"
-        ){
-
-            currentObject.x2 =
-                p.x;
-
-            currentObject.y2 =
-                p.y;
-
-        }
-
-
-        /*
-           RECT
-        */
-
-        else if(
             currentTool === "rect"
         ){
 
-            currentObject.w =
-                p.x - startX;
+            if(currentObject){
 
-            currentObject.h =
-                p.y - startY;
+                currentObject.w =
+                    p.x -
+                    startX;
+
+                currentObject.h =
+                    p.y -
+                    startY;
+
+                render();
+
+            }
+
+            return;
 
         }
 
 
-        /*
-           CIRCLE
-        */
-
-        else if(
+        if(
             currentTool === "circle"
         ){
 
-            currentObject.rx =
-                p.x - startX;
+            if(currentObject){
 
-            currentObject.ry =
-                p.y - startY;
+                currentObject.rx =
+                    Math.abs(
+                        p.x-startX
+                    );
+
+                currentObject.ry =
+                    Math.abs(
+                        p.y-startY
+                    );
+
+                render();
+
+            }
 
         }
-
-
-        render();
 
     }
 );
@@ -4085,6 +4445,11 @@ canvas.addEventListener(
 
         dragOffset = null;
 
+        resizing = false;
+
+        resizeStart = null;
+
+        resizeOriginal = null;
 
         render();
 
@@ -4093,6 +4458,10 @@ canvas.addEventListener(
     }
 );
 
+
+/* =========================================================
+   POINTER CANCEL
+========================================================= */
 
 canvas.addEventListener(
     "pointercancel",
@@ -4106,6 +4475,11 @@ canvas.addEventListener(
 
         dragOffset = null;
 
+        resizing = false;
+
+        resizeStart = null;
+
+        resizeOriginal = null;
 
         render();
 
@@ -4131,7 +4505,6 @@ function moveObject(
             p=>{
 
                 p.x += dx;
-
                 p.y += dy;
 
             }
@@ -4196,7 +4569,118 @@ function moveObject(
 
 
 /* =========================================================
-   CREATE TEXT
+   RESIZE
+========================================================= */
+
+function isOnResizeHandle(
+    x,
+    y,
+    obj
+){
+
+    const b =
+        getBounds(obj);
+
+
+    const hx =
+        b.x+b.w+6;
+
+
+    const hy =
+        b.y+b.h+6;
+
+
+    return (
+        Math.abs(x-hx)<=14 &&
+        Math.abs(y-hy)<=14
+    );
+
+}
+
+
+function resizeObject(
+    obj,
+    dx,
+    dy
+){
+
+    if(
+        obj.type === "rect"
+    ){
+
+        obj.w =
+            Math.max(
+                5,
+                resizeOriginal.w+dx
+            );
+
+
+        obj.h =
+            Math.max(
+                5,
+                resizeOriginal.h+dy
+            );
+
+    }
+
+
+    else if(
+        obj.type === "circle"
+    ){
+
+        obj.rx =
+            Math.max(
+                3,
+                resizeOriginal.rx+dx
+            );
+
+
+        obj.ry =
+            Math.max(
+                3,
+                resizeOriginal.ry+dy
+            );
+
+    }
+
+
+    else if(
+        obj.type === "image"
+    ){
+
+        obj.w =
+            Math.max(
+                20,
+                resizeOriginal.w+dx
+            );
+
+
+        obj.h =
+            Math.max(
+                20,
+                resizeOriginal.h+dy
+            );
+
+    }
+
+
+    else if(
+        obj.type === "text"
+    ){
+
+        obj.size =
+            Math.max(
+                8,
+                resizeOriginal.size+dy
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   TEXT
 ========================================================= */
 
 function createText(
@@ -4204,23 +4688,35 @@ function createText(
     y
 ){
 
-    const text =
-        prompt(
-            "اكتبي النص ✨"
+    const input =
+        document.getElementById(
+            "textInput"
         );
+
+
+    let text =
+        input.value.trim();
 
 
     if(!text){
 
-        return;
+        text =
+            prompt(
+                "Enter text / اكتب النص:"
+            );
 
+    }
+
+
+    if(!text){
+        return;
     }
 
 
     saveHistory();
 
 
-    const obj = {
+    objects.push({
 
         id:uid(),
 
@@ -4232,24 +4728,24 @@ function createText(
 
         y:y,
 
-        size:32,
+        size:
+            Math.max(
+                12,
+                brushSize*4
+            ),
 
-        color:currentColor,
+        font:
+            fontSelect.value,
 
-        font:selectedFont,
+        color:
+            currentColor,
 
-        opacity:brushOpacity,
+        opacity:
+            brushOpacity,
 
         visible:true
 
-    };
-
-
-    objects.push(obj);
-
-
-    selectedId =
-        obj.id;
+    });
 
 
     render();
@@ -4260,7 +4756,7 @@ function createText(
 
 
 /* =========================================================
-   COLOR PICKER
+   PICK COLOR
 ========================================================= */
 
 function pickColor(
@@ -4268,10 +4764,13 @@ function pickColor(
     y
 ){
 
+    render();
+
+
     const pixel =
         ctx.getImageData(
-            x,
-            y,
+            Math.floor(x),
+            Math.floor(y),
             1,
             1
         ).data;
@@ -4280,35 +4779,15 @@ function pickColor(
     const hex =
         "#" +
         [pixel[0],pixel[1],pixel[2]]
-        .map(
-            n=>
-                n.toString(16)
-                 .padStart(2,"0")
-        )
-        .join("");
+            .map(
+                n=>
+                    n.toString(16)
+                     .padStart(2,"0")
+            )
+            .join("");
 
 
-    currentColor =
-        hex;
-
-
-    document.getElementById(
-        "customColor"
-    ).value =
-        hex;
-
-
-    document
-        .querySelectorAll(".color")
-        .forEach(
-            c=>
-                c.classList.remove(
-                    "active"
-                )
-        );
-
-
-    setTool("brush");
+    setColor(hex);
 
 }
 
@@ -4322,50 +4801,68 @@ function fillAt(
     y
 ){
 
-    /*
-       For V5.3 the Fill works on
-       the visible canvas pixels.
-
-       It is intentionally kept separate
-       from object layers so it doesn't
-       destroy the old drawing engine.
-    */
+    render();
 
 
-    const imageData =
+    const w =
+        canvas.width;
+
+
+    const h =
+        canvas.height;
+
+
+    const source =
         ctx.getImageData(
             0,
             0,
-            canvas.width,
-            canvas.height
+            w,
+            h
         );
+
+
+    const data =
+        source.data;
 
 
     const px =
         Math.floor(x);
 
+
     const py =
         Math.floor(y);
 
 
-    const index =
-        (py * canvas.width + px) * 4;
+    if(
+        px<0 ||
+        py<0 ||
+        px>=w ||
+        py>=h
+    ){
+
+        return;
+
+    }
 
 
-    const targetR =
-        imageData.data[index];
-
-    const targetG =
-        imageData.data[index+1];
-
-    const targetB =
-        imageData.data[index+2];
-
-    const targetA =
-        imageData.data[index+3];
+    const startIndex =
+        (py*w+px)*4;
 
 
-    const fillColor =
+    const target = [
+
+        data[startIndex],
+
+        data[startIndex+1],
+
+        data[startIndex+2],
+
+        data[startIndex+3]
+
+    ];
+
+
+    const fill =
         hexToRGBA(
             currentColor
         );
@@ -4373,14 +4870,15 @@ function fillAt(
 
     if(
         colorsClose(
-            targetR,
-            targetG,
-            targetB,
-            targetA,
-            fillColor.r,
-            fillColor.g,
-            fillColor.b,
-            fillColor.a
+            target[0],
+            target[1],
+            target[2],
+            target[3],
+
+            fill.r,
+            fill.g,
+            fill.b,
+            255
         )
     ){
 
@@ -4389,7 +4887,30 @@ function fillAt(
     }
 
 
-    saveHistory();
+    const mask =
+        document.createElement(
+            "canvas"
+        );
+
+
+    mask.width = w;
+
+    mask.height = h;
+
+
+    const mctx =
+        mask.getContext("2d");
+
+
+    const output =
+        mctx.createImageData(
+            w,
+            h
+        );
+
+
+    const out =
+        output.data;
 
 
     const stack = [
@@ -4397,56 +4918,70 @@ function fillAt(
     ];
 
 
+    const seen =
+        new Uint8Array(
+            w*h
+        );
+
+
     const tolerance = 25;
 
 
-    while(stack.length){
+    while(
+        stack.length
+    ){
 
-        const point =
+        const [
+            cx,
+            cy
+        ] =
             stack.pop();
 
 
-        const cx =
-            point[0];
-
-        const cy =
-            point[1];
-
-
         if(
-            cx < 0 ||
-            cy < 0 ||
-            cx >= canvas.width ||
-            cy >= canvas.height
+            cx<0 ||
+            cy<0 ||
+            cx>=w ||
+            cy>=h
         ){
 
             continue;
 
         }
+
+
+        const pos =
+            cy*w+cx;
+
+
+        if(seen[pos]){
+            continue;
+        }
+
+
+        seen[pos] = 1;
 
 
         const i =
-            (cy * canvas.width + cx) * 4;
-
-
-        const r =
-            imageData.data[i];
-
-        const g =
-            imageData.data[i+1];
-
-        const b =
-            imageData.data[i+2];
-
-        const a =
-            imageData.data[i+3];
+            pos*4;
 
 
         if(
-            Math.abs(r-targetR) > tolerance ||
-            Math.abs(g-targetG) > tolerance ||
-            Math.abs(b-targetB) > tolerance ||
-            Math.abs(a-targetA) > tolerance
+            Math.abs(
+                data[i]-target[0]
+            )>tolerance ||
+
+            Math.abs(
+                data[i+1]-target[1]
+            )>tolerance ||
+
+            Math.abs(
+                data[i+2]-target[2]
+            )>tolerance ||
+
+            Math.abs(
+                data[i+3]-target[3]
+            )>tolerance
         ){
 
             continue;
@@ -4454,16 +4989,16 @@ function fillAt(
         }
 
 
-        imageData.data[i] =
-            fillColor.r;
+        out[i] =
+            fill.r;
 
-        imageData.data[i+1] =
-            fillColor.g;
+        out[i+1] =
+            fill.g;
 
-        imageData.data[i+2] =
-            fillColor.b;
+        out[i+2] =
+            fill.b;
 
-        imageData.data[i+3] =
+        out[i+3] =
             255;
 
 
@@ -4477,69 +5012,78 @@ function fillAt(
     }
 
 
-    ctx.putImageData(
-        imageData,
+    mctx.putImageData(
+        output,
         0,
         0
     );
 
 
-    /*
-       Make filled result an image object
-       so it participates in our system.
-    */
-
-    const image =
-        new Image();
+    const dataUrl =
+        mask.toDataURL(
+            "image/png"
+        );
 
 
-    image.onload = ()=>{
-
-        const obj = {
-
-            id:uid(),
-
-            type:"image",
-
-            x:0,
-
-            y:0,
-
-            w:canvas.width,
-
-            h:canvas.height,
-
-            rotation:0,
-
-            imageSrc:
-                canvas.toDataURL(),
-
-            img:image,
-
-            opacity:1,
-
-            visible:true,
-
-            isFillLayer:true
-
-        };
+    saveHistory();
 
 
-        /*
-           We don't want to duplicate
-           the complete canvas visually.
-           This is only used as a stable
-           fill snapshot.
-        */
+    const obj = {
+
+        id:uid(),
+
+        type:"image",
+
+        x:0,
+
+        y:0,
+
+        w:w,
+
+        h:h,
+
+        rotation:0,
+
+        imageSrc:dataUrl,
+
+        opacity:1,
+
+        visible:true,
+
+        isFillLayer:true
 
     };
 
 
-    image.src =
-        canvas.toDataURL();
+    const img =
+        new Image();
 
 
-    render();
+    img.onload =
+        ()=>{
+
+            obj.img =
+                img;
+
+
+            objects.push(
+                obj
+            );
+
+
+            selectedId =
+                null;
+
+
+            render();
+
+            updateLayers();
+
+        };
+
+
+    img.src =
+        dataUrl;
 
 }
 
@@ -4557,16 +5101,6 @@ function hexToRGBA(
             "#",
             ""
         );
-
-
-    if(hex.length === 3){
-
-        hex =
-            hex.split("")
-                .map(c=>c+c)
-                .join("");
-
-    }
 
 
     return {
@@ -4587,9 +5121,7 @@ function hexToRGBA(
             parseInt(
                 hex.substring(4,6),
                 16
-            ),
-
-        a:255
+            )
 
     };
 
@@ -4597,20 +5129,26 @@ function hexToRGBA(
 
 
 function colorsClose(
-    r1,g1,b1,a1,
-    r2,g2,b2,a2
+    r1,
+    g1,
+    b1,
+    a1,
+
+    r2,
+    g2,
+    b2,
+    a2
 ){
 
+    const tolerance =
+        25;
+
+
     return (
-
-        Math.abs(r1-r2) <= 25 &&
-
-        Math.abs(g1-g2) <= 25 &&
-
-        Math.abs(b1-b2) <= 25 &&
-
-        Math.abs(a1-a2) <= 25
-
+        Math.abs(r1-r2)<=tolerance &&
+        Math.abs(g1-g2)<=tolerance &&
+        Math.abs(b1-b2)<=tolerance &&
+        Math.abs(a1-a2)<=tolerance
     );
 
 }
@@ -4620,72 +5158,57 @@ function colorsClose(
    IMAGE UPLOAD
 ========================================================= */
 
-function uploadImage(){
+function uploadImage(
+    event
+){
 
-    document
-        .getElementById(
-            "imageInput"
-        )
-        .click();
-
-}
+    const file =
+        event.target.files[0];
 
 
-document
-.getElementById("imageInput")
-.addEventListener(
-    "change",
-    e=>{
-
-        const file =
-            e.target.files[0];
+    if(!file){
+        return;
+    }
 
 
-        if(!file){
-
-            return;
-
-        }
+    const reader =
+        new FileReader();
 
 
-        const reader =
-            new FileReader();
+    reader.onload =
+        e=>{
+
+            saveHistory();
 
 
-        reader.onload =
-            function(){
+            const img =
+                new Image();
 
 
-                const img =
-                    new Image();
+            img.onload =
+                ()=>{
+
+                    const max =
+                        400;
 
 
-                img.onload =
-                    function(){
+                    let w =
+                        img.width;
 
 
-                        saveHistory();
+                    let h =
+                        img.height;
 
 
-                        const maxW =
-                            450;
-
-                        const maxH =
-                            350;
-
-
-                        let w =
-                            img.width;
-
-                        let h =
-                            img.height;
-
+                    if(
+                        w>max ||
+                        h>max
+                    ){
 
                         const scale =
                             Math.min(
-                                maxW/w,
-                                maxH/h,
-                                1
+                                max/w,
+                                max/h
                             );
 
 
@@ -4693,99 +5216,103 @@ document
 
                         h *= scale;
 
-
-                        const obj = {
-
-                            id:uid(),
-
-                            type:"image",
-
-                            x:
-                                (
-                                    canvas.width-w
-                                )/2,
-
-                            y:
-                                (
-                                    canvas.height-h
-                                )/2,
-
-                            w:w,
-
-                            h:h,
-
-                            rotation:0,
-
-                            imageSrc:
-                                reader.result,
-
-                            img:img,
-
-                            opacity:1,
-
-                            visible:true
-
-                        };
+                    }
 
 
-                        objects.push(
-                            obj
-                        );
+                    const obj = {
 
+                        id:uid(),
 
-                        selectedId =
-                            obj.id;
+                        type:"image",
 
+                        x:
+                            (
+                                canvas.width-w
+                            )/2,
 
-                        render();
+                        y:
+                            (
+                                canvas.height-h
+                            )/2,
 
-                        updateLayers();
+                        w:w,
+
+                        h:h,
+
+                        rotation:0,
+
+                        imageSrc:
+                            e.target.result,
+
+                        img:img,
+
+                        opacity:1,
+
+                        visible:true
 
                     };
 
 
-                img.src =
-                    reader.result;
-
-            };
-
-
-        reader.readAsDataURL(
-            file
-        );
+                    objects.push(
+                        obj
+                    );
 
 
-        e.target.value = "";
+                    selectedId =
+                        obj.id;
 
-    }
-);
+
+                    render();
+
+                    updateLayers();
+
+                };
+
+
+            img.src =
+                e.target.result;
+
+        };
+
+
+    reader.readAsDataURL(
+        file
+    );
+
+}
 
 
 /* =========================================================
-   HISTORY
+   SERIALIZE
 ========================================================= */
 
 function serialize(){
 
     return JSON.stringify(
-
         objects.map(
             obj=>{
 
                 const copy =
-                    {...obj};
+                    {
+                        ...obj
+                    };
+
 
                 delete copy.img;
+
 
                 return copy;
 
             }
         )
-
     );
 
 }
 
+
+/* =========================================================
+   SAVE HISTORY
+========================================================= */
 
 function saveHistory(){
 
@@ -4810,7 +5337,7 @@ function saveHistory(){
 
 
     if(
-        history.length > 50
+        history.length>50
     ){
 
         history.shift();
@@ -4822,33 +5349,40 @@ function saveHistory(){
 }
 
 
+/* =========================================================
+   RESTORE
+========================================================= */
+
 function restoreState(
     state
 ){
 
-    objects =
+    const parsed =
         JSON.parse(
             state
         );
 
 
-    selectedId =
-        null;
+    objects =
+        [];
 
 
-    rebuildImages();
+    let pending =
+        parsed.length;
 
 
-    render();
+    if(!pending){
 
-    updateLayers();
+        render();
 
-}
+        updateLayers();
+
+        return;
+
+    }
 
 
-function rebuildImages(){
-
-    objects.forEach(
+    parsed.forEach(
         obj=>{
 
             if(
@@ -4866,7 +5400,23 @@ function rebuildImages(){
                         obj.img =
                             img;
 
-                        render();
+
+                        objects.push(
+                            obj
+                        );
+
+
+                        pending--;
+
+                        if(
+                            pending === 0
+                        ){
+
+                            render();
+
+                            updateLayers();
+
+                        }
 
                     };
 
@@ -4874,18 +5424,42 @@ function rebuildImages(){
                 img.src =
                     obj.imageSrc;
 
+            }else{
+
+                objects.push(
+                    obj
+                );
+
+
+                pending--;
+
             }
 
         }
     );
 
+
+    if(
+        pending === 0
+    ){
+
+        render();
+
+        updateLayers();
+
+    }
+
 }
 
+
+/* =========================================================
+   UNDO
+========================================================= */
 
 function undo(){
 
     if(
-        historyIndex <= 0
+        historyIndex<=0
     ){
 
         return;
@@ -4905,10 +5479,14 @@ function undo(){
 }
 
 
+/* =========================================================
+   REDO
+========================================================= */
+
 function redo(){
 
     if(
-        historyIndex >=
+        historyIndex>=
         history.length-1
     ){
 
@@ -4946,208 +5524,217 @@ function updateLayers(){
 
 
     [...objects]
-    .reverse()
-    .forEach(
-        obj=>{
+        .reverse()
+        .forEach(
+            (obj,index)=>{
 
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-
-            div.className =
-                "layer" +
-                (
-                    obj.id === selectedId
-                        ? " active"
-                        : ""
-                );
-
-
-            let icon =
-                "✏️";
-
-
-            if(
-                obj.type === "image"
-            ){
-
-                icon = "🖼️";
-
-            }
-
-
-            if(
-                obj.type === "text"
-            ){
-
-                icon = "T";
-
-            }
-
-
-            if(
-                obj.type === "rect"
-            ){
-
-                icon = "▭";
-
-            }
-
-
-            if(
-                obj.type === "circle"
-            ){
-
-                icon = "○";
-
-            }
-
-
-            if(
-                obj.type === "line"
-            ){
-
-                icon = "╱";
-
-            }
-
-
-            const name =
-                obj.type === "stroke"
-                    ? obj.brush
-                    : obj.type;
-
-
-            div.innerHTML = `
-
-                <span>
-                    ${icon}
-                </span>
-
-                <span class="layer-name">
-                    ${name}
-                </span>
-
-                <div class="layer-actions">
-
-                    <button
-                        onclick="
-                            event.stopPropagation();
-                            selectLayer('${obj.id}')
-                        ">
-                        👁
-                    </button>
-
-                    <button
-                        onclick="
-                            event.stopPropagation();
-                            deleteLayer('${obj.id}')
-                        ">
-                        🗑
-                    </button>
-
-                </div>
-
-            `;
-
-
-            div.onclick =
-                ()=>{
-
-                    selectedId =
-                        obj.id;
-
-
-                    setTool(
-                        "select"
+                const item =
+                    document.createElement(
+                        "div"
                     );
 
 
-                    render();
-
-                    updateLayers();
-
-                };
+                item.className =
+                    "layer";
 
 
-            container.appendChild(
-                div
-            );
+                if(
+                    obj.id === selectedId
+                ){
 
-        }
-    );
+                    item.classList.add(
+                        "selected"
+                    );
 
-}
-
-
-function selectLayer(
-    id
-){
-
-    selectedId =
-        id;
+                }
 
 
-    setTool(
-        "select"
-    );
-
-}
+                let name =
+                    obj.type;
 
 
-function deleteLayer(
-    id
-){
+                if(
+                    obj.type === "text"
+                ){
 
-    saveHistory();
+                    name =
+                        "T: " +
+                        obj.text;
+
+                }
 
 
-    objects =
-        objects.filter(
-            o=>o.id !== id
+                if(
+                    obj.isFillLayer
+                ){
+
+                    name =
+                        "🪣 Fill";
+
+                }
+
+
+                item.innerHTML = `
+
+                    <span>
+                        ${obj.visible===false
+                            ? "🙈"
+                            : "👁️"}
+                    </span>
+
+                    <span class="layer-name">
+                        ${name}
+                    </span>
+
+                `;
+
+
+                item.onclick =
+                    ()=>{
+
+                        selectedId =
+                            obj.id;
+
+                        setTool(
+                            "select"
+                        );
+
+                        render();
+
+                        updateLayers();
+
+                    };
+
+
+                container.appendChild(
+                    item
+                );
+
+            }
         );
-
-
-    if(
-        selectedId === id
-    ){
-
-        selectedId =
-            null;
-
-    }
-
-
-    render();
-
-    updateLayers();
 
 }
 
 
 /* =========================================================
-   OBJECT ACTIONS
+   DUPLICATE
 ========================================================= */
 
-function getSelected(){
+function duplicateSelected(){
 
-    return objects.find(
-        o=>
-            o.id ===
-            selectedId
-    );
+    const obj =
+        getSelected();
+
+
+    if(!obj){
+        return;
+    }
+
+
+    saveHistory();
+
+
+    const copy =
+        JSON.parse(
+            JSON.stringify(
+                serializeObject(
+                    obj
+                )
+            )
+        );
+
+
+    copy.id =
+        uid();
+
+
+    copy.x =
+        (copy.x || 0)+20;
+
+
+    copy.y =
+        (copy.y || 0)+20;
+
+
+    if(
+        copy.type === "image" &&
+        copy.imageSrc
+    ){
+
+        const img =
+            new Image();
+
+
+        img.onload =
+            ()=>{
+
+                copy.img =
+                    img;
+
+                objects.push(
+                    copy
+                );
+
+                selectedId =
+                    copy.id;
+
+                render();
+
+                updateLayers();
+
+            };
+
+
+        img.src =
+            copy.imageSrc;
+
+
+    }else{
+
+        objects.push(
+            copy
+        );
+
+
+        selectedId =
+            copy.id;
+
+
+        render();
+
+        updateLayers();
+
+    }
 
 }
 
 
+function serializeObject(
+    obj
+){
+
+    const copy =
+        {
+            ...obj
+        };
+
+
+    delete copy.img;
+
+
+    return copy;
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
 function deleteSelected(){
 
     if(!selectedId){
-
         return;
-
     }
 
 
@@ -5172,105 +5759,22 @@ function deleteSelected(){
 }
 
 
-function duplicateSelected(){
-
-    const obj =
-        getSelected();
-
-
-    if(!obj){
-
-        return;
-
-    }
-
-
-    saveHistory();
-
-
-    const copy =
-        JSON.parse(
-            JSON.stringify(
-                {
-                    ...obj,
-                    img:undefined
-                }
-            )
-        );
-
-
-    copy.id =
-        uid();
-
-
-    moveObject(
-        copy,
-        30,
-        30
-    );
-
-
-    if(
-        obj.type === "image"
-    ){
-
-        const img =
-            new Image();
-
-
-        img.onload =
-            ()=>{
-
-                copy.img =
-                    img;
-
-                render();
-
-            };
-
-
-        img.src =
-            obj.imageSrc;
-
-    }
-
-
-    objects.push(
-        copy
-    );
-
-
-    selectedId =
-        copy.id;
-
-
-    render();
-
-    updateLayers();
-
-}
-
+/* =========================================================
+   MOVE LAYER UP
+========================================================= */
 
 function moveLayerUp(){
-
-    if(!selectedId){
-
-        return;
-
-    }
-
 
     const index =
         objects.findIndex(
             o=>
-                o.id ===
-                selectedId
+                o.id === selectedId
         );
 
 
     if(
-        index === -1 ||
-        index === objects.length-1
+        index < 0 ||
+        index >= objects.length-1
     ){
 
         return;
@@ -5298,27 +5802,21 @@ function moveLayerUp(){
 }
 
 
+/* =========================================================
+   MOVE LAYER DOWN
+========================================================= */
+
 function moveLayerDown(){
-
-    if(!selectedId){
-
-        return;
-
-    }
-
 
     const index =
         objects.findIndex(
             o=>
-                o.id ===
-                selectedId
+                o.id === selectedId
         );
 
 
-    if(index <= 0){
-
+    if(index<=0){
         return;
-
     }
 
 
@@ -5348,16 +5846,9 @@ function moveLayerDown(){
 
 function clearCanvas(){
 
-    if(!objects.length){
-
-        return;
-
-    }
-
-
     if(
         !confirm(
-            "مسح كل الرسم؟ 🗑️"
+            "Clear the whole drawing?"
         )
     ){
 
@@ -5393,16 +5884,13 @@ function newProject(){
     if(
         objects.length &&
         !confirm(
-            "ابدئي مشروع جديد؟ سيتم مسح الرسم الحالي."
+            "Start a new project?"
         )
     ){
 
         return;
 
     }
-
-
-    saveHistory();
 
 
     objects =
@@ -5413,14 +5901,17 @@ function newProject(){
         null;
 
 
-    zoom =
-        1;
+    history =
+        [];
 
 
-    updateZoom();
+    historyIndex =
+        -1;
 
 
     render();
+
+    saveHistory();
 
     updateLayers();
 
@@ -5433,20 +5924,12 @@ function newProject(){
 
 function exportPNG(){
 
-    const oldSelected =
+    const old =
         selectedId;
 
 
     selectedId =
         null;
-
-
-    const oldTool =
-        currentTool;
-
-
-    currentTool =
-        "brush";
 
 
     render();
@@ -5459,7 +5942,7 @@ function exportPNG(){
 
 
     link.download =
-        "drawlab-artwork.png";
+        "drawlab-design.png";
 
 
     link.href =
@@ -5471,12 +5954,8 @@ function exportPNG(){
     link.click();
 
 
-    currentTool =
-        oldTool;
-
-
     selectedId =
-        oldSelected;
+        old;
 
 
     render();
@@ -5490,8 +5969,8 @@ function exportPNG(){
 
 function updateZoom(){
 
-    canvasWrap.style.transform =
-        `translate(-50%,-50%) scale(${zoom})`;
+    canvas.style.transform =
+        `scale(${zoom})`;
 
 
     document.getElementById(
@@ -5499,31 +5978,20 @@ function updateZoom(){
     ).textContent =
         Math.round(
             zoom*100
-        ) + "%";
+        )+"%";
 
 }
 
 
-function zoomIn(){
+function changeZoom(
+    amount
+){
 
     zoom =
-        Math.min(
-            zoom+.1,
-            3
-        );
-
-
-    updateZoom();
-
-}
-
-
-function zoomOut(){
-
-    zoom =
-        Math.max(
-            zoom-.1,
-            .3
+        clamp(
+            zoom+amount,
+            .5,
+            2
         );
 
 
@@ -5534,9 +6002,7 @@ function zoomOut(){
 
 function resetZoom(){
 
-    zoom =
-        1;
-
+    zoom = 1;
 
     updateZoom();
 
@@ -5552,19 +6018,8 @@ document.addEventListener(
     e=>{
 
         if(
-            e.target.tagName === "INPUT" ||
-            e.target.tagName === "TEXTAREA" ||
-            e.target.tagName === "SELECT"
-        ){
-
-            return;
-
-        }
-
-
-        if(
             e.ctrlKey &&
-            e.key.toLowerCase() === "z"
+            e.key.toLowerCase()==="z"
         ){
 
             e.preventDefault();
@@ -5575,8 +6030,8 @@ document.addEventListener(
 
 
         if(
-            (e.ctrlKey || e.metaKey) &&
-            e.key.toLowerCase() === "y"
+            e.ctrlKey &&
+            e.key.toLowerCase()==="y"
         ){
 
             e.preventDefault();
@@ -5596,53 +6051,45 @@ document.addEventListener(
 
 
         if(
-            e.key.toLowerCase() === "b"
+            e.key.toLowerCase()==="v"
         ){
 
-            setTool("brush");
+            setTool(
+                "select"
+            );
 
         }
 
 
         if(
-            e.key.toLowerCase() === "e"
+            e.key.toLowerCase()==="b"
         ){
 
-            setTool("eraser");
+            setTool(
+                "brush"
+            );
 
         }
 
 
         if(
-            e.key.toLowerCase() === "v"
+            e.key.toLowerCase()==="e"
         ){
 
-            setTool("select");
+            setTool(
+                "eraser"
+            );
 
         }
 
 
         if(
-            e.key.toLowerCase() === "t"
+            e.key.toLowerCase()==="f"
         ){
 
-            setTool("text");
-
-        }
-
-
-        if(
-            e.key === "Escape"
-        ){
-
-            closePanel();
-
-            selectedId =
-                null;
-
-            render();
-
-            updateLayers();
+            setTool(
+                "fill"
+            );
 
         }
 
@@ -5651,18 +6098,25 @@ document.addEventListener(
 
 
 /* =========================================================
-   INITIALIZE
+   INIT
 ========================================================= */
 
-setBrush(
-    "pencil"
+setColor(
+    currentColor
 );
 
-updateLabels();
 
 updateZoom();
 
+
+drawHijabPreview();
+
+
 render();
+
+
+saveHistory();
+
 
 updateLayers();
 
