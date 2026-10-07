@@ -1,146 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DrawLab 🎨</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DrawLab 🎨</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f4f6;
-      color: #222;
-      min-height: 100vh;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background: #18181b;
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    padding: 15px 20px;
+    background: #09090b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 24px;
+}
+
+header span {
+    color: #a1a1aa;
+}
+
+.toolbar {
+    background: #27272a;
+    padding: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button,
+label.tool {
+    background: #3f3f46;
+    color: white;
+    border: none;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover,
+label.tool:hover {
+    background: #52525b;
+}
+
+button.active {
+    background: #7c3aed;
+}
+
+input[type="color"] {
+    width: 42px;
+    height: 35px;
+    border: none;
+    background: transparent;
+}
+
+input[type="range"] {
+    width: 100px;
+    vertical-align: middle;
+}
+
+.editor {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+}
+
+.canvas-wrapper {
+    background:
+        repeating-conic-gradient(#eee 0% 25%, white 0% 50%)
+        50% / 20px 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+canvas {
+    display: block;
+    background: white;
+    width: 900px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.status {
+    text-align: center;
+    color: #a1a1aa;
+    padding: 5px 15px 20px;
+}
+
+@media (max-width: 600px) {
 
     header {
-      background: #18181b;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+        flex-direction: column;
+        gap: 5px;
     }
 
     header h1 {
-      font-size: 24px;
+        font-size: 21px;
     }
 
     .toolbar {
-      background: white;
-      padding: 12px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 10px 5px;
     }
 
-    button {
-      border: none;
-      background: #18181b;
-      color: white;
-      padding: 10px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
+    button,
+    label.tool {
+        padding: 8px 9px;
+        font-size: 13px;
     }
 
-    button:hover {
-      opacity: 0.8;
+    .editor {
+        padding: 10px;
     }
-
-    .active {
-      background: #7c3aed;
-    }
-
-    input[type="color"] {
-      width: 45px;
-      height: 40px;
-      border: none;
-      cursor: pointer;
-    }
-
-    input[type="range"] {
-      width: 120px;
-    }
-
-    .canvas-container {
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-    }
-
-    canvas {
-      background: white;
-      border: 2px solid #222;
-      border-radius: 10px;
-      max-width: 100%;
-      height: auto;
-      touch-action: none;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-    }
-
-    .info {
-      text-align: center;
-      margin: 5px 0 15px;
-      color: #666;
-    }
-
-    .color-label {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>🎨 DrawLab</h1>
-  <span>Mini Drawing Studio</span>
+    <h1>🎨 DrawLab</h1>
+    <span>Creative Drawing Studio</span>
 </header>
 
 <div class="toolbar">
 
-  <button id="brushBtn" class="active">🖌️ Brush</button>
+    <button id="brush" class="active">🖌️ Brush</button>
+    <button id="eraser">🧽 Eraser</button>
 
-  <button id="eraserBtn">🧽 Eraser</button>
+    <button id="line">╱ Line</button>
+    <button id="rectangle">⬜ Rectangle</button>
+    <button id="circle">⚪ Circle</button>
+    <button id="text">🔤 Text</button>
 
-  <button id="undoBtn">↩️ Undo</button>
+    <label class="tool">
+        🎨
+        <input type="color" id="color" value="#000000">
+    </label>
 
-  <button id="clearBtn">🗑️ Clear</button>
+    <label class="tool">
+        Size
+        <input type="range" id="size" min="1" max="50" value="5">
+    </label>
 
-  <label class="color-label">
-    🎨
-    <input type="color" id="colorPicker" value="#000000">
-  </label>
+    <label class="tool">
+        Opacity
+        <input type="range" id="opacity" min="10" max="100" value="100">
+    </label>
 
-  <label>
-    Size:
-    <input type="range" id="sizePicker" min="1" max="50" value="5">
-  </label>
+    <button id="undo">↩️ Undo</button>
+    <button id="redo">↪️ Redo</button>
 
-  <button id="downloadBtn">⬇️ Save PNG</button>
+    <button id="clear">🗑️ Clear</button>
+
+    <label class="tool">
+        🖼️ Upload
+        <input type="file" id="upload" accept="image/*" hidden>
+    </label>
+
+    <button id="download">⬇️ PNG</button>
 
 </div>
 
-<div class="info">
-  Draw with your finger 👆 or mouse 🖱️
+<div class="editor">
+    <div class="canvas-wrapper">
+        <canvas id="canvas" width="900" height="550"></canvas>
+    </div>
 </div>
 
-<div class="canvas-container">
-  <canvas id="canvas" width="900" height="550"></canvas>
+<div class="status" id="status">
+    🖌️ Brush mode — Draw with your finger or mouse
 </div>
 
 <script>
@@ -148,189 +198,584 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-const colorPicker = document.getElementById("colorPicker");
-const sizePicker = document.getElementById("sizePicker");
+const color = document.getElementById("color");
+const size = document.getElementById("size");
+const opacity = document.getElementById("opacity");
 
-const brushBtn = document.getElementById("brushBtn");
-const eraserBtn = document.getElementById("eraserBtn");
-const undoBtn = document.getElementById("undoBtn");
-const clearBtn = document.getElementById("clearBtn");
-const downloadBtn = document.getElementById("downloadBtn");
+const status = document.getElementById("status");
 
+let tool = "brush";
 let drawing = false;
-let eraser = false;
+
+let startX = 0;
+let startY = 0;
 
 let history = [];
+let redoHistory = [];
 
 
-// Canvas background
+// --------------------------------------------------
+// Canvas initialization
+// --------------------------------------------------
+
 ctx.fillStyle = "white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 
-// Save current canvas
+// --------------------------------------------------
+// Save state
+// --------------------------------------------------
+
 function saveState() {
-  history.push(canvas.toDataURL());
 
-  if (history.length > 20) {
-    history.shift();
-  }
+    history.push(canvas.toDataURL());
+
+    if (history.length > 30) {
+        history.shift();
+    }
+
+    redoHistory = [];
 }
 
 
-// Get mouse/touch position
-function getPosition(event) {
+// --------------------------------------------------
+// Restore image
+// --------------------------------------------------
 
-  const rect = canvas.getBoundingClientRect();
+function restoreImage(data) {
 
-  let clientX;
-  let clientY;
+    const img = new Image();
 
-  if (event.touches) {
-    clientX = event.touches[0].clientX;
-    clientY = event.touches[0].clientY;
-  } else {
-    clientX = event.clientX;
-    clientY = event.clientY;
-  }
+    img.onload = function() {
 
-  return {
-    x: (clientX - rect.left) * (canvas.width / rect.width),
-    y: (clientY - rect.top) * (canvas.height / rect.height)
-  };
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+    };
+
+    img.src = data;
 }
 
 
+// --------------------------------------------------
+// Coordinates
+// --------------------------------------------------
+
+function getPosition(e) {
+
+    const rect = canvas.getBoundingClientRect();
+
+    let clientX;
+    let clientY;
+
+    if (e.touches) {
+
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+
+    } else {
+
+        clientX = e.clientX;
+        clientY = e.clientY;
+
+    }
+
+    return {
+
+        x: (clientX - rect.left) *
+           (canvas.width / rect.width),
+
+        y: (clientY - rect.top) *
+           (canvas.height / rect.height)
+
+    };
+}
+
+
+// --------------------------------------------------
 // Start drawing
-function startDrawing(event) {
+// --------------------------------------------------
 
-  event.preventDefault();
+function startDrawing(e) {
 
-  drawing = true;
+    e.preventDefault();
 
-  saveState();
+    const pos = getPosition(e);
 
-  const pos = getPosition(event);
+    startX = pos.x;
+    startY = pos.y;
 
-  ctx.beginPath();
-  ctx.moveTo(pos.x, pos.y);
+    drawing = true;
+
+    saveState();
+
+    if (tool === "brush" || tool === "eraser") {
+
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+
+    }
+
 }
 
 
-// Drawing
-function draw(event) {
+// --------------------------------------------------
+// Draw
+// --------------------------------------------------
 
-  if (!drawing) return;
+function draw(e) {
 
-  event.preventDefault();
+    if (!drawing) return;
 
-  const pos = getPosition(event);
+    e.preventDefault();
 
-  ctx.lineWidth = sizePicker.value;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
+    const pos = getPosition(e);
 
-  if (eraser) {
-    ctx.globalCompositeOperation = "destination-out";
-  } else {
-    ctx.globalCompositeOperation = "source-over";
-    ctx.strokeStyle = colorPicker.value;
-  }
+    const currentX = pos.x;
+    const currentY = pos.y;
 
-  ctx.lineTo(pos.x, pos.y);
-  ctx.stroke();
+    ctx.lineWidth = Number(size.value);
+
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    ctx.globalAlpha = Number(opacity.value) / 100;
+
+
+    // Brush
+
+    if (tool === "brush") {
+
+        ctx.globalCompositeOperation = "source-over";
+        ctx.strokeStyle = color.value;
+
+        ctx.lineTo(currentX, currentY);
+        ctx.stroke();
+
+    }
+
+
+    // Eraser
+
+    else if (tool === "eraser") {
+
+        ctx.globalCompositeOperation = "destination-out";
+
+        ctx.lineTo(currentX, currentY);
+        ctx.stroke();
+
+    }
+
 }
 
 
+// --------------------------------------------------
 // Stop drawing
-function stopDrawing() {
+// --------------------------------------------------
 
-  drawing = false;
+function stopDrawing(e) {
 
-  ctx.beginPath();
+    if (!drawing) return;
 
-  ctx.globalCompositeOperation = "source-over";
+    const pos = getPosition(e);
+
+    const endX = pos.x;
+    const endY = pos.y;
+
+
+    ctx.globalCompositeOperation = "source-over";
+
+
+    // Line
+
+    if (tool === "line") {
+
+        ctx.strokeStyle = color.value;
+        ctx.lineWidth = Number(size.value);
+
+        ctx.beginPath();
+
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(endX, endY);
+
+        ctx.stroke();
+
+    }
+
+
+    // Rectangle
+
+    else if (tool === "rectangle") {
+
+        ctx.strokeStyle = color.value;
+        ctx.lineWidth = Number(size.value);
+
+        ctx.strokeRect(
+            startX,
+            startY,
+            endX - startX,
+            endY - startY
+        );
+
+    }
+
+
+    // Circle
+
+    else if (tool === "circle") {
+
+        ctx.strokeStyle = color.value;
+        ctx.lineWidth = Number(size.value);
+
+        const dx = endX - startX;
+        const dy = endY - startY;
+
+        const radius = Math.sqrt(dx * dx + dy * dy);
+
+        ctx.beginPath();
+
+        ctx.arc(
+            startX,
+            startY,
+            radius,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.stroke();
+
+    }
+
+
+    drawing = false;
+
+    ctx.globalAlpha = 1;
+
+    ctx.beginPath();
 }
 
 
-// Mouse events
-canvas.addEventListener("mousedown", startDrawing);
-canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("mouseup", stopDrawing);
-canvas.addEventListener("mouseleave", stopDrawing);
+// --------------------------------------------------
+// Mouse
+// --------------------------------------------------
+
+canvas.addEventListener(
+    "mousedown",
+    startDrawing
+);
+
+canvas.addEventListener(
+    "mousemove",
+    draw
+);
+
+canvas.addEventListener(
+    "mouseup",
+    stopDrawing
+);
+
+canvas.addEventListener(
+    "mouseleave",
+    stopDrawing
+);
 
 
-// Touch events
-canvas.addEventListener("touchstart", startDrawing, { passive: false });
-canvas.addEventListener("touchmove", draw, { passive: false });
-canvas.addEventListener("touchend", stopDrawing);
+// --------------------------------------------------
+// Touch
+// --------------------------------------------------
+
+canvas.addEventListener(
+    "touchstart",
+    startDrawing,
+    { passive: false }
+);
+
+canvas.addEventListener(
+    "touchmove",
+    draw,
+    { passive: false }
+);
+
+canvas.addEventListener(
+    "touchend",
+    stopDrawing,
+    { passive: false }
+);
 
 
-// Brush
-brushBtn.addEventListener("click", () => {
+// --------------------------------------------------
+// Tool buttons
+// --------------------------------------------------
 
-  eraser = false;
+function selectTool(newTool) {
 
-  brushBtn.classList.add("active");
-  eraserBtn.classList.remove("active");
+    tool = newTool;
+
+    document.querySelectorAll(".toolbar button")
+        .forEach(btn => btn.classList.remove("active"));
+
+    const button = document.getElementById(newTool);
+
+    if (button) {
+        button.classList.add("active");
+    }
+
+
+    const names = {
+
+        brush: "🖌️ Brush mode",
+        eraser: "🧽 Eraser mode",
+        line: "╱ Line mode",
+        rectangle: "⬜ Rectangle mode",
+        circle: "⚪ Circle mode",
+        text: "🔤 Text mode"
+
+    };
+
+    status.textContent =
+        names[newTool] +
+        " — Draw with your finger or mouse";
+
+}
+
+
+// --------------------------------------------------
+// Buttons
+// --------------------------------------------------
+
+document
+    .getElementById("brush")
+    .onclick = () => selectTool("brush");
+
+
+document
+    .getElementById("eraser")
+    .onclick = () => selectTool("eraser");
+
+
+document
+    .getElementById("line")
+    .onclick = () => selectTool("line");
+
+
+document
+    .getElementById("rectangle")
+    .onclick = () => selectTool("rectangle");
+
+
+document
+    .getElementById("circle")
+    .onclick = () => selectTool("circle");
+
+
+// --------------------------------------------------
+// Text tool
+// --------------------------------------------------
+
+document
+    .getElementById("text")
+    .onclick = () => {
+
+        selectTool("text");
+
+        status.textContent =
+            "🔤 Text mode — Tap the canvas to add text";
+
+    };
+
+
+// Special text click
+
+canvas.addEventListener("click", function(e) {
+
+    if (tool !== "text") return;
+
+    const pos = getPosition(e);
+
+    const text = prompt("Write your text:");
+
+    if (!text) return;
+
+    saveState();
+
+    ctx.globalAlpha =
+        Number(opacity.value) / 100;
+
+    ctx.fillStyle = color.value;
+
+    ctx.font =
+        `${Math.max(16, Number(size.value) * 5)}px Arial`;
+
+    ctx.fillText(
+        text,
+        pos.x,
+        pos.y
+    );
+
+    ctx.globalAlpha = 1;
 
 });
 
 
-// Eraser
-eraserBtn.addEventListener("click", () => {
-
-  eraser = true;
-
-  eraserBtn.classList.add("active");
-  brushBtn.classList.remove("active");
-
-});
-
-
+// --------------------------------------------------
 // Undo
-undoBtn.addEventListener("click", () => {
+// --------------------------------------------------
 
-  if (history.length === 0) return;
+document
+    .getElementById("undo")
+    .onclick = function() {
 
-  const previousState = history.pop();
+        if (history.length === 0) return;
 
-  const img = new Image();
+        redoHistory.push(canvas.toDataURL());
 
-  img.onload = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0);
-  };
+        const previous = history.pop();
 
-  img.src = previousState;
-});
+        restoreImage(previous);
+
+    };
 
 
+// --------------------------------------------------
+// Redo
+// --------------------------------------------------
+
+document
+    .getElementById("redo")
+    .onclick = function() {
+
+        if (redoHistory.length === 0) return;
+
+        history.push(canvas.toDataURL());
+
+        const next = redoHistory.pop();
+
+        restoreImage(next);
+
+    };
+
+
+// --------------------------------------------------
 // Clear
-clearBtn.addEventListener("click", () => {
+// --------------------------------------------------
 
-  saveState();
+document
+    .getElementById("clear")
+    .onclick = function() {
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+        saveState();
 
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation =
+            "source-over";
 
-});
+        ctx.globalAlpha = 1;
+
+        ctx.fillStyle = "white";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+    };
 
 
+// --------------------------------------------------
+// Upload image
+// --------------------------------------------------
+
+document
+    .getElementById("upload")
+    .addEventListener("change", function(e) {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+
+            const img = new Image();
+
+            img.onload = function() {
+
+                saveState();
+
+                ctx.globalAlpha = 1;
+
+                ctx.globalCompositeOperation =
+                    "source-over";
+
+                ctx.fillStyle = "white";
+
+                ctx.fillRect(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+
+                const scale = Math.min(
+                    canvas.width / img.width,
+                    canvas.height / img.height
+                );
+
+                const width =
+                    img.width * scale;
+
+                const height =
+                    img.height * scale;
+
+                const x =
+                    (canvas.width - width) / 2;
+
+                const y =
+                    (canvas.height - height) / 2;
+
+
+                ctx.drawImage(
+                    img,
+                    x,
+                    y,
+                    width,
+                    height
+                );
+
+            };
+
+            img.src = event.target.result;
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+
+// --------------------------------------------------
 // Download
-downloadBtn.addEventListener("click", () => {
+// --------------------------------------------------
 
-  const link = document.createElement("a");
+document
+    .getElementById("download")
+    .onclick = function() {
 
-  link.download = "drawlab-artwork.png";
+        const link =
+            document.createElement("a");
 
-  link.href = canvas.toDataURL("image/png");
+        link.download =
+            "drawlab-artwork.png";
 
-  link.click();
+        link.href =
+            canvas.toDataURL("image/png");
 
-});
+        link.click();
+
+    };
 
 </script>
 
