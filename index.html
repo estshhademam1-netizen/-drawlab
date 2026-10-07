@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DrawLab 🎨</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #222;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #18181b;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: 24px;
+    }
+
+    .toolbar {
+      background: white;
+      padding: 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    button {
+      border: none;
+      background: #18181b;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .active {
+      background: #7c3aed;
+    }
+
+    input[type="color"] {
+      width: 45px;
+      height: 40px;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type="range"] {
+      width: 120px;
+    }
+
+    .canvas-container {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    canvas {
+      background: white;
+      border: 2px solid #222;
+      border-radius: 10px;
+      max-width: 100%;
+      height: auto;
+      touch-action: none;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    }
+
+    .info {
+      text-align: center;
+      margin: 5px 0 15px;
+      color: #666;
+    }
+
+    .color-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎨 DrawLab</h1>
+  <span>Mini Drawing Studio</span>
+</header>
+
+<div class="toolbar">
+
+  <button id="brushBtn" class="active">🖌️ Brush</button>
+
+  <button id="eraserBtn">🧽 Eraser</button>
+
+  <button id="undoBtn">↩️ Undo</button>
+
+  <button id="clearBtn">🗑️ Clear</button>
+
+  <label class="color-label">
+    🎨
+    <input type="color" id="colorPicker" value="#000000">
+  </label>
+
+  <label>
+    Size:
+    <input type="range" id="sizePicker" min="1" max="50" value="5">
+  </label>
+
+  <button id="downloadBtn">⬇️ Save PNG</button>
+
+</div>
+
+<div class="info">
+  Draw with your finger 👆 or mouse 🖱️
+</div>
+
+<div class="canvas-container">
+  <canvas id="canvas" width="900" height="550"></canvas>
+</div>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const colorPicker = document.getElementById("colorPicker");
+const sizePicker = document.getElementById("sizePicker");
+
+const brushBtn = document.getElementById("brushBtn");
+const eraserBtn = document.getElementById("eraserBtn");
+const undoBtn = document.getElementById("undoBtn");
+const clearBtn = document.getElementById("clearBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+
+let drawing = false;
+let eraser = false;
+
+let history = [];
+
+
+// Canvas background
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+// Save current canvas
+function saveState() {
+  history.push(canvas.toDataURL());
+
+  if (history.length > 20) {
+    history.shift();
+  }
+}
+
+
+// Get mouse/touch position
+function getPosition(event) {
+
+  const rect = canvas.getBoundingClientRect();
+
+  let clientX;
+  let clientY;
+
+  if (event.touches) {
+    clientX = event.touches[0].clientX;
+    clientY = event.touches[0].clientY;
+  } else {
+    clientX = event.clientX;
+    clientY = event.clientY;
+  }
+
+  return {
+    x: (clientX - rect.left) * (canvas.width / rect.width),
+    y: (clientY - rect.top) * (canvas.height / rect.height)
+  };
+}
+
+
+// Start drawing
+function startDrawing(event) {
+
+  event.preventDefault();
+
+  drawing = true;
+
+  saveState();
+
+  const pos = getPosition(event);
+
+  ctx.beginPath();
+  ctx.moveTo(pos.x, pos.y);
+}
+
+
+// Drawing
+function draw(event) {
+
+  if (!drawing) return;
+
+  event.preventDefault();
+
+  const pos = getPosition(event);
+
+  ctx.lineWidth = sizePicker.value;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+
+  if (eraser) {
+    ctx.globalCompositeOperation = "destination-out";
+  } else {
+    ctx.globalCompositeOperation = "source-over";
+    ctx.strokeStyle = colorPicker.value;
+  }
+
+  ctx.lineTo(pos.x, pos.y);
+  ctx.stroke();
+}
+
+
+// Stop drawing
+function stopDrawing() {
+
+  drawing = false;
+
+  ctx.beginPath();
+
+  ctx.globalCompositeOperation = "source-over";
+}
+
+
+// Mouse events
+canvas.addEventListener("mousedown", startDrawing);
+canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("mouseup", stopDrawing);
+canvas.addEventListener("mouseleave", stopDrawing);
+
+
+// Touch events
+canvas.addEventListener("touchstart", startDrawing, { passive: false });
+canvas.addEventListener("touchmove", draw, { passive: false });
+canvas.addEventListener("touchend", stopDrawing);
+
+
+// Brush
+brushBtn.addEventListener("click", () => {
+
+  eraser = false;
+
+  brushBtn.classList.add("active");
+  eraserBtn.classList.remove("active");
+
+});
+
+
+// Eraser
+eraserBtn.addEventListener("click", () => {
+
+  eraser = true;
+
+  eraserBtn.classList.add("active");
+  brushBtn.classList.remove("active");
+
+});
+
+
+// Undo
+undoBtn.addEventListener("click", () => {
+
+  if (history.length === 0) return;
+
+  const previousState = history.pop();
+
+  const img = new Image();
+
+  img.onload = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
+  };
+
+  img.src = previousState;
+});
+
+
+// Clear
+clearBtn.addEventListener("click", () => {
+
+  saveState();
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+});
+
+
+// Download
+downloadBtn.addEventListener("click", () => {
+
+  const link = document.createElement("a");
+
+  link.download = "drawlab-artwork.png";
+
+  link.href = canvas.toDataURL("image/png");
+
+  link.click();
+
+});
+
+</script>
+
+</body>
+</html>
