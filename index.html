@@ -1,781 +1,2817 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>DrawLab 🎨</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #18181b;
-    color: white;
-    min-height: 100vh;
+:root{
+    --pink:#ffb7d5;
+    --pink-dark:#e98bb5;
+    --purple:#c9b6ff;
+    --blue:#b8ddff;
+    --mint:#b9efd9;
+    --yellow:#ffe7a8;
+    --bg:#fff8fc;
+    --dark:#40384a;
+    --soft:#f8edf5;
+    --white:#ffffff;
 }
 
-header {
-    padding: 15px 20px;
-    background: #09090b;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+body{
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background:var(--bg);
+    color:var(--dark);
+    min-height:100vh;
 }
 
-header h1 {
-    font-size: 24px;
+
+/* ================= HEADER ================= */
+
+header{
+    background:linear-gradient(
+        135deg,
+        #ffd6e7,
+        #ddd0ff,
+        #ccecff
+    );
+
+    padding:14px 18px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:10px;
+
+    box-shadow:
+        0 3px 15px rgba(100,70,100,.12);
 }
 
-header span {
-    color: #a1a1aa;
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
-.toolbar {
-    background: #27272a;
-    padding: 12px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+.logo-icon{
+    width:42px;
+    height:42px;
+
+    border-radius:14px;
+
+    background:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:23px;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.08);
 }
 
-button,
-label.tool {
-    background: #3f3f46;
-    color: white;
-    border: none;
-    padding: 9px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
+.logo h1{
+    font-size:22px;
 }
 
-button:hover,
-label.tool:hover {
-    background: #52525b;
+.logo small{
+    color:#766b7c;
 }
 
-button.active {
-    background: #7c3aed;
+.header-actions{
+    display:flex;
+    gap:6px;
 }
 
-input[type="color"] {
-    width: 42px;
-    height: 35px;
-    border: none;
-    background: transparent;
+
+/* ================= BUTTONS ================= */
+
+button{
+    border:none;
+
+    background:white;
+    color:var(--dark);
+
+    border-radius:11px;
+
+    padding:9px 12px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    box-shadow:
+        0 2px 7px rgba(80,50,80,.08);
+
+    transition:.15s;
 }
 
-input[type="range"] {
-    width: 100px;
-    vertical-align: middle;
+button:hover{
+    transform:translateY(-1px);
 }
 
-.editor {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    overflow: auto;
+button:active{
+    transform:scale(.96);
 }
 
-.canvas-wrapper {
+button.active{
+    background:var(--pink);
+    color:#5c3045;
+}
+
+.primary{
+    background:#8f7aea;
+    color:white;
+}
+
+.danger{
+    background:#ffd0dc;
+}
+
+.small{
+    padding:7px 9px;
+}
+
+
+/* ================= TOOLBAR ================= */
+
+.toolbar{
+    background:rgba(255,255,255,.95);
+
+    padding:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    flex-wrap:wrap;
+
+    border-bottom:
+        1px solid #f0dfea;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:20;
+}
+
+.tool-group{
+    display:flex;
+    gap:5px;
+    align-items:center;
+
+    padding-right:8px;
+
+    border-right:
+        1px solid #eadfea;
+}
+
+.tool-group:last-child{
+    border:none;
+}
+
+label.control{
+    background:#fff;
+
+    border-radius:10px;
+
+    padding:7px 9px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    box-shadow:
+        0 2px 7px rgba(80,50,80,.06);
+
+    font-size:13px;
+}
+
+input[type="color"]{
+    width:35px;
+    height:30px;
+
+    border:none;
+
+    background:none;
+
+    padding:0;
+
+    cursor:pointer;
+}
+
+input[type="range"]{
+    width:90px;
+
+    accent-color:#d88eb4;
+}
+
+
+/* ================= MAIN ================= */
+
+.app{
+    display:grid;
+
+    grid-template-columns:
+        1fr 220px;
+
+    min-height:
+        calc(100vh - 135px);
+}
+
+
+/* ================= CANVAS AREA ================= */
+
+.canvas-area{
+    position:relative;
+
+    overflow:auto;
+
+    padding:20px;
+
     background:
-        repeating-conic-gradient(#eee 0% 25%, white 0% 50%)
+        radial-gradient(
+            circle at top left,
+            #fff,
+            #fff8fc 45%,
+            #f5efff
+        );
+}
+
+.canvas-scroll{
+    min-width:max-content;
+    min-height:max-content;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:30px;
+}
+
+.canvas-box{
+    position:relative;
+
+    background:
+        repeating-conic-gradient(
+            #eeeeee 0% 25%,
+            white 0% 50%
+        )
         50% / 20px 20px;
-    padding: 10px;
-    border-radius: 10px;
+
+    padding:9px;
+
+    border-radius:17px;
+
+    box-shadow:
+        0 15px 45px rgba(90,60,100,.15);
 }
 
-canvas {
-    display: block;
-    background: white;
-    width: 900px;
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    cursor: crosshair;
-    touch-action: none;
+#canvas{
+    display:block;
+
+    background:white;
+
+    border-radius:9px;
+
+    touch-action:none;
+
+    cursor:crosshair;
 }
 
-.status {
-    text-align: center;
-    color: #a1a1aa;
-    padding: 5px 15px 20px;
+.canvas-info{
+    position:fixed;
+
+    bottom:15px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:rgba(64,56,74,.9);
+
+    color:white;
+
+    padding:7px 14px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    pointer-events:none;
+
+    z-index:10;
 }
 
-@media (max-width: 600px) {
 
-    header {
-        flex-direction: column;
-        gap: 5px;
-    }
+/* ================= LAYERS ================= */
 
-    header h1 {
-        font-size: 21px;
-    }
+.layers-panel{
+    background:#fff;
 
-    .toolbar {
-        padding: 10px 5px;
-    }
+    border-left:
+        1px solid #eadfea;
 
-    button,
-    label.tool {
-        padding: 8px 9px;
-        font-size: 13px;
-    }
+    padding:15px;
 
-    .editor {
-        padding: 10px;
-    }
+    overflow:auto;
 }
+
+.layers-title{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+}
+
+.layers-title h2{
+    font-size:17px;
+}
+
+.layer-actions{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:6px;
+
+    margin-bottom:12px;
+}
+
+.layer-item{
+    background:#faf5fa;
+
+    border:
+        2px solid transparent;
+
+    border-radius:11px;
+
+    padding:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin-bottom:7px;
+
+    cursor:pointer;
+}
+
+.layer-item.active{
+    border-color:#d7a0c3;
+
+    background:#fff0f7;
+}
+
+.layer-eye{
+    width:28px;
+
+    text-align:center;
+
+    cursor:pointer;
+}
+
+.layer-name{
+    flex:1;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+
+    font-size:13px;
+}
+
+
+/* ================= ZOOM ================= */
+
+.zoom-bar{
+    position:fixed;
+
+    bottom:15px;
+
+    right:15px;
+
+    z-index:30;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    background:white;
+
+    padding:6px;
+
+    border-radius:14px;
+
+    box-shadow:
+        0 5px 20px rgba(80,50,80,.15);
+}
+
+.zoom-bar button{
+    padding:7px 10px;
+}
+
+#zoomValue{
+    min-width:48px;
+
+    text-align:center;
+
+    font-size:12px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+    .app{
+        grid-template-columns:1fr;
+    }
+
+    .layers-panel{
+        border-left:none;
+
+        border-top:
+            1px solid #eadfea;
+
+        max-height:220px;
+    }
+
+    .canvas-area{
+        min-height:60vh;
+
+        padding:8px;
+    }
+
+    .canvas-scroll{
+        padding:15px;
+    }
+
+    .tool-group{
+        border:none;
+        padding:0;
+    }
+
+    header{
+        padding:10px;
+    }
+
+    .logo h1{
+        font-size:19px;
+    }
+
+    .logo small{
+        display:none;
+    }
+
+    button{
+        font-size:12px;
+
+        padding:8px 9px;
+    }
+
+    input[type="range"]{
+        width:70px;
+    }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
+
+<!-- ================= HEADER ================= -->
+
 <header>
-    <h1>🎨 DrawLab</h1>
-    <span>Creative Drawing Studio</span>
+
+<div class="logo">
+
+<div class="logo-icon">
+🎨
+</div>
+
+<div>
+<h1>DrawLab</h1>
+<small>Creative Drawing Studio</small>
+</div>
+
+</div>
+
+
+<div class="header-actions">
+
+<button id="newBtn">
+✨ New
+</button>
+
+<button id="downloadBtn" class="primary">
+⬇️ Export
+</button>
+
+</div>
+
 </header>
+
+
+
+<!-- ================= TOOLBAR ================= -->
 
 <div class="toolbar">
 
-    <button id="brush" class="active">🖌️ Brush</button>
-    <button id="eraser">🧽 Eraser</button>
 
-    <button id="line">╱ Line</button>
-    <button id="rectangle">⬜ Rectangle</button>
-    <button id="circle">⚪ Circle</button>
-    <button id="text">🔤 Text</button>
+<div class="tool-group">
 
-    <label class="tool">
-        🎨
-        <input type="color" id="color" value="#000000">
-    </label>
+<button
+id="brushBtn"
+class="active">
+🖌️
+</button>
 
-    <label class="tool">
-        Size
-        <input type="range" id="size" min="1" max="50" value="5">
-    </label>
+<button
+id="eraserBtn">
+🧽
+</button>
 
-    <label class="tool">
-        Opacity
-        <input type="range" id="opacity" min="10" max="100" value="100">
-    </label>
+<button
+id="fillBtn">
+🪣
+</button>
 
-    <button id="undo">↩️ Undo</button>
-    <button id="redo">↪️ Redo</button>
-
-    <button id="clear">🗑️ Clear</button>
-
-    <label class="tool">
-        🖼️ Upload
-        <input type="file" id="upload" accept="image/*" hidden>
-    </label>
-
-    <button id="download">⬇️ PNG</button>
+<button
+id="textBtn">
+🔤
+</button>
 
 </div>
 
-<div class="editor">
-    <div class="canvas-wrapper">
-        <canvas id="canvas" width="900" height="550"></canvas>
-    </div>
+
+<div class="tool-group">
+
+<button id="lineBtn">
+╱
+</button>
+
+<button id="rectBtn">
+⬜
+</button>
+
+<button id="circleBtn">
+⚪
+</button>
+
+<button id="cropBtn">
+✂️
+</button>
+
 </div>
 
-<div class="status" id="status">
-    🖌️ Brush mode — Draw with your finger or mouse
+
+<div class="tool-group">
+
+<label class="control">
+
+🎨
+
+<input
+type="color"
+id="colorPicker"
+value="#6d4aff">
+
+</label>
+
+
+<label class="control">
+
+Size
+
+<input
+type="range"
+id="sizePicker"
+min="1"
+max="60"
+value="6">
+
+</label>
+
+
+<label class="control">
+
+Opacity
+
+<input
+type="range"
+id="opacityPicker"
+min="10"
+max="100"
+value="100">
+
+</label>
+
 </div>
+
+
+<div class="tool-group">
+
+<button id="undoBtn">
+↩️
+</button>
+
+<button id="redoBtn">
+↪️
+</button>
+
+<button id="clearBtn">
+🗑️
+</button>
+
+</div>
+
+
+<div class="tool-group">
+
+<label class="control">
+
+🖼️ Upload
+
+<input
+type="file"
+id="uploadInput"
+accept="image/*"
+hidden>
+
+</label>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ================= APP ================= -->
+
+<div class="app">
+
+
+<!-- CANVAS -->
+
+<main class="canvas-area" id="canvasArea">
+
+<div class="canvas-scroll">
+
+<div class="canvas-box">
+
+<canvas
+id="canvas"
+width="900"
+height="550">
+</canvas>
+
+</div>
+
+</div>
+
+</main>
+
+
+
+<!-- ================= LAYERS ================= -->
+
+<aside class="layers-panel">
+
+
+<div class="layers-title">
+
+<h2>🗂️ Layers</h2>
+
+<button
+id="addLayerBtn"
+class="small">
++
+</button>
+
+</div>
+
+
+<div class="layer-actions">
+
+<button
+id="duplicateLayerBtn">
+📋 Copy
+</button>
+
+<button
+id="deleteLayerBtn"
+class="danger">
+🗑️ Delete
+</button>
+
+</div>
+
+
+<div id="layersList"></div>
+
+
+</aside>
+
+</div>
+
+
+
+<div class="canvas-info" id="status">
+🖌️ Brush
+</div>
+
+
+
+<!-- ================= ZOOM ================= -->
+
+<div class="zoom-bar">
+
+<button id="zoomOut">
+−
+</button>
+
+<span id="zoomValue">
+100%
+</span>
+
+<button id="zoomIn">
++
+</button>
+
+<button id="zoomReset">
+100%
+</button>
+
+</div>
+
+
 
 <script>
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
 
-const color = document.getElementById("color");
-const size = document.getElementById("size");
-const opacity = document.getElementById("opacity");
+/* =====================================================
+   DRAWLAB ENGINE
+===================================================== */
 
-const status = document.getElementById("status");
+
+const canvas =
+document.getElementById("canvas");
+
+const ctx =
+canvas.getContext("2d");
+
+
+let WIDTH = 900;
+let HEIGHT = 550;
+
+let zoom = 1;
 
 let tool = "brush";
+
 let drawing = false;
 
 let startX = 0;
 let startY = 0;
 
+let previewData = null;
+
+let layers = [];
+
+let activeLayer = 1;
+
 let history = [];
 let redoHistory = [];
 
 
-// --------------------------------------------------
-// Canvas initialization
-// --------------------------------------------------
 
-ctx.fillStyle = "white";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+/* =====================================================
+   CREATE CANVAS
+===================================================== */
 
+function createCanvas(){
 
-// --------------------------------------------------
-// Save state
-// --------------------------------------------------
+    const c =
+    document.createElement("canvas");
 
-function saveState() {
+    c.width = WIDTH;
+    c.height = HEIGHT;
 
-    history.push(canvas.toDataURL());
-
-    if (history.length > 30) {
-        history.shift();
-    }
-
-    redoHistory = [];
+    return c;
 }
 
 
-// --------------------------------------------------
-// Restore image
-// --------------------------------------------------
 
-function restoreImage(data) {
+/* =====================================================
+   INITIAL LAYERS
+===================================================== */
 
-    const img = new Image();
+function initLayers(){
 
-    img.onload = function() {
+    layers = [];
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0);
+    const background =
+    createCanvas();
 
-    };
+    const bgCtx =
+    background.getContext("2d");
 
-    img.src = data;
+    bgCtx.fillStyle = "#ffffff";
+
+    bgCtx.fillRect(
+        0,
+        0,
+        WIDTH,
+        HEIGHT
+    );
+
+
+    layers.push({
+        name:"Background",
+        canvas:background,
+        visible:true
+    });
+
+
+    layers.push({
+        name:"Layer 1",
+        canvas:createCanvas(),
+        visible:true
+    });
+
+
+    activeLayer = 1;
+
+    render();
+
+    updateLayersUI();
+
 }
 
 
-// --------------------------------------------------
-// Coordinates
-// --------------------------------------------------
 
-function getPosition(e) {
+/* =====================================================
+   ACTIVE CONTEXT
+===================================================== */
 
-    const rect = canvas.getBoundingClientRect();
+function getActiveContext(){
 
-    let clientX;
-    let clientY;
+    return layers[
+        activeLayer
+    ].canvas.getContext("2d");
 
-    if (e.touches) {
+}
 
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
 
-    } else {
 
-        clientX = e.clientX;
-        clientY = e.clientY;
+/* =====================================================
+   RENDER ALL LAYERS
+===================================================== */
+
+function render(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    for(
+        const layer of layers
+    ){
+
+        if(!layer.visible)
+            continue;
+
+
+        ctx.drawImage(
+            layer.canvas,
+            0,
+            0
+        );
 
     }
+
+
+    updateCanvasSize();
+
+}
+
+
+
+/* =====================================================
+   CANVAS ZOOM
+===================================================== */
+
+function updateCanvasSize(){
+
+    canvas.style.width =
+        (WIDTH * zoom) + "px";
+
+    canvas.style.height =
+        (HEIGHT * zoom) + "px";
+
+    document.getElementById(
+        "zoomValue"
+    ).textContent =
+        Math.round(zoom * 100) + "%";
+
+}
+
+
+
+/* =====================================================
+   POSITION
+===================================================== */
+
+function getPosition(e){
+
+    const rect =
+        canvas.getBoundingClientRect();
+
 
     return {
 
-        x: (clientX - rect.left) *
-           (canvas.width / rect.width),
+        x:
+        (e.clientX - rect.left)
+        *
+        (WIDTH / rect.width),
 
-        y: (clientY - rect.top) *
-           (canvas.height / rect.height)
+        y:
+        (e.clientY - rect.top)
+        *
+        (HEIGHT / rect.height)
 
     };
-}
-
-
-// --------------------------------------------------
-// Start drawing
-// --------------------------------------------------
-
-function startDrawing(e) {
-
-    e.preventDefault();
-
-    const pos = getPosition(e);
-
-    startX = pos.x;
-    startY = pos.y;
-
-    drawing = true;
-
-    saveState();
-
-    if (tool === "brush" || tool === "eraser") {
-
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
-
-    }
 
 }
 
 
-// --------------------------------------------------
-// Draw
-// --------------------------------------------------
 
-function draw(e) {
+/* =====================================================
+   SNAPSHOT
+===================================================== */
 
-    if (!drawing) return;
+function snapshot(){
 
-    e.preventDefault();
+    const project =
+        layers.map(layer => {
 
-    const pos = getPosition(e);
+            return {
 
-    const currentX = pos.x;
-    const currentY = pos.y;
+                name:layer.name,
 
-    ctx.lineWidth = Number(size.value);
+                visible:layer.visible,
 
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
+                data:
+                layer.canvas.toDataURL()
 
-    ctx.globalAlpha = Number(opacity.value) / 100;
+            };
 
-
-    // Brush
-
-    if (tool === "brush") {
-
-        ctx.globalCompositeOperation = "source-over";
-        ctx.strokeStyle = color.value;
-
-        ctx.lineTo(currentX, currentY);
-        ctx.stroke();
-
-    }
+        });
 
 
-    // Eraser
+    history.push({
+        layers:project,
+        active:activeLayer,
+        width:WIDTH,
+        height:HEIGHT
+    });
 
-    else if (tool === "eraser") {
 
-        ctx.globalCompositeOperation = "destination-out";
+    if(history.length > 20)
+        history.shift();
 
-        ctx.lineTo(currentX, currentY);
-        ctx.stroke();
 
-    }
+    redoHistory = [];
 
 }
 
 
-// --------------------------------------------------
-// Stop drawing
-// --------------------------------------------------
 
-function stopDrawing(e) {
+/* =====================================================
+   RESTORE PROJECT
+===================================================== */
 
-    if (!drawing) return;
+function restoreProject(project){
 
-    const pos = getPosition(e);
+    WIDTH = project.width;
+    HEIGHT = project.height;
 
-    const endX = pos.x;
-    const endY = pos.y;
-
-
-    ctx.globalCompositeOperation = "source-over";
+    layers = [];
 
 
-    // Line
-
-    if (tool === "line") {
-
-        ctx.strokeStyle = color.value;
-        ctx.lineWidth = Number(size.value);
-
-        ctx.beginPath();
-
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(endX, endY);
-
-        ctx.stroke();
-
-    }
+    let loaded = 0;
 
 
-    // Rectangle
+    project.layers.forEach(
+        (item,index)=>{
 
-    else if (tool === "rectangle") {
+            const c =
+                createCanvas();
 
-        ctx.strokeStyle = color.value;
-        ctx.lineWidth = Number(size.value);
-
-        ctx.strokeRect(
-            startX,
-            startY,
-            endX - startX,
-            endY - startY
-        );
-
-    }
+            const image =
+                new Image();
 
 
-    // Circle
+            image.onload = ()=>{
 
-    else if (tool === "circle") {
-
-        ctx.strokeStyle = color.value;
-        ctx.lineWidth = Number(size.value);
-
-        const dx = endX - startX;
-        const dy = endY - startY;
-
-        const radius = Math.sqrt(dx * dx + dy * dy);
-
-        ctx.beginPath();
-
-        ctx.arc(
-            startX,
-            startY,
-            radius,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.stroke();
-
-    }
+                c.getContext("2d")
+                    .drawImage(
+                        image,
+                        0,
+                        0
+                    );
 
 
-    drawing = false;
+                loaded++;
 
-    ctx.globalAlpha = 1;
 
-    ctx.beginPath();
+                if(
+                    loaded ===
+                    project.layers.length
+                ){
+
+                    render();
+
+                    updateLayersUI();
+
+                }
+
+            };
+
+
+            image.src = item.data;
+
+
+            layers.push({
+
+                name:item.name,
+
+                visible:item.visible,
+
+                canvas:c
+
+            });
+
+        }
+    );
+
+
+    activeLayer =
+        project.active;
+
 }
 
 
-// --------------------------------------------------
-// Mouse
-// --------------------------------------------------
 
-canvas.addEventListener(
-    "mousedown",
-    startDrawing
-);
+/* =====================================================
+   UNDO
+===================================================== */
 
-canvas.addEventListener(
-    "mousemove",
-    draw
-);
+function undo(){
 
-canvas.addEventListener(
-    "mouseup",
-    stopDrawing
-);
-
-canvas.addEventListener(
-    "mouseleave",
-    stopDrawing
-);
+    if(!history.length)
+        return;
 
 
-// --------------------------------------------------
-// Touch
-// --------------------------------------------------
+    redoHistory.push({
+        layers:
+        layers.map(
+            layer=>({
 
-canvas.addEventListener(
-    "touchstart",
-    startDrawing,
-    { passive: false }
-);
+                name:layer.name,
 
-canvas.addEventListener(
-    "touchmove",
-    draw,
-    { passive: false }
-);
+                visible:layer.visible,
 
-canvas.addEventListener(
-    "touchend",
-    stopDrawing,
-    { passive: false }
-);
+                data:
+                layer.canvas.toDataURL()
+
+            })
+        ),
+
+        active:activeLayer,
+
+        width:WIDTH,
+
+        height:HEIGHT
+
+    });
 
 
-// --------------------------------------------------
-// Tool buttons
-// --------------------------------------------------
+    const previous =
+        history.pop();
 
-function selectTool(newTool) {
+
+    restoreProject(previous);
+
+}
+
+
+
+/* =====================================================
+   REDO
+===================================================== */
+
+function redo(){
+
+    if(!redoHistory.length)
+        return;
+
+
+    history.push({
+        layers:
+        layers.map(
+            layer=>({
+
+                name:layer.name,
+
+                visible:layer.visible,
+
+                data:
+                layer.canvas.toDataURL()
+
+            })
+        ),
+
+        active:activeLayer,
+
+        width:WIDTH,
+
+        height:HEIGHT
+
+    });
+
+
+    const next =
+        redoHistory.pop();
+
+
+    restoreProject(next);
+
+}
+
+
+
+/* =====================================================
+   TOOL SELECT
+===================================================== */
+
+function selectTool(newTool){
 
     tool = newTool;
 
-    document.querySelectorAll(".toolbar button")
-        .forEach(btn => btn.classList.remove("active"));
 
-    const button = document.getElementById(newTool);
+    document
+        .querySelectorAll(".toolbar button")
+        .forEach(
+            b=>b.classList.remove("active")
+        );
 
-    if (button) {
-        button.classList.add("active");
+
+    const map = {
+
+        brush:"brushBtn",
+
+        eraser:"eraserBtn",
+
+        fill:"fillBtn",
+
+        text:"textBtn",
+
+        line:"lineBtn",
+
+        rectangle:"rectBtn",
+
+        circle:"circleBtn",
+
+        crop:"cropBtn"
+
+    };
+
+
+    if(map[newTool]){
+
+        document
+            .getElementById(map[newTool])
+            .classList.add("active");
+
     }
 
 
     const names = {
 
-        brush: "🖌️ Brush mode",
-        eraser: "🧽 Eraser mode",
-        line: "╱ Line mode",
-        rectangle: "⬜ Rectangle mode",
-        circle: "⚪ Circle mode",
-        text: "🔤 Text mode"
+        brush:"🖌️ Brush",
+
+        eraser:"🧽 Eraser",
+
+        fill:"🪣 Fill",
+
+        text:"🔤 Text",
+
+        line:"╱ Line",
+
+        rectangle:"⬜ Rectangle",
+
+        circle:"⚪ Circle",
+
+        crop:"✂️ Crop"
 
     };
 
-    status.textContent =
-        names[newTool] +
-        " — Draw with your finger or mouse";
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        names[newTool];
 
 }
 
 
-// --------------------------------------------------
-// Buttons
-// --------------------------------------------------
 
-document
-    .getElementById("brush")
-    .onclick = () => selectTool("brush");
+/* =====================================================
+   POINTER DOWN
+===================================================== */
 
+canvas.addEventListener(
+"pointerdown",
+function(e){
 
-document
-    .getElementById("eraser")
-    .onclick = () => selectTool("eraser");
+    e.preventDefault();
 
 
-document
-    .getElementById("line")
-    .onclick = () => selectTool("line");
+    const pos =
+        getPosition(e);
 
 
-document
-    .getElementById("rectangle")
-    .onclick = () => selectTool("rectangle");
+    /* TEXT */
+
+    if(tool === "text"){
+
+        const value =
+            prompt(
+                "Write your text:"
+            );
 
 
-document
-    .getElementById("circle")
-    .onclick = () => selectTool("circle");
+        if(!value)
+            return;
 
 
-// --------------------------------------------------
-// Text tool
-// --------------------------------------------------
-
-document
-    .getElementById("text")
-    .onclick = () => {
-
-        selectTool("text");
-
-        status.textContent =
-            "🔤 Text mode — Tap the canvas to add text";
-
-    };
+        snapshot();
 
 
-// Special text click
+        const c =
+            getActiveContext();
 
-canvas.addEventListener("click", function(e) {
 
-    if (tool !== "text") return;
+        const opacity =
+            Number(
+                document.getElementById(
+                    "opacityPicker"
+                ).value
+            ) / 100;
 
-    const pos = getPosition(e);
 
-    const text = prompt("Write your text:");
+        c.globalAlpha =
+            opacity;
 
-    if (!text) return;
 
-    saveState();
+        c.fillStyle =
+            document.getElementById(
+                "colorPicker"
+            ).value;
 
-    ctx.globalAlpha =
-        Number(opacity.value) / 100;
 
-    ctx.fillStyle = color.value;
+        const fontSize =
+            Math.max(
+                16,
+                Number(
+                    document.getElementById(
+                        "sizePicker"
+                    ).value
+                ) * 5
+            );
 
-    ctx.font =
-        `${Math.max(16, Number(size.value) * 5)}px Arial`;
 
-    ctx.fillText(
-        text,
-        pos.x,
-        pos.y
-    );
+        c.font =
+            `bold ${fontSize}px Arial`;
 
-    ctx.globalAlpha = 1;
+
+        c.fillText(
+            value,
+            pos.x,
+            pos.y
+        );
+
+
+        c.globalAlpha = 1;
+
+
+        render();
+
+        return;
+
+    }
+
+
+    /* FILL */
+
+    if(tool === "fill"){
+
+        snapshot();
+
+        floodFill(
+            Math.floor(pos.x),
+            Math.floor(pos.y)
+        );
+
+        render();
+
+        return;
+
+    }
+
+
+    /* NORMAL DRAWING */
+
+    drawing = true;
+
+    startX = pos.x;
+    startY = pos.y;
+
+
+    snapshot();
+
+
+    if(
+        tool === "brush" ||
+        tool === "eraser"
+    ){
+
+        const c =
+            getActiveContext();
+
+
+        previewData =
+            c.getImageData(
+                0,
+                0,
+                WIDTH,
+                HEIGHT
+            );
+
+
+        c.beginPath();
+
+        c.moveTo(
+            startX,
+            startY
+        );
+
+    }
+
+
+    else{
+
+        const c =
+            getActiveContext();
+
+
+        previewData =
+            c.getImageData(
+                0,
+                0,
+                WIDTH,
+                HEIGHT
+            );
+
+    }
 
 });
 
 
-// --------------------------------------------------
-// Undo
-// --------------------------------------------------
 
-document
-    .getElementById("undo")
-    .onclick = function() {
+/* =====================================================
+   POINTER MOVE
+===================================================== */
 
-        if (history.length === 0) return;
+canvas.addEventListener(
+"pointermove",
+function(e){
 
-        redoHistory.push(canvas.toDataURL());
-
-        const previous = history.pop();
-
-        restoreImage(previous);
-
-    };
+    if(!drawing)
+        return;
 
 
-// --------------------------------------------------
-// Redo
-// --------------------------------------------------
-
-document
-    .getElementById("redo")
-    .onclick = function() {
-
-        if (redoHistory.length === 0) return;
-
-        history.push(canvas.toDataURL());
-
-        const next = redoHistory.pop();
-
-        restoreImage(next);
-
-    };
+    e.preventDefault();
 
 
-// --------------------------------------------------
-// Clear
-// --------------------------------------------------
+    const pos =
+        getPosition(e);
 
-document
-    .getElementById("clear")
-    .onclick = function() {
 
-        saveState();
+    const c =
+        getActiveContext();
 
-        ctx.globalCompositeOperation =
-            "source-over";
 
-        ctx.globalAlpha = 1;
-
-        ctx.fillStyle = "white";
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
+    const size =
+        Number(
+            document.getElementById(
+                "sizePicker"
+            ).value
         );
 
+
+    const color =
+        document.getElementById(
+            "colorPicker"
+        ).value;
+
+
+    const opacity =
+        Number(
+            document.getElementById(
+                "opacityPicker"
+            ).value
+        ) / 100;
+
+
+    c.lineWidth =
+        size;
+
+
+    c.lineCap =
+        "round";
+
+
+    c.lineJoin =
+        "round";
+
+
+    c.globalAlpha =
+        opacity;
+
+
+    /* BRUSH */
+
+    if(tool === "brush"){
+
+        c.globalCompositeOperation =
+            "source-over";
+
+        c.strokeStyle =
+            color;
+
+
+        c.lineTo(
+            pos.x,
+            pos.y
+        );
+
+        c.stroke();
+
+
+        render();
+
+        return;
+
+    }
+
+
+    /* ERASER */
+
+    if(tool === "eraser"){
+
+        c.globalCompositeOperation =
+            "destination-out";
+
+
+        c.lineTo(
+            pos.x,
+            pos.y
+        );
+
+        c.stroke();
+
+
+        c.globalCompositeOperation =
+            "source-over";
+
+
+        render();
+
+        return;
+
+    }
+
+
+    /* SHAPES */
+
+    if(previewData){
+
+        c.putImageData(
+            previewData,
+            0,
+            0
+        );
+
+    }
+
+
+    c.globalCompositeOperation =
+        "source-over";
+
+
+    c.strokeStyle =
+        color;
+
+
+    c.globalAlpha =
+        opacity;
+
+
+    if(tool === "line"){
+
+        c.beginPath();
+
+        c.moveTo(
+            startX,
+            startY
+        );
+
+        c.lineTo(
+            pos.x,
+            pos.y
+        );
+
+        c.stroke();
+
+    }
+
+
+    if(tool === "rectangle"){
+
+        c.strokeRect(
+            startX,
+            startY,
+            pos.x-startX,
+            pos.y-startY
+        );
+
+    }
+
+
+    if(tool === "circle"){
+
+        const dx =
+            pos.x-startX;
+
+        const dy =
+            pos.y-startY;
+
+
+        const radius =
+            Math.sqrt(
+                dx*dx +
+                dy*dy
+            );
+
+
+        c.beginPath();
+
+        c.arc(
+            startX,
+            startY,
+            radius,
+            0,
+            Math.PI*2
+        );
+
+        c.stroke();
+
+    }
+
+
+    render();
+
+});
+
+
+
+/* =====================================================
+   POINTER UP
+===================================================== */
+
+canvas.addEventListener(
+"pointerup",
+function(e){
+
+    if(!drawing)
+        return;
+
+
+    e.preventDefault();
+
+
+    const pos =
+        getPosition(e);
+
+
+    const c =
+        getActiveContext();
+
+
+    const color =
+        document.getElementById(
+            "colorPicker"
+        ).value;
+
+
+    const size =
+        Number(
+            document.getElementById(
+                "sizePicker"
+            ).value
+        );
+
+
+    const opacity =
+        Number(
+            document.getElementById(
+                "opacityPicker"
+            ).value
+        ) / 100;
+
+
+    /* SHAPE */
+
+    if(
+        tool === "line" ||
+        tool === "rectangle" ||
+        tool === "circle"
+    ){
+
+        if(previewData){
+
+            c.putImageData(
+                previewData,
+                0,
+                0
+            );
+
+        }
+
+
+        c.globalAlpha =
+            opacity;
+
+        c.globalCompositeOperation =
+            "source-over";
+
+        c.strokeStyle =
+            color;
+
+        c.lineWidth =
+            size;
+
+        c.lineCap =
+            "round";
+
+
+        if(tool === "line"){
+
+            c.beginPath();
+
+            c.moveTo(
+                startX,
+                startY
+            );
+
+            c.lineTo(
+                pos.x,
+                pos.y
+            );
+
+            c.stroke();
+
+        }
+
+
+        if(tool === "rectangle"){
+
+            c.strokeRect(
+                startX,
+                startY,
+                pos.x-startX,
+                pos.y-startY
+            );
+
+        }
+
+
+        if(tool === "circle"){
+
+            const dx =
+                pos.x-startX;
+
+            const dy =
+                pos.y-startY;
+
+
+            const radius =
+                Math.sqrt(
+                    dx*dx +
+                    dy*dy
+                );
+
+
+            c.beginPath();
+
+            c.arc(
+                startX,
+                startY,
+                radius,
+                0,
+                Math.PI*2
+            );
+
+            c.stroke();
+
+        }
+
+    }
+
+
+    c.globalAlpha = 1;
+
+    c.globalCompositeOperation =
+        "source-over";
+
+
+    drawing = false;
+
+    previewData = null;
+
+
+    render();
+
+});
+
+
+
+canvas.addEventListener(
+"pointercancel",
+function(){
+
+    drawing = false;
+
+    previewData = null;
+
+});
+
+
+
+/* =====================================================
+   FLOOD FILL
+===================================================== */
+
+function floodFill(x,y){
+
+    const c =
+        getActiveContext();
+
+
+    const image =
+        c.getImageData(
+            0,
+            0,
+            WIDTH,
+            HEIGHT
+        );
+
+
+    const data =
+        image.data;
+
+
+    const index =
+        (y * WIDTH + x) * 4;
+
+
+    const target = [
+
+        data[index],
+        data[index+1],
+        data[index+2],
+        data[index+3]
+
+    ];
+
+
+    const hex =
+        document.getElementById(
+            "colorPicker"
+        ).value;
+
+
+    const rgb =
+        hexToRgb(hex);
+
+
+    const replacement = [
+
+        rgb.r,
+        rgb.g,
+        rgb.b,
+        255
+
+    ];
+
+
+    if(
+        target[0] === replacement[0] &&
+        target[1] === replacement[1] &&
+        target[2] === replacement[2] &&
+        target[3] === replacement[3]
+    )
+        return;
+
+
+    const stack = [[x,y]];
+
+
+    while(stack.length){
+
+        const [px,py] =
+            stack.pop();
+
+
+        if(
+            px < 0 ||
+            px >= WIDTH ||
+            py < 0 ||
+            py >= HEIGHT
+        )
+            continue;
+
+
+        const i =
+            (py * WIDTH + px) * 4;
+
+
+        if(
+            data[i] !== target[0] ||
+            data[i+1] !== target[1] ||
+            data[i+2] !== target[2] ||
+            data[i+3] !== target[3]
+        )
+            continue;
+
+
+        data[i] =
+            replacement[0];
+
+        data[i+1] =
+            replacement[1];
+
+        data[i+2] =
+            replacement[2];
+
+        data[i+3] =
+            replacement[3];
+
+
+        stack.push(
+            [px+1,py],
+            [px-1,py],
+            [px,py+1],
+            [px,py-1]
+        );
+
+    }
+
+
+    c.putImageData(
+        image,
+        0,
+        0
+    );
+
+}
+
+
+
+/* =====================================================
+   COLOR CONVERTER
+===================================================== */
+
+function hexToRgb(hex){
+
+    hex =
+        hex.replace("#","");
+
+
+    return {
+
+        r:parseInt(
+            hex.substring(0,2),
+            16
+        ),
+
+        g:parseInt(
+            hex.substring(2,4),
+            16
+        ),
+
+        b:parseInt(
+            hex.substring(4,6),
+            16
+        )
+
     };
 
+}
 
-// --------------------------------------------------
-// Upload image
-// --------------------------------------------------
+
+
+/* =====================================================
+   LAYERS UI
+===================================================== */
+
+function updateLayersUI(){
+
+    const list =
+        document.getElementById(
+            "layersList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    layers
+        .map(
+            (layer,index)=>({
+                layer,
+                index
+            })
+        )
+        .reverse()
+        .forEach(
+            ({layer,index})=>{
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "layer-item" +
+                (
+                    index === activeLayer
+                    ? " active"
+                    : ""
+                );
+
+
+            item.innerHTML = `
+
+                <span class="layer-eye">
+                    ${layer.visible ? "👁️" : "🚫"}
+                </span>
+
+                <span class="layer-name">
+                    ${layer.name}
+                </span>
+
+            `;
+
+
+            item.onclick =
+                function(e){
+
+                    if(
+                        e.target.classList
+                        .contains("layer-eye")
+                    ){
+
+                        layer.visible =
+                            !layer.visible;
+
+                        render();
+
+                        updateLayersUI();
+
+                        return;
+
+                    }
+
+
+                    activeLayer =
+                        index;
+
+                    updateLayersUI();
+
+                };
+
+
+            list.appendChild(item);
+
+        });
+
+}
+
+
+
+/* =====================================================
+   ADD LAYER
+===================================================== */
 
 document
-    .getElementById("upload")
-    .addEventListener("change", function(e) {
+.getElementById("addLayerBtn")
+.onclick =
+function(){
 
-        const file = e.target.files[0];
-
-        if (!file) return;
-
-        const reader = new FileReader();
-
-        reader.onload = function(event) {
-
-            const img = new Image();
-
-            img.onload = function() {
-
-                saveState();
-
-                ctx.globalAlpha = 1;
-
-                ctx.globalCompositeOperation =
-                    "source-over";
-
-                ctx.fillStyle = "white";
-
-                ctx.fillRect(
-                    0,
-                    0,
-                    canvas.width,
-                    canvas.height
-                );
+    snapshot();
 
 
-                const scale = Math.min(
-                    canvas.width / img.width,
-                    canvas.height / img.height
-                );
+    layers.push({
 
-                const width =
-                    img.width * scale;
+        name:
+        "Layer " +
+        (layers.length + 1),
 
-                const height =
-                    img.height * scale;
+        canvas:
+        createCanvas(),
 
-                const x =
-                    (canvas.width - width) / 2;
-
-                const y =
-                    (canvas.height - height) / 2;
-
-
-                ctx.drawImage(
-                    img,
-                    x,
-                    y,
-                    width,
-                    height
-                );
-
-            };
-
-            img.src = event.target.result;
-
-        };
-
-        reader.readAsDataURL(file);
+        visible:true
 
     });
 
 
-// --------------------------------------------------
-// Download
-// --------------------------------------------------
+    activeLayer =
+        layers.length - 1;
+
+
+    updateLayersUI();
+
+    render();
+
+};
+
+
+
+/* =====================================================
+   DUPLICATE
+===================================================== */
 
 document
-    .getElementById("download")
-    .onclick = function() {
+.getElementById("duplicateLayerBtn")
+.onclick =
+function(){
 
-        const link =
-            document.createElement("a");
+    const source =
+        layers[activeLayer];
 
-        link.download =
-            "drawlab-artwork.png";
 
-        link.href =
-            canvas.toDataURL("image/png");
+    snapshot();
 
-        link.click();
+
+    const copy =
+        createCanvas();
+
+
+    copy.getContext("2d")
+        .drawImage(
+            source.canvas,
+            0,
+            0
+        );
+
+
+    layers.splice(
+        activeLayer + 1,
+        0,
+        {
+
+            name:
+            source.name +
+            " Copy",
+
+            canvas:copy,
+
+            visible:
+            source.visible
+
+        }
+    );
+
+
+    activeLayer++;
+
+    updateLayersUI();
+
+    render();
+
+};
+
+
+
+/* =====================================================
+   DELETE LAYER
+===================================================== */
+
+document
+.getElementById("deleteLayerBtn")
+.onclick =
+function(){
+
+    if(layers.length <= 1){
+
+        alert(
+            "You need at least one layer."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        activeLayer === 0
+    ){
+
+        alert(
+            "Background cannot be deleted."
+        );
+
+        return;
+
+    }
+
+
+    snapshot();
+
+
+    layers.splice(
+        activeLayer,
+        1
+    );
+
+
+    activeLayer =
+        Math.max(
+            0,
+            activeLayer - 1
+        );
+
+
+    updateLayersUI();
+
+    render();
+
+};
+
+
+
+/* =====================================================
+   CLEAR
+===================================================== */
+
+document
+.getElementById("clearBtn")
+.onclick =
+function(){
+
+    snapshot();
+
+
+    const c =
+        getActiveContext();
+
+
+    c.clearRect(
+        0,
+        0,
+        WIDTH,
+        HEIGHT
+    );
+
+
+    render();
+
+};
+
+
+
+/* =====================================================
+   UPLOAD
+===================================================== */
+
+document
+.getElementById("uploadInput")
+.addEventListener(
+"change",
+function(e){
+
+    const file =
+        e.target.files[0];
+
+
+    if(!file)
+        return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+    function(event){
+
+        const image =
+            new Image();
+
+
+        image.onload =
+        function(){
+
+            snapshot();
+
+
+            const c =
+                getActiveContext();
+
+
+            const scale =
+                Math.min(
+                    WIDTH / image.width,
+                    HEIGHT / image.height
+                );
+
+
+            const w =
+                image.width * scale;
+
+            const h =
+                image.height * scale;
+
+
+            const x =
+                (WIDTH-w)/2;
+
+            const y =
+                (HEIGHT-h)/2;
+
+
+            c.globalAlpha = 1;
+
+            c.globalCompositeOperation =
+                "source-over";
+
+
+            c.drawImage(
+                image,
+                x,
+                y,
+                w,
+                h
+            );
+
+
+            render();
+
+        };
+
+
+        image.src =
+            event.target.result;
 
     };
+
+
+    reader.readAsDataURL(file);
+
+});
+
+
+
+/* =====================================================
+   CROP
+===================================================== */
+
+let cropStart = null;
+let cropEnd = null;
+
+
+canvas.addEventListener(
+"pointermove",
+function(e){
+
+    if(
+        tool !== "crop" ||
+        !drawing
+    )
+        return;
+
+
+    const pos =
+        getPosition(e);
+
+
+    cropEnd = pos;
+
+
+    render();
+
+
+    ctx.save();
+
+
+    ctx.strokeStyle =
+        "#8f7aea";
+
+    ctx.lineWidth =
+        3;
+
+    ctx.setLineDash(
+        [8,6]
+    );
+
+
+    ctx.strokeRect(
+
+        cropStart.x,
+
+        cropStart.y,
+
+        cropEnd.x -
+        cropStart.x,
+
+        cropEnd.y -
+        cropStart.y
+
+    );
+
+
+    ctx.restore();
+
+});
+
+
+
+/* Override crop behavior */
+
+canvas.addEventListener(
+"pointerdown",
+function(e){
+
+    if(tool !== "crop")
+        return;
+
+
+    e.preventDefault();
+
+
+    cropStart =
+        getPosition(e);
+
+
+    cropEnd =
+        cropStart;
+
+
+    drawing = true;
+
+}, true);
+
+
+
+canvas.addEventListener(
+"pointerup",
+function(e){
+
+    if(tool !== "crop")
+        return;
+
+
+    e.preventDefault();
+
+
+    if(!cropStart)
+        return;
+
+
+    cropEnd =
+        getPosition(e);
+
+
+    const x =
+        Math.min(
+            cropStart.x,
+            cropEnd.x
+        );
+
+    const y =
+        Math.min(
+            cropStart.y,
+            cropEnd.y
+        );
+
+
+    const w =
+        Math.abs(
+            cropEnd.x -
+            cropStart.x
+        );
+
+    const h =
+        Math.abs(
+            cropEnd.y -
+            cropStart.y
+        );
+
+
+    drawing = false;
+
+
+    cropStart = null;
+
+
+    if(
+        w < 20 ||
+        h < 20
+    ){
+
+        render();
+
+        return;
+
+    }
+
+
+    snapshot();
+
+
+    layers.forEach(
+        layer=>{
+
+            const old =
+                layer.canvas;
+
+
+            const newCanvas =
+                document.createElement(
+                    "canvas"
+                );
+
+
+            newCanvas.width =
+                w;
+
+            newCanvas.height =
+                h;
+
+
+            newCanvas
+                .getContext("2d")
+                .drawImage(
+                    old,
+                    x,
+                    y,
+                    w,
+                    h,
+                    0,
+                    0,
+                    w,
+                    h
+                );
+
+
+            layer.canvas =
+                newCanvas;
+
+        }
+    );
+
+
+    WIDTH =
+        Math.round(w);
+
+    HEIGHT =
+        Math.round(h);
+
+
+    canvas.width =
+        WIDTH;
+
+    canvas.height =
+        HEIGHT;
+
+
+    zoom = 1;
+
+
+    render();
+
+    updateLayersUI();
+
+});
+
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+document
+.getElementById("brushBtn")
+.onclick =
+()=>selectTool("brush");
+
+
+document
+.getElementById("eraserBtn")
+.onclick =
+()=>selectTool("eraser");
+
+
+document
+.getElementById("fillBtn")
+.onclick =
+()=>selectTool("fill");
+
+
+document
+.getElementById("textBtn")
+.onclick =
+()=>selectTool("text");
+
+
+document
+.getElementById("lineBtn")
+.onclick =
+()=>selectTool("line");
+
+
+document
+.getElementById("rectBtn")
+.onclick =
+()=>selectTool("rectangle");
+
+
+document
+.getElementById("circleBtn")
+.onclick =
+()=>selectTool("circle");
+
+
+document
+.getElementById("cropBtn")
+.onclick =
+()=>selectTool("crop");
+
+
+document
+.getElementById("undoBtn")
+.onclick =
+undo;
+
+
+document
+.getElementById("redoBtn")
+.onclick =
+redo;
+
+
+
+/* =====================================================
+   NEW
+===================================================== */
+
+document
+.getElementById("newBtn")
+.onclick =
+function(){
+
+    if(
+        !confirm(
+            "Create a new blank drawing?"
+        )
+    )
+        return;
+
+
+    snapshot();
+
+
+    WIDTH = 900;
+    HEIGHT = 550;
+
+
+    canvas.width =
+        WIDTH;
+
+    canvas.height =
+        HEIGHT;
+
+
+    zoom = 1;
+
+
+    initLayers();
+
+};
+
+
+
+/* =====================================================
+   DOWNLOAD
+===================================================== */
+
+document
+.getElementById("downloadBtn")
+.onclick =
+function(){
+
+    render();
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.download =
+        "drawlab-artwork.png";
+
+
+    link.href =
+        canvas.toDataURL(
+            "image/png"
+        );
+
+
+    link.click();
+
+};
+
+
+
+/* =====================================================
+   ZOOM
+===================================================== */
+
+document
+.getElementById("zoomIn")
+.onclick =
+function(){
+
+    zoom =
+        Math.min(
+            3,
+            zoom + .1
+        );
+
+
+    updateCanvasSize();
+
+};
+
+
+document
+.getElementById("zoomOut")
+.onclick =
+function(){
+
+    zoom =
+        Math.max(
+            .25,
+            zoom - .1
+        );
+
+
+    updateCanvasSize();
+
+};
+
+
+document
+.getElementById("zoomReset")
+.onclick =
+function(){
+
+    zoom = 1;
+
+    updateCanvasSize();
+
+};
+
+
+
+/* =====================================================
+   KEYBOARD SHORTCUTS
+===================================================== */
+
+document.addEventListener(
+"keydown",
+function(e){
+
+    if(
+        e.target.tagName === "INPUT" ||
+        e.target.tagName === "TEXTAREA"
+    )
+        return;
+
+
+    if(
+        e.ctrlKey &&
+        e.key.toLowerCase() === "z"
+    ){
+
+        e.preventDefault();
+
+        undo();
+
+    }
+
+
+    if(
+        e.ctrlKey &&
+        e.key.toLowerCase() === "y"
+    ){
+
+        e.preventDefault();
+
+        redo();
+
+    }
+
+
+    if(e.key === "b")
+        selectTool("brush");
+
+
+    if(e.key === "e")
+        selectTool("eraser");
+
+});
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+initLayers();
 
 </script>
 
